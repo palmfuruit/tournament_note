@@ -39,4 +39,5 @@ end
 ## 追加
 gem 'bootstrap'
 gem 'jquery-rails'
-gem 'rubocop'
+gem 'rubocop', require: false
+gem 'pre-commit'
