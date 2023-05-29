@@ -39,3 +39,4 @@ end
 ## 追加
 gem 'bootstrap'
 gem 'jquery-rails'
+gem 'rubocop'

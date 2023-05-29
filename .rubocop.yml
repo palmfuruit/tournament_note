@@ -1,0 +1,35 @@
+AllCops:
+  # 除外するディレクトリ（自動生成されたファイル）
+  # デフォルト設定にある"vendor/**/*"が無効化されないように記述
+  Exclude:
+    - "vendor/**/*" # rubocop config/default.yml
+    - "db/**/*"
+    - "config/**/*"
+    - "bin/*"
+    - "node_modules/**/*"
+    - "Gemfile"
+
+
+# 1行あたりの文字数をチェックする
+Layout/LineLength:
+  Max: 130
+  # 下記ファイルはチェックの対象から外す
+  Exclude:
+    - "Rakefile"
+    - "spec/rails_helper.rb"
+    - "spec/spec_helper.rb"
+
+# RSpecは1つのブロックあたりの行数が多くなるため、チェックの除外から外す
+# ブロック内の行数をチェックする
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+
+
+# 日本語のコメントを OK とする
+Style/AsciiComments:
+  Enabled: false
+
+# 一行に 120 文字まで書いても OK とする
+Metrics/LineLength:
+  Max: 120
