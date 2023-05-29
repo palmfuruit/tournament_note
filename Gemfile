@@ -27,6 +27,12 @@ group :development do
   gem "web-console"
   # gem "rack-mini-profiler"
   # gem "spring"
+
+  ## 追加
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'pre-commit'
 end
 
 group :test do
@@ -39,5 +45,3 @@ end
 ## 追加
 gem 'bootstrap'
 gem 'jquery-rails'
-gem 'rubocop', require: false
-gem 'pre-commit'
