@@ -1,0 +1,106 @@
+//@import "bootstrap";
+
+// 1. 最初に関数を組み込む（カラー、SVG、計算などが操作できるように）
+@import "bootstrap/functions";
+
+
+// 2. ここにデフォルトの変数の再定義の設定を組み込む
+//テーマカラーの設定
+
+
+
+// 3. 必須のBootstrapスタイルシートを組み込む（個別のカラーモードスタイルシートを含む）
+@import "bootstrap/variables";
+
+
+// 4. ここにデフォルトのマップの再定義の設定を組み込む
+
+$theme-colors: (
+        "primary":    $primary,
+        "secondary":  $secondary,
+        "success":    $success,
+        "info":       $info,
+        "warning":    $warning,
+        "danger":     $danger,
+        "light":      $light,
+        "dark":       $dark
+);
+
+$custom-colors:(
+        "main":　 $teal,
+        "accent": $red,
+        "orange": $orange,
+        "yellow": $yellow,
+        "teal": 　$teal,
+        "cyan": 　$cyan,
+        "indigo": $indigo,
+        "purple": $purple,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+
+// 5. 残りの必須のBootstrapスタイルシートを組み込む
+@import "bootstrap/mixins";
+@import "bootstrap/utilities";
+
+// 6. 必要に応じて、オプションで他のパーツを組み込む
+// Layout & components
+@import "bootstrap/root";
+@import "bootstrap/reboot";
+@import "bootstrap/type";
+@import "bootstrap/images";
+@import "bootstrap/containers";
+@import "bootstrap/grid";
+@import "bootstrap/tables";
+@import "bootstrap/forms";
+@import "bootstrap/buttons";
+@import "bootstrap/transitions";
+@import "bootstrap/dropdown";
+@import "bootstrap/button-group";
+@import "bootstrap/nav";
+@import "bootstrap/navbar";
+@import "bootstrap/card";
+@import "bootstrap/accordion";
+@import "bootstrap/breadcrumb";
+@import "bootstrap/pagination";
+@import "bootstrap/badge";
+@import "bootstrap/alert";
+@import "bootstrap/progress";
+@import "bootstrap/list-group";
+@import "bootstrap/close";
+@import "bootstrap/toasts";
+@import "bootstrap/modal";
+@import "bootstrap/tooltip";
+@import "bootstrap/popover";
+@import "bootstrap/carousel";
+@import "bootstrap/spinners";
+@import "bootstrap/offcanvas";
+
+// Helpers
+@import "bootstrap/helpers";
+
+
+// 7. 最後にオプションで、ユーティリティAPIを組み込んで、`_utilities.scss`のSassマップに基づいてクラスを生成
+
+// Utilities
+@import "bootstrap/utilities/api";
+
+
+// 8. ここにカスタムの設定を追加
+$main:       $teal-300;
+$sub:        $orange;
+$accent:     $red;
+
+:root{
+  --font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, "游ゴシック体", "Yu Gothic", YuGothic, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+body {
+  font-family: var(--font-family-sans-serif);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-sans-serif);
+}
