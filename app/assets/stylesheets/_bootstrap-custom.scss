@@ -63,6 +63,9 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 
 // カスタマイズ
+$accent: $red-600;
+
+
 :root{
   --font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, "游ゴシック体", "Yu Gothic", YuGothic, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
