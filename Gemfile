@@ -43,5 +43,5 @@ end
 
 
 ## 追加
-gem 'bootstrap'
+gem 'bootstrap', '~> 5.3.0.alpha3'
 gem 'jquery-rails'

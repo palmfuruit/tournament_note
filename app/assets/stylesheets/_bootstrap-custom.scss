@@ -1,50 +1,26 @@
-//@import "bootstrap";
+@import "bootstrap/mixins/banner";
+@include bsBanner("");
 
-// 1. 最初に関数を組み込む（カラー、SVG、計算などが操作できるように）
+
+// scss-docs-start import-stack
+// Configuration
 @import "bootstrap/functions";
-
-
-// 2. ここにデフォルトの変数の再定義の設定を組み込む
-//テーマカラーの設定
-
-
-
-// 3. 必須のBootstrapスタイルシートを組み込む（個別のカラーモードスタイルシートを含む）
 @import "bootstrap/variables";
+@import "bootstrap/variables-dark";
 
 
-// 4. ここにデフォルトのマップの再定義の設定を組み込む
-
-$theme-colors: (
-        "primary":    $primary,
-        "secondary":  $secondary,
-        "success":    $success,
-        "info":       $info,
-        "warning":    $warning,
-        "danger":     $danger,
-        "light":      $light,
-        "dark":       $dark
+// 独自のマップを作成
+$custom-colors: (
+        "main": $teal
 );
 
-$custom-colors:(
-        "main":　 $teal,
-        "accent": $red,
-        "orange": $orange,
-        "yellow": $yellow,
-        "teal": 　$teal,
-        "cyan": 　$cyan,
-        "indigo": $indigo,
-        "purple": $purple,
-);
-
+// マップをマージ
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
-
-// 5. 残りの必須のBootstrapスタイルシートを組み込む
+@import "bootstrap/maps";
 @import "bootstrap/mixins";
 @import "bootstrap/utilities";
 
-// 6. 必要に応じて、オプションで他のパーツを組み込む
 // Layout & components
 @import "bootstrap/root";
 @import "bootstrap/reboot";
@@ -76,22 +52,17 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 @import "bootstrap/carousel";
 @import "bootstrap/spinners";
 @import "bootstrap/offcanvas";
+@import "bootstrap/placeholders";
 
 // Helpers
 @import "bootstrap/helpers";
 
-
-// 7. 最後にオプションで、ユーティリティAPIを組み込んで、`_utilities.scss`のSassマップに基づいてクラスを生成
-
 // Utilities
 @import "bootstrap/utilities/api";
+// scss-docs-end import-stack
 
 
-// 8. ここにカスタムの設定を追加
-$main:       $teal-300;
-$sub:        $orange;
-$accent:     $red;
-
+// カスタマイズ
 :root{
   --font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, "游ゴシック体", "Yu Gothic", YuGothic, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
