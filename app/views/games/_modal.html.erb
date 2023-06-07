@@ -1,0 +1,18 @@
+<%= turbo_frame_tag "modal" do %>
+  <div class="modal" id="gameModal" data-controller="auto-modal" data-bs-backdrop="true" tabindex="-1" aria-labelledby="gameModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h4 class="modal-title">
+            <%= team_name(@game.a_team) %> <span style="color:gray">vs</span> <%= team_name(@game.b_team) %>
+          </h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,36 @@
+<% provide(:title, @elimination.name) %>
+
+<%# トーナメント共通ヘッダ %>
+<%= render "shared/elimination_header", { elimination: @elimination, current_page: "チーム" } %>
+
+<div class="container-lg my-3">
+  <p>
+    最大16チーム登録できます。<br>
+    トーナメント開始後は、追加、削除できません。
+  </p>
+
+  <div class="d-flex flex-row-reverse justify-content-between align-items-end mb-3">
+    <p class="lead m-0"><%= @teams.size %>チーム</p>
+
+    <% if @elimination.teams.size < MAX_TEAMS && @elimination.games.empty? %>
+      <%= link_to new_elimination_team_path(@elimination),
+                  class: "btn btn-outline-main",
+                  data: { turbo_frame: dom_id(Team.new) } do %>
+        <i class="bi bi-person-plus"></i> 追加
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= turbo_frame_tag Team.new %>
+  </div>
+
+  <% if @teams.present? %>
+    <div class="d-grid gap-1">
+      <%= render @teams %>
+    </div>
+  <% else %>
+    <div class="alert alert-warning">参加チームは未登録です</div>
+  <% end %>
+
+</div>

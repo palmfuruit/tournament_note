@@ -1,0 +1,12 @@
+<div class="container-lg my-3">
+  <div class="d-flex align-items-center gap-3">
+    <h1 class="mb-3"><%= elimination.name %></h1>
+    <p class="lead" data-testid="tournament-status"><%= span_tag__status(elimination) %></p>
+  </div>
+  <div class="mb-5">
+    <%= link_to "設定", edit_elimination_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == '設定'}" %>
+    <%= link_to "チーム", elimination_teams_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == 'チーム'}" %>
+    <%= link_to "トーナメント表", elimination_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == 'トーナメント表'}" %>
+    <%= link_to "共有", share_elimination_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == '共有'}" %>
+  </div>
+</div>

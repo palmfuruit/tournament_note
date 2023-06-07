@@ -1,0 +1,57 @@
+<% provide(:title, @elimination.name) %>
+
+<%# トーナメント共通ヘッダ %>
+<%= render "shared/elimination_header", { elimination: @elimination, current_page: "設定" } %>
+
+<div class="container-lg bg-light py-3">
+  <%# 変更フォーム %>
+  <div class="mb-4">
+    <%= form_with(model: @elimination) do |form| %>
+      <%# Error Message %>
+      <%= form_error_notification(@elimination) %>
+
+      <%# トーナメント名 %>
+      <div class="form-group">
+        <%= form.label(:name, "トーナメント名", class: "form-control-label") %>
+        <%= form.text_field(:name, class: "form-control") %>
+      </div>
+
+      <%# 更新ボタン %>
+      <div class="d-flex mt-4 justify-content-end">
+        <div class="bg-white">
+          <%= form.submit("更新", class: "btn btn-outline-main") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <%# リセット %>
+  <div class="mb-4">
+    <h5 class="text-danger">トーナメントをリセット</h5>
+    <p>試合結果を削除して、トーナメント開始前の状態に戻します。</p>
+    <div class="d-flex justify-content-end">
+      <div class="bg-white">
+        <%= button_to "リセット", reset_elimination_path(@elimination), class: "btn btn-outline-danger",
+                      data: { turbo_confirm: "全試合結果を削除します。" } %>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <%# 削除 %>
+  <div class="mb-4">
+    <h5 class="text-danger">トーナメントを削除</h5>
+    <div class="d-flex justify-content-end">
+      <div class="bg-white">
+        <%= button_to "削除", elimination_path(@elimination), class: "btn btn-outline-danger",
+                      method: :delete,
+                      data: { turbo_confirm: "「#{@elimination.name}」トーナメントを削除します。削除すると元には戻せません。" } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

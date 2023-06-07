@@ -1,0 +1,10 @@
+<div class="col-md-6 mb-2">
+  <div class="card bg-light">
+    <%= link_to elimination_path(elimination), class: "card-body text-decoration-none" do %>
+      <div class="d-flex justify-content-between">
+        <p class="card-title"><%= elimination.name %></p>
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    <% end %>
+  </div>
+</div>

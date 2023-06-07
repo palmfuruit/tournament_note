@@ -1,0 +1,24 @@
+<%= turbo_frame_tag "form" do %>
+  <%= form_with(model: [@elimination, @game], id: "game_form", data: { turbo_frame: "_top" }) do |form| %>
+    <%# Error Message %>
+    <%= form_error_notification(@game) %>
+
+    <%# Winner %>
+    <%= render partial: "winner", locals: { form:, game: @game } %>
+
+    <%# Hidden Field %>
+    <%= form.hidden_field :round, value: @game.round %>
+    <%= form.hidden_field :gameNo, value: @game.gameNo %>
+    <%= form.hidden_field :a_team_id, value: @game.a_team&.id %>
+    <%= form.hidden_field :b_team_id, value: @game.b_team&.id %>
+
+    <%# Submit %>
+    <div class="d-flex mt-4 gap-1 justify-content-end">
+      <% if action_name == 'edit' %>
+        <%= link_to('リセット', [@elimination, @game], class: "btn btn-outline-danger",
+                    data: { turbo_method: :delete, turbo_confirm: '試合結果を削除します', turbo_frame: "_top" }) %>
+      <% end %>
+      <%= form.submit('更新', class: "btn btn-outline-main") %>
+    </div>
+  <% end %>
+<% end %>

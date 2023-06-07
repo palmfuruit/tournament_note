@@ -1,0 +1,16 @@
+<%= turbo_frame_tag team do %>
+  <div class="nameplate">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5><%= team.str_entruNo_and_name %></h5>
+      <div class="d-flex gap-1 bg-white">
+        <% if @elimination.games.empty? %>
+          <%= button_to "削除", elimination_team_path(@elimination, team), class: "btn btn-outline-danger",
+                        method: :delete,
+                        data: { turbo_confirm: "#{team.name}を削除します。", turbo_frame: "_top" } %>
+        <% end %>
+
+        <%= link_to "変更", edit_elimination_team_path(@elimination, team), class: "btn btn-outline-main" %>
+      </div>
+    </div>
+  </div>
+<% end %>

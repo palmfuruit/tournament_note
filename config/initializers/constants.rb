@@ -1,0 +1,3 @@
+# Constant
+PLAYOFF_ROUND = -1
+MAX_TEAMS = 16

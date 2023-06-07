@@ -21,6 +21,8 @@ gem "bootsnap", require: false
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "rspec-rails"
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -32,7 +34,6 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
-  gem 'pre-commit'
 end
 
 group :test do
@@ -45,3 +46,5 @@ end
 ## 追加
 gem 'bootstrap', '~> 5.3.0.alpha3'
 gem 'jquery-rails'
+gem 'rails-i18n'
+gem 'dotenv-rails'

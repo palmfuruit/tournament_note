@@ -1,0 +1,13 @@
+<% provide(:title, 'トーナメント一覧') %>
+
+<div class="container-lg my-3">
+  <h1 class="mb-4">トーナメント一覧</h1>
+
+  <% if @eliminations.present? %>
+    <div class="row">
+      <%= render @eliminations %>
+    </div>
+  <% else %>
+    <div class="alert alert-warning">トーナメントは未登録です</div>
+  <% end %>
+</div>

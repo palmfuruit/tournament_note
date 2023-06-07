@@ -1,0 +1,91 @@
+.elimination-table-wrapper {
+  overflow-x: auto; /* tableタグのはみ出た要素を隠す */
+  white-space: nowrap; /* テキストの折り返しなし */
+}
+
+.elimination-table {
+  width: 100%;
+  @include media-breakpoint-up(sm) {
+    width: 50%;
+  }
+
+  .game-cell {
+    background-color: ivory;
+
+    a {
+      display: flex;
+      color: black;
+      height: 100%;
+      width: 100%;
+      text-decoration: none;
+    }
+  }
+
+  tr, th, td {
+    height: 0.5em;
+  }
+
+  th, td {
+    padding: 0;
+  }
+
+  // 列幅
+  th:nth-child(1) {
+    width: 1.0rem;
+    min-width: 1.0rem;
+  }
+  th:nth-child(2) {
+    width: 8.0rem;
+    min-width: 8.0rem;
+  }
+  th:nth-child(n + 3) {
+    width: 3.0em;
+    min-width: 3.0em;
+  }
+
+  th:nth-last-child(2) {
+    width: 1.5rem;
+    min-width: 1.5rem;
+  }
+
+  th:nth-last-child(1) {
+    width: 3em;
+    min-width: 3em;
+  }
+
+  // トーナメント罫線
+  td.b-top {
+    border-top: 2px solid black;
+  }
+
+  td.b-right {
+    border-right: 2px solid black;
+  }
+
+  td.b-bottom {
+    border-bottom: 2px solid black;
+  }
+
+  td.b-left {
+    border-left: 2px solid black;
+    height: 1.7em;
+  }
+
+  td.r-top {
+    border-top: 3px solid red;
+  }
+
+  td.r-right {
+    border-right: 3px solid red;
+  }
+
+  td.r-bottom {
+    border-bottom: 3px solid red;
+  }
+
+  td.r-left {
+    border-left: 3px solid red;
+    height: 1.7em;
+  }
+}
+

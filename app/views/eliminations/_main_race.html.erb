@@ -1,0 +1,47 @@
+<table id="elimination-table" class="elimination-table table table-borderless text-center">
+  <thead>
+  <tr>
+    <th></th>
+    <th></th>
+
+    <%# N回戦　バッチ %>
+    <% round_badge_ths = th_tags__round_badge(round_offset:, final_round:) %>
+    <% round_badge_ths.size.times do |column| %>
+      <%= round_badge_ths[column] %>
+    <% end %>
+
+    <th></th>
+    <th></th>
+    <!--    <th></th>-->
+  </tr>
+  </thead>
+
+  <tbody>
+
+  <% team_entryNo_tds, team_name_tds = td_tags__team_name(teams:, games:, round_offset:, seed_table:, final_round:) %>
+  <% round_tds = td_tags__round(elimination:, games:, round_offset:, final_round:, seed_table:) %>
+  <% final_round_score_tds = tr_tag__final_round_score(elimination:, games:, round_offset:, final_round:, seed_table:) %>
+  <% winning_cup_tds = tr_tag__winning_cup(round_offset:, final_round:) %>
+
+  <% row_size = 2 ** (final_round - round_offset + 2) - 2 %>
+  <% row_size.times do |row| %>
+    <tr>
+      <%= team_entryNo_tds[row] %>
+      <%= team_name_tds[row] %>
+
+      <% round_tds.size.times do |column| %>
+        <%= round_tds[column][row] %>
+      <% end %>
+      <%= final_round_score_tds[row] %>
+      <%= winning_cup_tds[row] %>
+
+      <%# if i == 0 %>
+      <!--        <td rowspan="<%#= row_size %>" class="dummy_column"></td>-->
+      <%# end %>
+
+    </tr>
+
+  <% end %>
+
+  </tbody>
+</table>

@@ -1,0 +1,10 @@
+<% provide(:title, @elimination.name) %>
+
+<h1 class="mb-3"><%= @elimination.name %></h1>
+<h2 class="mb-3">試合結果</h2>
+
+<button type="button" class="btn btn-outline-main" data-bs-toggle="modal" data-bs-target="#gameModal">表示切り替え</button>
+
+<%= render "modal" do %>
+  <%= render "form" %>
+<% end %>
