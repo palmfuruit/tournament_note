@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 require:
   - rubocop-performance
   - rubocop-rails
@@ -14,6 +16,7 @@ AllCops:
     - "vendor/**/*"
     - "config/environments/*"
     - "config/puma.rb"
+    - "spec/*"
 
 Lint:
   Enabled: true

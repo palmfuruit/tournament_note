@@ -112,7 +112,7 @@ module EliminationsTagHelper
 
     round_tds << td_tags__1st_round(elimination:, games:, round_offset:, final_round:, seed_table:)
     (2..max).each do |round|
-      round_tds << td_tags__Nth_round(elimination:, games:, round:, round_offset:, final_round:, seed_table:)
+      round_tds << td_tags__Nth_round(elimination:, games:, round:, round_offset:, final_round:)
     end
 
     round_tds
@@ -203,7 +203,7 @@ module EliminationsTagHelper
     tag__tds
   end
 
-  def td_tags__Nth_round(elimination:, games:, round:, round_offset:, final_round:, seed_table:)
+  def td_tags__Nth_round(elimination:, games:, round:, round_offset:, final_round:)
     # 3回戦までない場合は何も返さない。
     return [] if final_round < round
 
@@ -216,7 +216,7 @@ module EliminationsTagHelper
       prev_game2 = game(games:, round: prev_round, gameNo: i * 2)
       this_game = game(games:, round:, gameNo: i)
 
-      width1 = (2 ** (round - round_offset - 1) - 1)
+      width1 = ((2 ** (round - round_offset - 1)) - 1)
       width2 = (2 ** (round - round_offset - 1))
       width3 = (2 ** (round - round_offset))
 
@@ -257,7 +257,7 @@ module EliminationsTagHelper
     tag__tds
   end
 
-  def tr_tag__final_round_score(elimination:, games:, round_offset:, final_round:, seed_table:)
+  def tr_tag__final_round_score(games:, round_offset:, final_round:)
     score_cell_size = 2 ** (final_round - round_offset)
     space_cell_size = score_cell_size - 1
     final_game = game(games:, round: final_round, gameNo: 1)
@@ -279,7 +279,7 @@ module EliminationsTagHelper
   end
 
   def tr_tag__winning_cup(round_offset:, final_round:)
-    winningcup_cell_size = 2 ** (final_round - round_offset) * 2
+    winningcup_cell_size = (2 ** (final_round - round_offset)) * 2
     space_cell_size = (winningcup_cell_size / 2) - 1
     tag__tds = []
 

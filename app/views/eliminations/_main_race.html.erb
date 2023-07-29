@@ -20,7 +20,7 @@
 
   <% team_entryNo_tds, team_name_tds = td_tags__team_name(teams:, games:, round_offset:, seed_table:, final_round:) %>
   <% round_tds = td_tags__round(elimination:, games:, round_offset:, final_round:, seed_table:) %>
-  <% final_round_score_tds = tr_tag__final_round_score(elimination:, games:, round_offset:, final_round:, seed_table:) %>
+  <% final_round_score_tds = tr_tag__final_round_score(games:, round_offset:, final_round:) %>
   <% winning_cup_tds = tr_tag__winning_cup(round_offset:, final_round:) %>
 
   <% row_size = 2 ** (final_round - round_offset + 2) - 2 %>
