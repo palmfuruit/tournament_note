@@ -1,7 +1,7 @@
 <% provide(:title, @elimination.name) %>
 
 <%# トーナメント共通ヘッダ %>
-<%= render "shared/elimination_header", { elimination: @elimination, current_page: "共有" } %>
+<%= render "shared/elimination_header", { tournament: @elimination.tournament, elimination: @elimination, current_page: "共有" } %>
 
 <div class="container-lg my-3">
   <p>共有URL</p>

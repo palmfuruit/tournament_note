@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :team do
-    association :elimination
+    association :tournament, :elimination
     sequence(:name) { |n| "Team#{n}" }
   end
 end

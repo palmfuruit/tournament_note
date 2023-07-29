@@ -16,12 +16,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_042148) do
 
   create_table "eliminations", force: :cascade do |t|
     t.string "name"
+    t.bigint "tournament_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["tournament_id"], name: "index_eliminations_on_tournament_id"
   end
 
   create_table "games", force: :cascade do |t|
-    t.bigint "elimination_id", null: false
+    t.bigint "tournament_id", null: false
     t.integer "round"
     t.integer "gameNo"
     t.integer "a_team_id"
@@ -34,18 +36,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_042148) do
     t.string "b_score", limit: 16
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["elimination_id"], name: "index_games_on_elimination_id"
+    t.index ["tournament_id"], name: "index_games_on_tournament_id"
   end
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.integer "entryNo"
-    t.bigint "elimination_id", null: false
+    t.bigint "tournament_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["elimination_id"], name: "index_teams_on_elimination_id"
+    t.index ["tournament_id"], name: "index_teams_on_tournament_id"
   end
 
-  add_foreign_key "games", "eliminations"
-  add_foreign_key "teams", "eliminations"
+  create_table "tournaments", force: :cascade do |t|
+    t.integer "tournament_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "eliminations", "tournaments"
+  add_foreign_key "games", "tournaments"
+  add_foreign_key "teams", "tournaments"
 end

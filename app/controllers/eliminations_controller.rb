@@ -21,16 +21,20 @@ class EliminationsController < ApplicationController
   end
 
   def create
-    @elimination = Elimination.new(elimination_params)
-    num_of_teams = params[:num_of_teams].to_i
+    ActiveRecord::Base.transaction do
+      tournament = Tournament.create(tournament_type: :elimination)
+      @elimination = tournament.build_elimination(elimination_params)
+      num_of_teams = params[:num_of_teams].to_i
 
-    if @elimination.save
-      (1..num_of_teams).each do |i|
-        @elimination.teams.create(name: "Team#{i}", entryNo: i)
+      if @elimination.save
+        (1..num_of_teams).each do |i|
+          @elimination.teams.create(name: "Team#{i}", entryNo: i)
+        end
+        redirect_to elimination_path(@elimination)
+      else
+        render 'new', status: :unprocessable_entity
+        raise ActiveRecord::Rollback
       end
-      redirect_to elimination_path(@elimination)
-    else
-      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -54,7 +58,7 @@ class EliminationsController < ApplicationController
 
   def destroy
     @elimination = Elimination.find_by(id: params[:id])
-    @elimination.destroy
+    @elimination.tournament.destroy
 
     redirect_to root_path, flash: { info: 'トーナメントを削除しました' }
   end

@@ -7,7 +7,7 @@ RSpec.describe Team, type: :model do
 
     describe "Validation" do
       context 'トーナメントなし' do
-        let(:team) { build(:team, elimination: nil) }
+        let(:team) { build(:team, tournament: nil) }
         it "エラーになる" do
           expect(team.valid?).to be_falsey
         end
@@ -31,8 +31,8 @@ RSpec.describe Team, type: :model do
         end
       end
       context 'チーム数が上限を超える' do
-        let(:elimination) { FactoryBot.create(:elimination, :with_teams, num_of_teams: 16) }
-        let(:team) { FactoryBot.build(:team, elimination: elimination) }
+        let(:tournament) { FactoryBot.create(:tournament, :with_teams, num_of_teams: 16) }
+        let(:team) { FactoryBot.build(:team, tournament: tournament) }
         it "エラーになる" do
           expect(team.valid?).to be_falsey
         end

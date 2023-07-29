@@ -2,33 +2,35 @@ class GamesController < ApplicationController
   include EliminationsHelper
 
   def new
-    @elimination = Elimination.find_by(id: params[:elimination_id])
-    @game = @elimination.games.new
+    @tournament = Tournament.find_by(id: params[:tournament_id])
+    @game = @tournament.games.new
 
-    set_game_param
+    set_elimination_game_param if @tournament.elimination?
   end
 
   def create
-    @elimination = Elimination.find_by(id: params[:elimination_id])
+    @tournament = Tournament.find_by(id: params[:tournament_id])
 
-    @game = @elimination.games.new(game_params)
+    @game = @tournament.games.new(game_params)
     # 更新成功確認
     if !(@game.save)
       render 'form_update', status: :unprocessable_entity and return
     end
 
-    redirect_to elimination_path(@elimination)
+    redirect_to elimination_path(@tournament.elimination)
   end
 
   def edit
-    @elimination = Elimination.find_by(id: params[:elimination_id])
+    @tournament = Tournament.find_by(id: params[:tournament_id])
+
     @game = Game.find_by(id: params[:id])
 
-    set_game_param
+    set_elimination_game_param if @tournament.elimination?
   end
 
   def update
-    @elimination = Elimination.find_by(id: params[:elimination_id])
+    @tournament = Tournament.find_by(id: params[:tournament_id])
+
     @game = Game.find_by(id: params[:id])
 
     # 更新成功確認
@@ -36,28 +38,29 @@ class GamesController < ApplicationController
       render 'form_update', status: :unprocessable_entity and return
     end
 
-    redirect_to elimination_path(@elimination)
+    redirect_to elimination_path(@tournament.elimination)
   end
 
   def destroy
-    @elimination = Elimination.find_by(id: params[:elimination_id])
+    @tournament = Tournament.find_by(id: params[:tournament_id])
     @game = Game.find_by(id: params[:id])
 
     @game.destroy
-    redirect_to elimination_path(@elimination), status: :see_other
+    redirect_to elimination_path(@tournament.elimination), status: :see_other  if @tournament.elimination?
   end
 
   ### Private Method
 
   private
 
-  def set_game_param
-    teams = @elimination.teams.map(&:attributes)
-    games = @elimination.games.map(&:attributes)
+  def set_elimination_game_param
+    elimination = @tournament.elimination
+    teams = elimination.teams.map(&:attributes)
+    games = elimination.games.map(&:attributes)
 
     round = params[:round].to_i
     gameNo = params[:gameNo].to_i
-    seed_table = @elimination.seed_table
+    seed_table = elimination.seed_table
     @game.round = round
     @game.gameNo = gameNo
     a_team = get_team_from_game(round:, gameNo:, side: 'a', teams:, games:, seed_table:)

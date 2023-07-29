@@ -1,7 +1,7 @@
 <% provide(:title, @elimination.name) %>
 
 <%# トーナメント共通ヘッダ %>
-<%= render "shared/elimination_header", { elimination: @elimination, current_page: "設定" } %>
+<%= render "shared/elimination_header", { tournament: @elimination.tournament, elimination: @elimination, current_page: "設定" } %>
 
 <div class="container-lg bg-light py-3">
   <%# 変更フォーム %>

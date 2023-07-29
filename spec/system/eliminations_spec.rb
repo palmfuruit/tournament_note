@@ -63,6 +63,20 @@ RSpec.describe "トーナメント", type: :system do
     end
   end
 
+  describe "トーナメント作成失敗" do
+    example do
+      visit root_path
+
+      click_on "トーナメント表作成"
+      expect(page).to have_selector 'h1', text: "新しいトーナメント"
+
+      fill_in 'トーナメント名', with: ""
+      # click_on "登録"
+      expect { click_on "登録" }.to change { Tournament.count }.by(0)
+      expect(page).to have_content "トーナメント名を入力してください"
+    end
+  end
+
   describe "トーナメント名変更" do
     let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 4) }
     example do

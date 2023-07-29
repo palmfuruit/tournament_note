@@ -1,7 +1,7 @@
 <% provide(:title, @elimination.name) %>
 
 <%# トーナメント共通ヘッダ %>
-<%= render "shared/elimination_header", { elimination: @elimination, current_page: "トーナメント表" } %>
+<%= render "shared/elimination_header", { tournament: @elimination.tournament, elimination: @elimination, current_page: "トーナメント表" } %>
 
 <%# 参加チームなしの場合 %>
 <% if @teams.count < 2 %>

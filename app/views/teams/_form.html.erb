@@ -1,5 +1,5 @@
 <%= turbo_frame_tag dom_id(@team, :form) do %>
-  <%= form_with(model: [@elimination, @team], id: "team_form") do |form| %>
+  <%= form_with(model: [@tournament, @team], id: "team_form") do |form| %>
     <%# Error Message %>
     <%= form_error_notification(@team) %>
 
@@ -14,7 +14,7 @@
 
     <div class="d-flex gap-1 justify-content-end">
       <div class="bg-white">
-        <%= link_to elimination_teams_path(@elimination), class: "btn btn-outline-secondary", data: { turbo_frame: dom_id(@team), testid: "cancel" } do %>
+        <%= link_to tournament_teams_path(@tournament), class: "btn btn-outline-secondary", data: { turbo_frame: dom_id(@team), testid: "cancel" } do %>
           <i class="bi bi-x"></i>
         <% end %>
         <%= button_tag type: "submit", class: "btn btn-outline-main", data: { turbo_frame: "_top", testid: "ok" } do %>

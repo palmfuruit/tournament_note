@@ -1,5 +1,6 @@
 class Team < ApplicationRecord
-  belongs_to :elimination, touch: true
+  belongs_to :tournament
+  delegate :elimination, to: :tournament
 
   validates :name, presence: true, length: { maximum: 10 }
   validate :max_num_of_teams, on: :create
@@ -9,7 +10,7 @@ class Team < ApplicationRecord
   end
 
   def max_num_of_teams
-    if elimination && elimination.teams.count >= MAX_TEAMS
+    if tournament && tournament.teams.count >= MAX_TEAMS
       errors.add :base, :max_teams, message: "登録可能なチーム数を超えています。"
     end
   end

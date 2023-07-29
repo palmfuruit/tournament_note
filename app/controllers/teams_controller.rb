@@ -1,34 +1,33 @@
 class TeamsController < ApplicationController
   def index
-    @elimination = Elimination.find_by(id: params[:elimination_id])
-    @teams = @elimination.teams&.order(:entryNo)
+    @tournament = Tournament.find_by(id: params[:tournament_id])
+    @teams = @tournament.teams&.order(:entryNo)
   end
 
   def new
-    @elimination = Elimination.find_by(id: params[:elimination_id])
-    @team = @elimination.teams.new
+    @tournament = Tournament.find_by(id: params[:tournament_id])
+    @team = @tournament.teams.new
   end
 
   def create
-    @elimination = Elimination.find_by(id: params[:elimination_id])
-    @team = @elimination.teams.new(team_params)
+    @tournament = Tournament.find_by(id: params[:tournament_id])
+    @team = @tournament.teams.new(team_params)
     # 更新成功確認
     if @team.save
-      @elimination.set_entryNo
-      redirect_to elimination_teams_path(@elimination)
+      @tournament.set_entryNo
+      redirect_to tournament_teams_path(@tournament)
     else
       render 'form_update', status: :unprocessable_entity
     end
   end
 
   def edit
-    @elimination = Elimination.find_by(id: params[:elimination_id])
+    @tournament = Tournament.find_by(id: params[:tournament_id])
     @team = Team.find_by(id: params[:id])
-
   end
 
   def update
-    @elimination = Elimination.find_by(id: params[:elimination_id])
+    @tournament = Tournament.find_by(id: params[:tournament_id])
     @team = Team.find_by(id: params[:id])
 
     if @team.update(team_params)
@@ -39,18 +38,18 @@ class TeamsController < ApplicationController
   end
 
   def destroy
-    @elimination = Elimination.find_by(id: params[:elimination_id])
+    @tournament = Tournament.find_by(id: params[:tournament_id])
     @team = Team.find_by(id: params[:id])
 
     @team.destroy
-    @elimination.set_entryNo
+    @tournament.set_entryNo
 
-    redirect_to elimination_teams_path(@elimination)
+    redirect_to tournament_teams_path(@tournament)
   end
 
   private
 
   def team_params
-    params.require(:team).permit(:elimination_id, :name)
+    params.require(:team).permit(:tournament_id, :name)
   end
 end

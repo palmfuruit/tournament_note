@@ -5,7 +5,7 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
   context "チーム登録済" do
     let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 4) }
     before do
-      visit elimination_teams_path(elimination)
+      visit tournament_teams_path(elimination.tournament)
     end
 
     example '名前変更' do
@@ -60,7 +60,7 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
   describe "0件表示" do
     let!(:elimination) { create(:elimination) }
     example do
-      visit elimination_teams_path(elimination)
+      visit tournament_teams_path(elimination.tournament)
       expect(page).to have_content "0チーム"
       expect(page).to have_content "参加チームは未登録です"
     end
@@ -69,7 +69,7 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
   context "Team数が上限" do
     let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 16) }
     it '追加ボタンが表示されない' do
-      visit elimination_teams_path(elimination)
+      visit tournament_teams_path(elimination.tournament)
       expect(page).to_not have_link "追加"
     end
   end
@@ -82,7 +82,7 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
       elimination.games.create(round: 1, gameNo: 1, a_team: team1, b_team: team2, win_team: team1, lose_team: team2, a_result: 'WIN', b_result: 'LOSE')
     end
     it '追加、削除ボタンが表示されない' do
-      visit elimination_teams_path(elimination)
+      visit tournament_teams_path(elimination.tournament)
       expect(page).to_not have_link "追加"
       expect(page).to_not have_link "削除"
     end

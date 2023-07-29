@@ -1,6 +1,7 @@
 class Elimination < ApplicationRecord
-  has_many :teams, dependent: :delete_all
-  has_many :games, dependent: :delete_all
+  belongs_to :tournament
+  delegate :teams, to: :tournament
+  delegate :games, to: :tournament
 
   validates :name, presence: true, length: { maximum: 16 }
 
@@ -64,12 +65,4 @@ class Elimination < ApplicationRecord
     work.select { |n| n[:seed] <= teams.size } # Team数を超える文をカット
   end
 
-  def set_entryNo
-    Elimination.no_touching do
-      teams.order(:entryNo, :created_at).each.with_index(1) do |team, i|
-        team.entryNo = i
-        team.save(touch: false)
-      end
-    end
-  end
 end

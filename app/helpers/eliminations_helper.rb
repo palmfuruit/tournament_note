@@ -113,9 +113,9 @@ module EliminationsHelper
     id_str = "#{round}-#{gameNo}-game"
 
     if this_game
-      tag.a(href: edit_elimination_game_path(elimination, this_game["id"], round:, gameNo:), id: id_str, data: { turbo_frame: "modal" })
+      tag.a(href: edit_tournament_game_path(elimination.tournament, this_game["id"], round:, gameNo:), id: id_str, data: { turbo_frame: "modal" })
     else
-      tag.a(href: new_elimination_game_path(elimination, round:, gameNo:), id: id_str, data: { turbo_frame: "modal" })
+      tag.a(href: new_tournament_game_path(elimination.tournament, round:, gameNo:), id: id_str, data: { turbo_frame: "modal" })
     end
   end
 

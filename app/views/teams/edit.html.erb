@@ -1,7 +1,7 @@
-<% provide(:title, @elimination.name) %>
+<% provide(:title, @tournament.name) %>
 
 <div class="container-lg my-3">
-  <h1 class="mb-3"><%= @elimination.name %></h1>
+  <h1 class="mb-3"><%= @tournament.name %></h1>
   <h4 class="mb-5">Edit Team</h4>
 
   <%= turbo_frame_tag @team do %>
