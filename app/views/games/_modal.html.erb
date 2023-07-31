@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "modal" do %>
-  <div class="modal" id="gameModal" data-controller="auto-modal" data-bs-backdrop="true" tabindex="-1" aria-labelledby="gameModalLabel" aria-hidden="true">
+  <div class="modal" id="gameModal" data-controller="auto-modal" data-action="turbo:submit-end->auto-modal#close_if_success" tabindex="-1" aria-labelledby="gameModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-light">

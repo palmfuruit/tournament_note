@@ -1,0 +1,96 @@
+.round-display {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  @include media-breakpoint-up(sm) {
+    width: 50%;
+  }
+}
+
+.roundrobin-table-wrapper {
+  max-height: 85vh;
+  overflow: auto;
+}
+
+.roundrobin-table {
+  width: 100%;
+  @include media-breakpoint-up(sm) {
+    width: 50%;
+  }
+  border: 1px solid $dark;
+  border-collspace: separate;
+
+  tr {
+    height: 5rem; // 試合結果がある行とない行の高さを合わせる。
+  }
+
+  th {
+    padding: 0;
+    width: 4.5rem; // チーム名は最大2行で収まる幅。
+    min-width: 4.5rem;
+    font-weight: bold;
+    color: black;
+    background-color: mintcream;
+    vertical-align: middle;
+  }
+
+  td {
+    background-color: ivory;
+    height: 0;
+    padding: 0;
+  }
+
+  .game-cell {
+    a {
+      display: flex;
+      color: black;
+      height: 100%;
+      width: 100%;
+      text-decoration: none;
+    }
+    i {
+      font-size: 2rem;
+    }
+  }
+
+  .no-game-cell {
+    background-image: linear-gradient(to top right,
+            transparent, transparent 49.0%,
+            $gray-500 49.7%, $gray-500 50.3%,
+            transparent 51.0%, transparent);
+    vertical-align: bottom;
+  }
+
+  thead {
+    th {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    th:first-child {
+      z-index: 2;
+    }
+  }
+
+  th:first-child {
+    /* 横スクロール時に固定する */
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+  }
+
+}
+
+#ranking-table {
+  th {
+    background-color: mintcream;
+    vertical-align: middle;
+  }
+  td {
+    background-color: ivory;
+    vertical-align: middle;
+  }
+}

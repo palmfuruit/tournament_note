@@ -1,0 +1,11 @@
+<%= turbo_stream.update "game-#{@game.a_team.entryNo}-#{@game.b_team.entryNo}" do %>
+  <%= roundrobin_game_cell(roundrobin: @roundrobin, games: @games, round: @game.round, current_team: @game.a_team, opponent: @game.b_team) %>
+<% end %>
+
+<%= turbo_stream.update "game-#{@game.b_team.entryNo}-#{@game.a_team.entryNo}" do %>
+  <%= roundrobin_game_cell(roundrobin: @roundrobin, games: @games, round: @game.round, current_team: @game.b_team, opponent: @game.a_team) %>
+<% end %>
+
+<%= turbo_stream.update "round_select" do %>
+  <%= render partial: "roundrobins/round_select", locals: { roundrobin: @roundrobin, round: @game.round } %>
+<% end %>

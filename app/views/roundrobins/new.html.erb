@@ -1,20 +1,28 @@
-<% provide(:title, @elimination.name) %>
+<% provide(:title, @roundrobin.name) %>
 
 <div class="container-lg my-3">
-  <h1 class="mb-5">新しいトーナメント</h1>
+  <h1 class="mb-5">新しいリーグ</h1>
 </div>
 
 
 <div class="container-lg bg-light py-3">
 
-  <%= form_with(model: @elimination) do |form| %>
+  <%= form_with(model: @roundrobin) do |form| %>
     <%# Error Message %>
-    <%= form_error_notification(@elimination) %>
+    <%= form_error_notification(@roundrobin) %>
 
-    <%# トーナメント名 %>
+    <%# リーグ名 %>
     <div class="form-group mb-4">
-      <%= form.label(:name, "トーナメント名", class: "form-control-label") %>
+      <%= form.label(:name, "リーグ名", class: "form-control-label") %>
       <%= form.text_field(:name, class: "form-control") %>
+    </div>
+
+    <%# Round数 %>
+    <div class="form-group mb-4">
+      <div>
+        <%= form.label(:num_of_round, "総当たり回数", class: "form-control-label") %>
+        <%= form.select :num_of_round, options_for_select(1..10, @roundrobin.num_of_round), {}, { class: "form-control" } %>
+      </div>
     </div>
 
     <%# チーム数 %>

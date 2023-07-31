@@ -1,0 +1,13 @@
+<div class="container-lg mt-3 mb-5">
+  <div class="d-flex align-items-center gap-3">
+    <h1 class="mb-3"><%= roundrobin.name %></h1>
+    <p class="lead" data-testid="tournament-status"><%= span_tag__status(roundrobin) %></p>
+  </div>
+  <div class="btn-group">
+    <%= link_to "設定", edit_roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '設定'}" %>
+    <%= link_to "チーム", tournament_teams_path(roundrobin.tournament), class: "btn btn-outline-dark #{'active' if current_page == 'チーム'}" %>
+    <%= link_to "リーグ表", roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == 'リーグ表'}" %>
+    <%= link_to "順位表", ranking_roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '順位表'}" %>
+    <%= link_to "共有", share_roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '共有'}" %>
+  </div>
+</div>

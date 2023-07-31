@@ -1,0 +1,8 @@
+<%= turbo_stream.replace "roundrobin-table" do %>
+  <%= render partial: "roundrobins/roundrobin_table",
+             locals: { roundrobin: @roundrobin, teams: @teams, games: @games, round: @round } %>
+<% end %>
+
+<%= turbo_stream.update "round_select" do %>
+  <%= render partial: "roundrobins/round_select", locals: { roundrobin: @roundrobin, round: @round } %>
+<% end %>

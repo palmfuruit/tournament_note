@@ -1,0 +1,6 @@
+<%= turbo_stream.update "game-#{@game.a_team.entryNo}-#{@game.b_team.entryNo}" "" %>
+<%= turbo_stream.update "game-#{@game.b_team.entryNo}-#{@game.a_team.entryNo}" "" %>
+
+<%= turbo_stream.update "round_select" do %>
+  <%= render partial: "roundrobins/round_select", locals: { roundrobin: @roundrobin, round: @game.round } %>
+<% end %>

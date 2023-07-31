@@ -4,7 +4,7 @@
     <%= form_error_notification(@game) %>
 
     <%# Winner %>
-    <%= render partial: "winner", locals: { form:, game: @game } %>
+    <%= render partial: "winner", locals: { form:, tournament: @tournament, game: @game } %>
 
     <%# Hidden Field %>
     <%= form.hidden_field :round, value: @game.round %>
@@ -16,7 +16,8 @@
     <div class="d-flex mt-4 gap-1 justify-content-end">
       <% if action_name == 'edit' %>
         <%= link_to('リセット', [@tournament, @game], class: "btn btn-outline-danger",
-                    data: { turbo_method: :delete, turbo_confirm: '試合結果を削除します', turbo_frame: "_top" }) %>
+                    data: { turbo_method: :delete, turbo_confirm: '試合結果を削除します', turbo_frame: "_top",
+                            action: "click->auto-modal#close"}) %>
       <% end %>
       <%= form.submit('更新', class: "btn btn-outline-main") %>
     </div>

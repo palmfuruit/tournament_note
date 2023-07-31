@@ -1,7 +1,11 @@
 <% provide(:title, @tournament.name) %>
 
 <%# トーナメント共通ヘッダ %>
-<%= render "shared/elimination_header", { tournament: @tournament, elimination: @tournament.elimination, current_page: "チーム" } %>
+<% if @tournament.elimination? %>
+  <%= render "shared/elimination_header", { elimination: @tournament.elimination, current_page: "チーム" } %>
+<% elsif @tournament.roundrobin? %>
+  <%= render "shared/roundrobin_header", { roundrobin: @tournament.roundrobin, current_page: "チーム" } %>
+<% end %>
 
 <div class="container-lg my-3">
   <p>

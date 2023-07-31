@@ -1,0 +1,74 @@
+<% provide(:title, @roundrobin.name) %>
+
+<%# リーグ共通ヘッダ %>
+<%= render "shared/roundrobin_header", { roundrobin: @roundrobin, current_page: "設定" } %>
+
+<div class="container-lg bg-light py-3">
+  <%# 変更フォーム %>
+  <div class="mb-4">
+    <%= form_with(model: @roundrobin) do |form| %>
+      <%# Error Message %>
+      <%= form_error_notification(@roundrobin) %>
+
+      <%# リーグ名 %>
+      <div class="form-group mb-4">
+        <%= form.label(:name, "リーグ名", class: "form-control-label") %>
+        <%= form.text_field(:name, class: "form-control") %>
+      </div>
+
+      <%# Round数 %>
+      <div class="form-group mb-4">
+        <div>
+          <%= form.label(:num_of_round, "総当たり回数", class: "form-control-label") %>
+          <%= form.select :num_of_round, options_for_select(1..10, @roundrobin.num_of_round), {}, { class: "form-control" } %>
+        </div>
+      </div>
+
+      <%# 順位判定条件 %>
+      <div class="mb-4">
+        <%= div_tag__ranking_conditions(form: form, priority: 1, items: ['win_points', 'win_rate']) %>
+        <%#= div_tag__ranking_conditions(form: tournament_form, priority: 1, items: ['win_points', 'win_rate', 'goal_diff', 'goal_rate', 'total_goals']) %>
+        <%#= div_tag__ranking_conditions(form: tournament_form, priority: 2, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'goal_rate', 'total_goals', 'head_to_head']) %>
+        <%#= div_tag__ranking_conditions(form: tournament_form, priority: 3, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'goal_rate', 'total_goals', 'head_to_head']) %>
+        <%#= div_tag__ranking_conditions(form: tournament_form, priority: 4, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'goal_rate', 'total_goals', 'head_to_head']) %>
+      </div>
+
+      <%# 更新ボタン %>
+      <div class="d-flex mt-4 justify-content-end">
+        <div class="bg-white">
+          <%= form.submit("更新", class: "btn btn-outline-main") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <%# リセット %>
+  <div class="mb-4">
+    <h5 class="text-danger">リーグをリセット</h5>
+    <p>試合結果を削除して、リーグ開始前の状態に戻します。</p>
+    <div class="d-flex justify-content-end">
+      <div class="bg-white">
+        <%= button_to "リセット", reset_roundrobin_path(@roundrobin), class: "btn btn-outline-danger",
+                      data: { turbo_confirm: "全試合結果を削除します。" } %>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <%# 削除 %>
+  <div class="mb-4">
+    <h5 class="text-danger">リーグを削除</h5>
+    <div class="d-flex justify-content-end">
+      <div class="bg-white">
+        <%= button_to "削除", roundrobin_path(@roundrobin), class: "btn btn-outline-danger",
+                      method: :delete,
+                      data: { turbo_confirm: "「#{@roundrobin.name}」リーグを削除します。削除すると元には戻せません。" } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

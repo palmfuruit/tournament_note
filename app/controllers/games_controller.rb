@@ -1,36 +1,52 @@
 class GamesController < ApplicationController
   include EliminationsHelper
-
+  include RoundrobinsHelper
   def new
     @tournament = Tournament.find_by(id: params[:tournament_id])
     @game = @tournament.games.new
 
-    set_elimination_game_param if @tournament.elimination?
+    if @tournament.elimination?
+      set_elimination_game_param
+    elsif @tournament.roundrobin?
+      set_roundrobin_game_param
+    end
   end
 
   def create
     @tournament = Tournament.find_by(id: params[:tournament_id])
-
     @game = @tournament.games.new(game_params)
+
     # 更新成功確認
     if !(@game.save)
       render 'form_update', status: :unprocessable_entity and return
     end
 
-    redirect_to elimination_path(@tournament.elimination)
+    if @tournament.elimination?
+      @elimination = @tournament.elimination
+      @teams = @elimination.teams.order(:entryNo).map(&:attributes)
+      @games = @elimination.games.map(&:attributes)
+      render 'update_egame'
+    else
+      @roundrobin = @tournament.roundrobin
+      @teams = @roundrobin.teams.order(:entryNo).map(&:attributes)
+      @games = @roundrobin.games.map(&:attributes)
+      render 'update_rgame'
+    end
   end
 
   def edit
     @tournament = Tournament.find_by(id: params[:tournament_id])
-
     @game = Game.find_by(id: params[:id])
 
-    set_elimination_game_param if @tournament.elimination?
+    if @tournament.elimination?
+      set_elimination_game_param
+    elsif @tournament.roundrobin?
+      set_roundrobin_game_param
+    end
   end
 
   def update
     @tournament = Tournament.find_by(id: params[:tournament_id])
-
     @game = Game.find_by(id: params[:id])
 
     # 更新成功確認
@@ -38,7 +54,17 @@ class GamesController < ApplicationController
       render 'form_update', status: :unprocessable_entity and return
     end
 
-    redirect_to elimination_path(@tournament.elimination)
+    if @tournament.elimination?
+      @elimination = @tournament.elimination
+      @teams = @elimination.teams.order(:entryNo).map(&:attributes)
+      @games = @elimination.games.map(&:attributes)
+      render 'update_egame'
+    else
+      @roundrobin = @tournament.roundrobin
+      @teams = @roundrobin.teams.order(:entryNo).map(&:attributes)
+      @games = @roundrobin.games.map(&:attributes)
+      render 'update_rgame'
+    end
   end
 
   def destroy
@@ -46,7 +72,17 @@ class GamesController < ApplicationController
     @game = Game.find_by(id: params[:id])
 
     @game.destroy
-    redirect_to elimination_path(@tournament.elimination), status: :see_other  if @tournament.elimination?
+    if @tournament.elimination?
+      @elimination = @tournament.elimination
+      @teams = @elimination.teams.order(:entryNo).map(&:attributes)
+      @games = @elimination.games.map(&:attributes)
+      render 'update_egame'
+    else
+      @roundrobin = @tournament.roundrobin
+      @teams = @roundrobin.teams.order(:entryNo).map(&:attributes)
+      @games = @roundrobin.games.map(&:attributes)
+      render 'reset_rgame'
+    end
   end
 
   ### Private Method
@@ -69,20 +105,35 @@ class GamesController < ApplicationController
     @game.b_team_id = b_team ? b_team["id"] : nil
   end
 
+  def set_roundrobin_game_param
+    if (@game.a_team_id == params[:b_team_id].to_i) && (@game.b_team_id == params[:a_team_id].to_i)
+      @game.a_score, @game.b_score = @game.b_score, @game.a_score
+      @game.a_result, @game.b_result = @game.b_result, @game.a_result
+    end
+    @game.round = params[:round].to_i
+    @game.a_team_id = params[:a_team_id].to_i
+    @game.b_team_id = params[:b_team_id].to_i
+  end
+
   def game_params
 
-    a_team_id = params[:game][:a_team_id]
-    b_team_id = params[:game][:b_team_id]
-    win_team_id = params[:game][:win_team_id]
+    a_team_id = params[:game][:a_team_id].to_i
+    b_team_id = params[:game][:b_team_id].to_i
+    win_team_id = params[:game][:win_team_id].to_i
 
-    if win_team_id == a_team_id
-      lose_team_id = b_team_id
-      a_result = 'WIN'
-      b_result = 'LOSE'
-    elsif win_team_id == b_team_id
-      lose_team_id = a_team_id
-      a_result = 'LOSE'
-      b_result = 'WIN'
+    case win_team_id
+      when a_team_id
+        lose_team_id = b_team_id
+        a_result = 'WIN'
+        b_result = 'LOSE'
+      when b_team_id
+        lose_team_id = a_team_id
+        a_result = 'LOSE'
+        b_result = 'WIN'
+      when 0
+        lose_team_id = 0
+        a_result = 'DRAW'
+        b_result = 'DRAW'
     end
 
     params.require(:game).permit(:round, :gameNo, :a_team_id, :b_team_id, :win_team_id)

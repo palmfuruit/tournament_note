@@ -12,8 +12,6 @@ class EliminationsController < ApplicationController
 
     @teams = @elimination.teams.order(:entryNo).map(&:attributes)
     @games = @elimination.games.map(&:attributes)
-
-    @round_offset = 0
   end
 
   def new
@@ -67,7 +65,7 @@ class EliminationsController < ApplicationController
     @elimination = Elimination.find_by(id: params[:id])
     @elimination.games.delete_all
 
-    redirect_to elimination_path, flash: { info: 'トーナメントをリセットしました' }
+    redirect_to elimination_path(@elimination), flash: { info: 'トーナメントをリセットしました' }
   end
 
   def share

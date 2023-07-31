@@ -1,6 +1,6 @@
 class Tournament < ApplicationRecord
   has_one :elimination, dependent: :destroy
-  # has_one :roundrobin, dependent: :destroy
+  has_one :roundrobin, dependent: :destroy
   has_many :teams, dependent: :delete_all
   has_many :games, dependent: :delete_all
 

@@ -1,0 +1,5 @@
+<%= turbo_stream.update "elimination-table-wrapper" do %>
+  <%= render partial: "eliminations/main_race",
+             locals: { elimination: @elimination, teams: @teams, games: @games, round_offset: 0, final_round: @elimination.final_round, seed_table: @elimination.seed_table } %>
+<% end %>
+

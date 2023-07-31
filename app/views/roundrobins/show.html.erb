@@ -1,0 +1,30 @@
+<% provide(:title, @roundrobin.name) %>
+
+<%# リーグ共通ヘッダ %>
+<%= render "shared/roundrobin_header", { roundrobin: @roundrobin, current_page: "リーグ表" } %>
+
+<%# 参加チームなしの場合 %>
+<% if @teams.count < 2 %>
+  <div class="container-lg my-3">
+    <div class="alert alert-warning">参加チームが2チーム以上必要です</div>
+  </div>
+
+<% else %>
+  <div class="bg-light">
+    <div class="container-lg my-3 py-3">
+      <%# Round選択 %>
+      <%= turbo_frame_tag "round_select" do %>
+        <%= render partial: "roundrobins/round_select", locals: { roundrobin: @roundrobin, round: @round } %>
+      <% end %>
+
+      <%# 対戦表 %>
+      <div class="roundrobin-table-wrapper">
+        <%= render partial: "roundrobins/roundrobin_table",
+                   locals: { roundrobin: @roundrobin, teams: @teams, games: @games, round: @round } %>
+      </div>
+
+    </div>
+  </div>
+
+  <%= turbo_frame_tag "modal" %>
+<% end %>

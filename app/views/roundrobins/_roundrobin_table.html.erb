@@ -1,0 +1,16 @@
+<table id="roundrobin-table" class="roundrobin-table table table-bordered text-center">
+  <thead>
+    <tr>
+      <th class="no-game-cell"></th>
+      <% teams.each do |team| %>
+        <th><%= team_name(team) %></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% teams.each do |team| %>
+      <%= tr_tag__team(roundrobin:, teams:, games:, round:, current_team: team) %>
+    <% end %>
+  </tbody>
+</table>

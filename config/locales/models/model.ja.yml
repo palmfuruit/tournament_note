@@ -2,12 +2,15 @@ ja:
   activerecord:
     models:
       elimination: トーナメント
+      roundrobin: リーグ
       team: チーム
       game: 試合結果
     # model毎に定義したいattributesを記述
     attributes:
       elimination:
         name: トーナメント名
+      roundrobin:
+        name: リーグ名
       team:
         name: チーム名
       game:

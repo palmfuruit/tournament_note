@@ -1,19 +1,19 @@
 <% provide(:title, @elimination.name) %>
 
 <%# トーナメント共通ヘッダ %>
-<%= render "shared/elimination_header", { tournament: @elimination.tournament, elimination: @elimination, current_page: "トーナメント表" } %>
+<%= render "shared/elimination_header", { elimination: @elimination, current_page: "トーナメント表" } %>
 
 <%# 参加チームなしの場合 %>
 <% if @teams.count < 2 %>
   <div class="container-lg my-3">
-    <div class="alert alert-warning">参加チームが2チーム以下です</div>
+    <div class="alert alert-warning">参加チームが2チーム以上必要です</div>
   </div>
 
 <% else %>
   <div class="bg-light">
-    <div class="container-lg elimination-table-wrapper my-3">
+    <div id="elimination-table-wrapper" class="container-lg elimination-table-wrapper my-3">
       <%= render partial: "eliminations/main_race",
-                 locals: { elimination: @elimination, teams: @teams, games: @games, round_offset: @round_offset, final_round: @elimination.final_round, seed_table: @elimination.seed_table } %>
+                 locals: { elimination: @elimination, teams: @teams, games: @games, round_offset: 0, final_round: @elimination.final_round, seed_table: @elimination.seed_table } %>
     </div>
   </div>
 

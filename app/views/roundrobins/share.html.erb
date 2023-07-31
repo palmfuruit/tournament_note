@@ -1,0 +1,11 @@
+<% provide(:title, @roundrobin.name) %>
+
+<%# トーナメント共通ヘッダ %>
+<%= render "shared/roundrobin_header", { roundrobin: @roundrobin, current_page: "共有" } %>
+
+<div class="container-lg my-3">
+  <p>共有URL</p>
+  <div class="alert alert-light">
+    <%= roundrobin_url(@roundrobin) %>
+  </div>
+</div>

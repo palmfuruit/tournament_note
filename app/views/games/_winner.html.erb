@@ -1,13 +1,19 @@
 <div class="form-group mt-4">
+  <h5>勝利チーム</h5>
   <div class="btn-group d-flex" role="group" data-bs-toggle="buttons">
     <% if game.a_team %>
       <%= form.radio_button :win_team_id, game.a_team.id, class: 'btn-check' %>
-      <%= form.label :win_team_id, "#{team_name(game.a_team)} (勝ち)", value: game.a_team.id, class: "btn btn-outline-dark flex-fill" %>
+      <%= form.label :win_team_id, team_name(game.a_team), value: game.a_team.id, class: "btn btn-outline-dark flex-fill" %>
+    <% end %>
+
+    <% if tournament.roundrobin? %>
+      <%= form.radio_button :win_team_id, 0, class: 'btn-check' %>
+      <%= form.label :win_team_id, "(引き分け)", value: 0, class: "btn btn-outline-dark flex-fill" %>
     <% end %>
 
     <% if game.b_team %>
       <%= form.radio_button :win_team_id, game.b_team.id, class: 'btn-check' %>
-      <%= form.label :win_team_id, "#{team_name(game.b_team)} (勝ち)", value: game.b_team.id, class: "btn btn-outline-dark flex-fill" %>
+      <%= form.label :win_team_id, team_name(game.b_team), value: game.b_team.id, class: "btn btn-outline-dark flex-fill" %>
     <% end %>
   </div>
 </div>
