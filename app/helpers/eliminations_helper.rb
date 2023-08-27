@@ -219,7 +219,11 @@ module EliminationsHelper
   end
 
   def div_tag__team_name(team)
-    concat tag.div team_name(team), class: "p-0 bg-primary-subtle"
+    concat tag.div(class: "p-0 bg-white") {
+      concat team_uniform(team)
+      concat " "
+      concat team_name(team)
+    }
   end
 
   def td_tags__round(elimination:, games:, round_offset:, final_round:, seed_table:)

@@ -12,13 +12,13 @@
     <%= form_error_notification(@roundrobin) %>
 
     <%# リーグ名 %>
-    <div class="form-group mb-4">
+    <div class="mb-4">
       <%= form.label(:name, "リーグ名", class: "form-control-label") %>
       <%= form.text_field(:name, class: "form-control") %>
     </div>
 
     <%# Round数 %>
-    <div class="form-group mb-4">
+    <div class="mb-4">
       <div>
         <%= form.label(:num_of_round, "総当たり回数", class: "form-control-label") %>
         <%= form.select :num_of_round, options_for_select(1..10, @roundrobin.num_of_round), {}, { class: "form-control" } %>
@@ -26,7 +26,7 @@
     </div>
 
     <%# チーム数 %>
-    <div class="form-group mb-4">
+    <div class="mb-4">
       <%= label_tag :num_of_teams, "参加チーム数", class: "form-control-label" %>
       <%= select_tag :num_of_teams, options_for_select(1..MAX_TEAMS, 4), { class: "form-control" } %>
     </div>

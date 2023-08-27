@@ -7,10 +7,24 @@
       <%= "[#{@team.entryNo || 'New'}]" %>
     </div>
 
+    <%# チーム名 %>
     <div class="mb-3">
       <%= form.label(:name, "チーム名", class: "form-control-label") %>
       <%= form.text_field(:name, class: "form-control form-control") %>
     </div>
+
+    <%# ユニフォーム %>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :color, "none", id: "team_color_none#{@team.id}", class: "form-check-input", checked: @team.color.nil? ||  @team.color == "none" %>
+      <%= form.label :color, class: "form-check-label", value: "none#{@team.id}" do %>
+        なし
+      <% end %>
+    </div>
+    <% UNIFORM_COLORS.each do |color| %>
+      <%= div_tag__uniform_radio_btn(form, color, @team.id) %>
+    <% end %>
+
+
 
     <div class="d-flex gap-1 justify-content-end">
       <div class="bg-white">

@@ -9,6 +9,4 @@ def have_mark(win_or_lose)
     when ''
       have_selector 'i.bi'
   end
-
 end
-

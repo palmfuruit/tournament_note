@@ -50,6 +50,6 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:tournament_id, :name)
+    params.require(:team).permit(:tournament_id, :name, :color)
   end
 end

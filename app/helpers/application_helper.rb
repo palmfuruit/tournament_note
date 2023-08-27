@@ -21,12 +21,12 @@ module ApplicationHelper
   # トーナメント、リーグ共通
   def span_tag__status(tournament)
     case tournament.status
-    when 'NOT_STARTED'
-      tag.span '開始前', class: ["badge border border-main text-main"]
-    when 'ONGOING'
-      tag.span '進行中', class: ["badge bg-main"]
-    when 'FINISHED'
-      tag.span '終了', class: ["badge bg-secondary"]
+      when 'NOT_STARTED'
+        tag.span '開始前', class: ["badge border border-main text-main"]
+      when 'ONGOING'
+        tag.span '進行中', class: ["badge bg-main"]
+      when 'FINISHED'
+        tag.span '終了', class: ["badge bg-secondary"]
     end
   end
 
@@ -34,6 +34,23 @@ module ApplicationHelper
     team ? team['name'].to_s : "(未定)"
   end
 
+  def team_uniform(team)
+    if team
+      if (team["color"].present?) && (team["color"] != "none")
+        color = "uniform-" + team["color"]
+        tag.i(class: ["fa-solid", "fa-shirt", "fa-lg", color])
+      else
+        nil
+      end
+    else
+      nil
+    end
+  end
+
+  def uniform(color)
+    color_str = "uniform-" + color
+    tag.i(class: ["fa-solid", "fa-shirt", "fa-lg", color_str])
+  end
 
   def game(games:, round: 1, gameNo: nil, a_team: nil, b_team: nil)
     if a_team && b_team

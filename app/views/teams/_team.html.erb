@@ -1,15 +1,19 @@
 <%= turbo_frame_tag team do %>
   <div class="nameplate">
-    <div class="d-flex justify-content-between align-items-center">
-      <h5><%= team.str_entruNo_and_name %></h5>
-      <div class="d-flex gap-1 bg-white">
-        <% if @tournament.games.empty? %>
-          <%= button_to "削除", tournament_team_path(@tournament, team), class: "btn btn-outline-danger",
-                        method: :delete,
-                        data: { turbo_confirm: "#{team.name}を削除します。", turbo_frame: "_top" } %>
-        <% end %>
+    <div class="row align-items-center">
+      <div class="col-auto"><%= team.entryNo %></div>
+      <div class="col-auto"><%= team_uniform(team) %></div>
+      <div class="col"><%= team.name %></div>
+      <div class="col-auto">
+        <div class="d-flex justify-content-end gap-1 bg-white">
+          <% if @tournament.games.empty? %>
+            <%= button_to "削除", tournament_team_path(@tournament, team), class: "btn btn-outline-danger",
+                          method: :delete,
+                          data: { turbo_confirm: "#{team.name}を削除します。", turbo_frame: "_top" } %>
+          <% end %>
 
-        <%= link_to "変更", edit_tournament_team_path(@tournament, team), class: "btn btn-outline-main" %>
+          <%= link_to "変更", edit_tournament_team_path(@tournament, team), class: "btn btn-outline-main" %>
+        </div>
       </div>
     </div>
   </div>

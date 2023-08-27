@@ -3,7 +3,9 @@
     <tr>
       <th class="no-game-cell"></th>
       <% teams.each do |team| %>
-        <th><%= team_name(team) %></th>
+        <th>
+          <%= team_uniform(team) %>
+          <div><%= team_name(team) %></div>
       <% end %>
     </tr>
   </thead>

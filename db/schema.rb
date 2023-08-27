@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_31_111349) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
+    t.string "color"
     t.integer "entryNo"
     t.bigint "tournament_id", null: false
     t.datetime "created_at", null: false

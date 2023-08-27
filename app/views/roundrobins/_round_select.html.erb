@@ -8,7 +8,7 @@
     <div data-controller="select-redirect"
          data-select-redirect-url-value="<%= change_round_roundrobin_url(roundrobin) %>"
          data-select-redirect-query-value="round">
-      <div class="round-display d-flex justify-content-center form-group">
+      <div class="round-display d-flex justify-content-center">
         <%= select_tag(:round, options_for_select(round_select_contents.map { |c| [c[:name], c[:value]] }, { selected: round }),
                        { id: "round_select", class: "w-50 form-control", data: { action: "change->select-redirect#jump", select_redirect_target: "query" } }) %>
       </div>
