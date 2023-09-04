@@ -10,26 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_31_111349) do
+ActiveRecord::Schema[7.0].define(version: 2023000005) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "eliminations", force: :cascade do |t|
+  create_table "eliminations", id: :string, force: :cascade do |t|
     t.string "name"
-    t.bigint "tournament_id", null: false
+    t.string "tournament_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tournament_id"], name: "index_eliminations_on_tournament_id"
   end
 
-  create_table "games", force: :cascade do |t|
-    t.bigint "tournament_id", null: false
+  create_table "games", id: :string, force: :cascade do |t|
+    t.string "tournament_id", null: false
     t.integer "round"
     t.integer "gameNo"
-    t.integer "a_team_id"
-    t.integer "b_team_id"
-    t.integer "win_team_id"
-    t.integer "lose_team_id"
+    t.string "a_team_id"
+    t.string "b_team_id"
+    t.string "win_team_id"
+    t.string "lose_team_id"
     t.string "a_result", limit: 4
     t.string "b_result", limit: 4
     t.string "a_score", limit: 16
@@ -39,9 +39,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_31_111349) do
     t.index ["tournament_id"], name: "index_games_on_tournament_id"
   end
 
-  create_table "roundrobins", force: :cascade do |t|
+  create_table "roundrobins", id: :string, force: :cascade do |t|
     t.string "name"
-    t.bigint "tournament_id", null: false
+    t.string "tournament_id", null: false
     t.integer "num_of_round", default: 1
     t.integer "rank1", default: 1
     t.datetime "created_at", null: false
@@ -49,17 +49,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_31_111349) do
     t.index ["tournament_id"], name: "index_roundrobins_on_tournament_id"
   end
 
-  create_table "teams", force: :cascade do |t|
+  create_table "teams", id: :string, force: :cascade do |t|
     t.string "name"
     t.string "color"
     t.integer "entryNo"
-    t.bigint "tournament_id", null: false
+    t.string "tournament_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tournament_id"], name: "index_teams_on_tournament_id"
   end
 
-  create_table "tournaments", force: :cascade do |t|
+  create_table "tournaments", id: :string, force: :cascade do |t|
     t.integer "tournament_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

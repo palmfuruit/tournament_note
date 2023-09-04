@@ -16,9 +16,7 @@
     <%# ユニフォーム %>
     <div class="form-check form-check-inline">
       <%= form.radio_button :color, "none", id: "team_color_none#{@team.id}", class: "form-check-input", checked: @team.color.nil? ||  @team.color == "none" %>
-      <%= form.label :color, class: "form-check-label", value: "none#{@team.id}" do %>
-        なし
-      <% end %>
+      <%= form.label :color, "なし", class: "form-check-label", value: "none#{@team.id}"  %>
     </div>
     <% UNIFORM_COLORS.each do |color| %>
       <%= div_tag__uniform_radio_btn(form, color, @team.id) %>

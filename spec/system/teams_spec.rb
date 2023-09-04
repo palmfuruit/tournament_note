@@ -98,7 +98,7 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
       expect(page).to_not have_uniform_icon('')
 
       click_on "変更", match: :first
-      expect(page).to have_checked_field('なし')
+      expect(page).to have_checked_field with: 'none'
       choose "team_color_yellow#{team1.id}"
       find(:test_id, 'ok').click
       expect(page).to have_uniform_icon('yellow')
@@ -122,7 +122,7 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
       expect(page).to_not have_uniform_icon('')
 
       click_on "変更", match: :first
-      expect(page).to have_checked_field('なし')
+      expect(page).to have_checked_field with: 'none'
       choose "team_color_yellow#{team1.id}"
       find(:test_id, 'ok').click
       expect(page).to have_uniform_icon('yellow')
