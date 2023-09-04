@@ -34,6 +34,7 @@ module TournamentNote
     config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml').to_s]
 
+    config.hosts << 'https://tournamentnote.onrender.com'
     # config.action_controller.include_all_helpers = false
   end
 end
