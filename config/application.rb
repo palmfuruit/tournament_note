@@ -35,7 +35,7 @@ module TournamentNote
     config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml').to_s]
     # config.action_controller.include_all_helpers = false
 
-    config.hosts << 'https://tournamentnote.onrender.com'
+    # config.hosts << 'https://tournamentnote.onrender.com'
 
   end
 end
