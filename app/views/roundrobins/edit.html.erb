@@ -19,8 +19,11 @@
       <%# Round数 %>
       <div class="mb-4">
         <div>
-          <%= form.label(:num_of_round, "総当たり回数", class: "form-control-label") %>
-          <%= form.select :num_of_round, options_for_select(1..10, @roundrobin.num_of_round), {}, { class: "form-control" } %>
+          <%= form.label(:num_of_round, " 対戦数", class: "form-control-label") %>
+          <div class="d-flex flex-row align-items-end gap-2">
+            <%= form.select :num_of_round, options_for_select(1..10, @roundrobin.num_of_round), {}, { class: "form-control w-25" } %>
+            <span> 周</span>
+          </div>
         </div>
       </div>
 

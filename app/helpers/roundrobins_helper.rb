@@ -95,7 +95,7 @@ module RoundrobinsHelper
     tag.div(class: ['mb-3'], data: { testid: "rank-condition#{priority}" }) {
       concat(tag.div {
         concat form.label(rankx_symbol, "順位決め 優先#{priority}", class: 'form-control-label')
-        concat form.select(rankx_symbol, options_for_select(array, rankx_column), {}, class: ['form-control'])
+        concat form.select(rankx_symbol, options_for_select(array, rankx_column), {}, class: ['form-control', 'w-25'])
       })
     }
 
