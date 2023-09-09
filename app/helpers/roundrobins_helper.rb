@@ -63,7 +63,6 @@ module RoundrobinsHelper
             concat team_uniform(current_team)
             concat tag.div(team_name(current_team))
           }
-          concat tag.td(data: { testid: "games" }) { rank_i['games_count'].to_s }
           concat tag.td(data: { testid: "wins" }) { rank_i['wins_count'].to_s }
           concat tag.td(data: { testid: "draws" }) { rank_i['draws_count'].to_s }
           concat tag.td(data: { testid: "loses" }) { rank_i['loses_count'].to_s }
