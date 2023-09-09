@@ -15,15 +15,7 @@
     <div class="mb-4">
       <%= form.label(:name, "リーグ名", class: "form-control-label") %>
       <%= form.text_field(:name, class: "form-control") %>
-    </div>
-
-    <%# Round数 %>
-    <div class="mb-4">
-      <div>
-        <%= form.label(:num_of_round, "総当たり回数", class: "form-control-label") %>
-        <%= form.select :num_of_round, options_for_select(1..10, @roundrobin.num_of_round), {}, { class: "form-control" } %>
-      </div>
-    </div>
+    </div
 
     <%# チーム数 %>
     <div class="mb-4">
