@@ -1,6 +1,13 @@
+<%# 試合結果 %>
 <%= turbo_stream.update "game-#{@game.a_team.entryNo}-#{@game.b_team.entryNo}" "" %>
 <%= turbo_stream.update "game-#{@game.b_team.entryNo}-#{@game.a_team.entryNo}" "" %>
 
+<%# Round選択に表示される消化試合数 %>
 <%= turbo_stream.update "round_select" do %>
   <%= render partial: "roundrobins/round_select", locals: { roundrobin: @roundrobin, round: @game.round } %>
+<% end %>
+
+<%# リーグステータス %>
+<%= turbo_stream.update "roundrobin-status" do %>
+  <%= span_tag__status(@roundrobin) %>
 <% end %>

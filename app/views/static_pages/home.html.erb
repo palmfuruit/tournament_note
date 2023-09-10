@@ -4,7 +4,7 @@
   <div class="container-lg my-3">
 
     <h1 id="logo" class="display-3">Tournament Note</h1>
-    <p>トーナメント表、リーグ表の作成サイト</p>
+    <p>トーナメント表、リーグ表の作成・共有</p>
 
     <div class="d-inline-flex flex-column flex-md-row justify-content-center gap-3">
       <%= link_to new_elimination_path, class: "btn btn-outline-main btn-lg" do %>
@@ -20,4 +20,77 @@
 </div>
 
 
-<div style="height: 5000px" class="bg-light"></div>
+
+<div class="container-lg bg-light py-3">
+  <h5 class="text-dark text-center">特徴</h5>
+  <ul>
+    <li>ユーザ登録、アプリのダウンロード不要。</li>
+    <li>表の作成が簡単。1分もかかりません。</li>
+    <li>仲間との共有も簡単です。</li>
+  </ul>
+</div>
+
+<div class="my-3 mt-5">
+  <p class="text-center">基本的な使い方は、とっても簡単。</p>
+</div>
+
+<div class="container-lg py-3">
+  <div class="d-flex flex-column align-items-center gap-2">
+    <h5 class="text-main text-center">Step1</h5>
+    <div class="border demo">
+      <%= image_tag('create_tournament.PNG', width: '100%') %>
+    </div>
+    <p>トーナメント/リーグ名、チーム数を入力します。</p>
+  </div>
+</div>
+
+<div class="container-lg py-3">
+  <div class="d-flex flex-column align-items-center gap-2">
+    <h5 class="text-main text-center">Step2</h5>
+    <div class="border demo mb-2">
+      <%= image_tag('elimination.PNG', width: '100%') %>
+    </div>
+    <div class="border demo">
+      <%= image_tag('roundrobin.PNG', width: '100%') %>
+    </div>
+    <p>トーナメント/リーグが作成されます。</p>
+  </div>
+</div>
+
+<div class="container-lg py-3">
+  <div class="d-flex flex-column align-items-center gap-2">
+    <h5 class="text-main text-center">Step3</h5>
+    <div class="border demo">
+      <%= image_tag('modify_team_name.PNG', width: '100%') %>
+    </div>
+    <p> チーム名を初期値から変更します。 (Skip可能)</p>
+  </div>
+
+</div>
+
+<div class="container-lg py-3">
+  <div class="d-flex flex-column align-items-center gap-2">
+    <h5 class="text-main text-center">Step4</h5>
+    <div class="border demo">
+      <%= image_tag('select_win_team.PNG', width: '100%') %>
+    </div>
+    <p>
+      トーナメント/リーグの各試合をクリックします。<br>
+      試合結果を入力していきます。
+    </p>
+  </div>
+</div>
+
+<div class="container-lg py-3">
+  <div class="d-flex flex-column align-items-center gap-2">
+    <h5 class="text-main text-center">Step5</h5>
+    <div class="border demo mb-2">
+      <%= image_tag('elimination-finished.PNG', width: '100%') %>
+    </div>
+    <div class="border demo">
+      <%= image_tag('roundrobin-finished.PNG', width: '100%') %>
+    </div>
+    <p>トーナメント/リーグが更新されます。</p>
+  </div>
+</div>
+
