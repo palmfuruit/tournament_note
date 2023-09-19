@@ -18,6 +18,32 @@ module ApplicationHelper
     end
   end
 
+  def default_meta_tags
+    {
+      site: 'Tournament Note',
+      title: 'トーナメント表/リーグ表の作成・共有',
+      reverse: true,
+      charset: 'utf-8',
+      description: 'スポーツやゲームの記録、進行管理に最適。数クリックで簡単作成。ユーザ登録不要。',
+      keywords: 'アプリ,トーナメント作成,リーグ表作成',
+      separator: '|',
+      og: {
+        site_name: :site,
+        title: :title,
+        description: :description,
+        type: 'website',
+        url: root_url,
+        image: image_url('ogp.png'), # 配置するパスやファイル名によって変更すること
+        local: 'ja-JP'
+      },
+      # Twitter用の設定を個別で設定する
+      twitter: {
+        card: 'summary_large_image', # Twitterで表示する場合は大きいカードにする
+        image: image_url('ogp.png') # 配置するパスやファイル名によって変更すること
+      }
+    }
+  end
+
   # トーナメント、リーグ共通
   def span_tag__status(tournament)
     case tournament.status

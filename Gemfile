@@ -12,6 +12,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 gem "jbuilder"
 gem "redis", "~> 4.0"
+gem 'meta-tags'
 # gem "kredis"
 # gem "bcrypt", "~> 3.1.7"
 

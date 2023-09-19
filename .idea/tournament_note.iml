@@ -819,6 +819,27 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
+      <library name="meta-tags (v2.18.0) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.1.0/gems/meta-tags-2.18.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.1.0/gems/meta-tags-2.18.0/sig" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.1.0/gems/meta-tags-2.18.0/certs" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.1.0/gems/meta-tags-2.18.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.1.0/gems/meta-tags-2.18.0/sig" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.1.0/gems/meta-tags-2.18.0/certs" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.1.0/gems/meta-tags-2.18.0/certs" />
+        </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
       <library name="method_source (v1.0.0) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
@@ -1971,6 +1992,7 @@
         <option value="job" />
         <option value="mailbox" />
         <option value="mailer" />
+        <option value="meta_tags:install" />
         <option value="migration" />
         <option value="model" />
         <option value="resource" />
@@ -2027,6 +2049,7 @@
         <option value="job" />
         <option value="mailbox" />
         <option value="mailer" />
+        <option value="meta_tags:install" />
         <option value="migration" />
         <option value="model" />
         <option value="resource" />
