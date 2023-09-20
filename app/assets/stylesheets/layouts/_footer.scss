@@ -1,0 +1,12 @@
+/* footer */
+footer {
+  display: flex;
+  color: $dark;
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid $dark;
+
+  a {
+    color: $dark;
+  }
+}
