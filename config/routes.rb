@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root "static_pages#home"
+  get "inquiry" => "static_pages#inquiry"
 
   resources :eliminations do
     post :reset, on: :member

@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    putc "OK"
+  end
+  def inquiry
   end
 end

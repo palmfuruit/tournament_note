@@ -37,7 +37,7 @@
 <div class="container-lg py-3">
   <div class="d-flex flex-column align-items-center gap-2">
     <h5 class="text-main text-center">Step1</h5>
-    <div class="border demo">
+    <div class="border demo mb-3">
       <%= image_tag('create_tournament.PNG', width: '100%') %>
     </div>
     <p>トーナメント/リーグ名、チーム数を入力します。</p>
@@ -50,7 +50,7 @@
     <div class="border demo mb-2">
       <%= image_tag('elimination.PNG', width: '100%') %>
     </div>
-    <div class="border demo">
+    <div class="border demo mb-3">
       <%= image_tag('roundrobin.PNG', width: '100%') %>
     </div>
     <p>トーナメント/リーグが作成されます。</p>
@@ -60,10 +60,13 @@
 <div class="container-lg py-3">
   <div class="d-flex flex-column align-items-center gap-2">
     <h5 class="text-main text-center">Step3</h5>
-    <div class="border demo">
+    <div class="border demo mb-3">
       <%= image_tag('modify_team_name.PNG', width: '100%') %>
     </div>
-    <p> チーム名を初期値から変更します。 (Skip可能)</p>
+    <p>
+      <span class="badge bg-dark">チーム</span> <br>
+      チーム名を初期値から変更します。 (Skip可能)
+    </p>
   </div>
 
 </div>
@@ -71,10 +74,11 @@
 <div class="container-lg py-3">
   <div class="d-flex flex-column align-items-center gap-2">
     <h5 class="text-main text-center">Step4</h5>
-    <div class="border demo">
+    <div class="border demo mb-3">
       <%= image_tag('select_win_team.PNG', width: '100%') %>
     </div>
     <p>
+      <span class="badge bg-dark">トーナメント表</span> <span class="badge bg-dark">リーグ表</span><br>
       トーナメント/リーグの各試合をクリックします。<br>
       試合結果を入力していきます。
     </p>
@@ -87,7 +91,7 @@
     <div class="border demo mb-2">
       <%= image_tag('elimination-finished.PNG', width: '100%') %>
     </div>
-    <div class="border demo">
+    <div class="border demo mb-3">
       <%= image_tag('roundrobin-finished.PNG', width: '100%') %>
     </div>
     <p>トーナメント/リーグが更新されます。</p>
