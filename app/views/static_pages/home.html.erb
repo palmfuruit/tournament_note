@@ -36,7 +36,7 @@
 
 <div class="container-lg py-3">
   <div class="d-flex flex-column align-items-center gap-2">
-    <h5 class="text-main text-center">Step1</h5>
+    <h5 class="text-main">Step1</h5>
     <div class="border demo mb-3">
       <%= image_tag('create_tournament.PNG', width: '100%') %>
     </div>
@@ -46,7 +46,11 @@
 
 <div class="container-lg py-3">
   <div class="d-flex flex-column align-items-center gap-2">
-    <h5 class="text-main text-center">Step2</h5>
+    <h5 class="text-main">Step2</h5>
+    <p>
+      <span class="badge bg-dark">トーナメント表</span>
+      <span class="badge bg-dark">リーグ表</span><br>
+    </p>
     <div class="border demo mb-2">
       <%= image_tag('elimination.PNG', width: '100%') %>
     </div>
@@ -59,12 +63,12 @@
 
 <div class="container-lg py-3">
   <div class="d-flex flex-column align-items-center gap-2">
-    <h5 class="text-main text-center">Step3</h5>
+    <h5 class="text-main">Step3</h5>
+    <p><span class="badge bg-dark">チーム</span></p>
     <div class="border demo mb-3">
-      <%= image_tag('modify_team_name.PNG', width: '100%') %>
+      <%= image_tag('team_update.PNG', width: '100%') %>
     </div>
     <p>
-      <span class="badge bg-dark">チーム</span> <br>
       (必要なら)チーム名を初期値から変更します。
     </p>
   </div>
@@ -73,12 +77,15 @@
 
 <div class="container-lg py-3">
   <div class="d-flex flex-column align-items-center gap-2">
-    <h5 class="text-main text-center">Step4</h5>
+    <h5 class="text-main">Step4</h5>
+    <p>
+      <span class="badge bg-dark">トーナメント表</span>
+      <span class="badge bg-dark">リーグ表</span><br>
+    </p>
     <div class="border demo mb-3">
       <%= image_tag('game_update.PNG', width: '100%') %>
     </div>
     <p>
-      <span class="badge bg-dark">トーナメント表</span> <span class="badge bg-dark">リーグ表</span><br>
       対象の試合(黄色のマス)をクリックして、試合結果を入力します。
     </p>
   </div>
@@ -86,7 +93,11 @@
 
 <div class="container-lg py-3">
   <div class="d-flex flex-column align-items-center gap-2">
-    <h5 class="text-main text-center">Step5</h5>
+    <h5 class="text-main">Step5</h5>
+    <p>
+      <span class="badge bg-dark">トーナメント表</span>
+      <span class="badge bg-dark">リーグ表</span><br>
+    </p>
     <div class="border demo mb-2">
       <%= image_tag('elimination-finished.PNG', width: '100%') %>
     </div>
