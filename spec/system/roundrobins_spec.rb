@@ -11,7 +11,7 @@ RSpec.describe "リーグ", type: :system do
 
       fill_in 'リーグ名', with: "予選リーグ "
       select '6', from: '参加チーム数'
-      click_on "登録"
+      click_on "作成"
 
       expect(page).to have_selector 'h1', text: "予選リーグ"
       click_on "チーム"
@@ -27,8 +27,8 @@ RSpec.describe "リーグ", type: :system do
       expect(page).to have_selector 'h1', text: "新しいリーグ"
 
       fill_in 'リーグ名', with: ""
-      # click_on "登録"
-      expect { click_on "登録" }.to change { Tournament.count }.by(0)
+      # click_on "作成"
+      expect { click_on "作成" }.to change { Tournament.count }.by(0)
       expect(page).to have_content "リーグ名を入力してください"
     end
   end

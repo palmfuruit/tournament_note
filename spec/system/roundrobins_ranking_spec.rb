@@ -22,7 +22,7 @@ RSpec.describe "リーグ順位表", type: :system do
     click_on '順位表'
 
     expect(page).to have_content "順位条件"
-    expect(page).to have_content "(1) 勝点"
+    expect(page).to have_content "勝点"
 
     within find(:test_id, 'rank1') do
       expect(find(:test_id, 'rank').text).to eq('1')
@@ -76,7 +76,7 @@ RSpec.describe "リーグ順位表", type: :system do
     click_on '順位表'
 
     expect(page).to have_content "順位条件"
-    expect(page).to have_content "(1) 勝率"
+    expect(page).to have_content "勝率"
 
     within find(:test_id, 'rank1') do
       expect(find(:test_id, 'rank').text).to eq('1')
