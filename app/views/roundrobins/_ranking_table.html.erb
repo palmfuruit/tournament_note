@@ -15,8 +15,13 @@
 </table>
 
 <div>
-  <p>順位条件</p>
-  <% if @roundrobin.rank1 != 'none' %>
-    <p><%= "(1) #{Roundrobin::RANK_CONDITION[@roundrobin.rank1]}" %></p>
-  <% end %>
+  <p class="mb-2">
+    <span><i class="bi bi-diamond-fill"></i></span>
+    順位条件
+  </p>
+  <ol>
+    <% if @roundrobin.rank1 != 'none' %>
+      <li><%= Roundrobin::RANK_CONDITION[@roundrobin.rank1] %></li>
+    <% end %>
+  </ol>
 </div>
