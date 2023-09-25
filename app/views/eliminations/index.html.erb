@@ -4,8 +4,12 @@
   <h1 class="mb-4">トーナメント一覧</h1>
 
   <% if @eliminations.present? %>
-    <div class="row">
+    <p class="lead"><%= "トーナメント数: #{@num_of_eliminations}" %></p>
+    <div class="row mb-4">
       <%= render @eliminations %>
+    </div>
+    <div class="d-flex justify-content-center">
+      <%= paginate @eliminations, theme: 'bootstrap-5' %>
     </div>
   <% else %>
     <div class="alert alert-warning">トーナメントは未登録です</div>

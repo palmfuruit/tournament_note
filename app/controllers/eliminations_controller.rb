@@ -1,6 +1,7 @@
 class EliminationsController < ApplicationController
   def index
-    @eliminations = Elimination.all.order(created_at: :desc)
+    @num_of_eliminations = Elimination.all.size
+    @eliminations = Elimination.all.order(created_at: :desc).page(params[:page])
   end
 
   def show

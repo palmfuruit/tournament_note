@@ -1,7 +1,8 @@
 class RoundrobinsController < ApplicationController
 
   def index
-    @roundrobins = Roundrobin.all.order(created_at: :desc)
+    @num_of_roundrobins = Roundrobin.all.size
+    @roundrobins = Roundrobin.all.order(created_at: :desc).page(params[:page])
   end
 
   def show

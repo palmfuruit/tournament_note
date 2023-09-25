@@ -13,6 +13,8 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem "redis", "~> 4.0"
 gem 'meta-tags'
+gem 'kaminari'
+gem 'bootstrap5-kaminari-views'
 # gem "kredis"
 # gem "bcrypt", "~> 3.1.7"
 

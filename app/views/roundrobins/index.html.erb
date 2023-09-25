@@ -4,8 +4,12 @@
   <h1 class="mb-4">リーグ一覧</h1>
 
   <% if @roundrobins.present? %>
-    <div class="row">
+    <p class="lead"><%= "リーグ数: #{@num_of_roundrobins}" %></p>
+    <div class="row mb-4">
       <%= render @roundrobins %>
+    </div>
+    <div class="d-flex justify-content-center">
+      <%= paginate @roundrobins, theme: 'bootstrap-5' %>
     </div>
   <% else %>
     <div class="alert alert-warning">リーグは未登録です</div>
