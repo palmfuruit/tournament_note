@@ -24,7 +24,7 @@ module ApplicationHelper
       title: 'トーナメント表/リーグ表の作成・共有',
       reverse: true,
       charset: 'utf-8',
-      description: 'スポーツやゲームの記録、進行管理に最適。数クリックで簡単作成。ユーザ登録不要。',
+      description: '参加チーム数を入力するだけで、トーナメント表やリーグ表を作成。仲間内のスポーツ、ゲームの記録や進行状況メモに。メモ帳よりも手軽に実現。',
       keywords: 'アプリ,トーナメント作成,リーグ表作成',
       separator: '|',
       og: {
