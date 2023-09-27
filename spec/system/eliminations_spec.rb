@@ -19,7 +19,7 @@ RSpec.describe "トーナメント", type: :system do
     end
   end
 
-  describe "トーナメント作成失敗" do
+  describe "トーナメント名デフォルト値で生成" do
     example do
       visit root_path
 
@@ -27,9 +27,8 @@ RSpec.describe "トーナメント", type: :system do
       expect(page).to have_selector 'h1', text: "新しいトーナメント"
 
       fill_in 'トーナメント名', with: ""
-      # click_on "作成"
-      expect { click_on "作成" }.to change { Tournament.count }.by(0)
-      expect(page).to have_content "トーナメント名を入力してください"
+      click_on "作成"
+      expect(page).to have_selector 'h1', text: "#{Date.today}"
     end
   end
 
