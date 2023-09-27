@@ -104,7 +104,11 @@ class RoundrobinsController < ApplicationController
   private
 
   def roundrobin_params
-    params.require(:roundrobin).permit(:name, :num_of_round, :rank1)
+    ret_p = params.require(:roundrobin).permit(:name, :num_of_round, :rank1)
+    if ret_p[:name].blank?
+      ret_p[:name] = "#{Date.today}"
+    end
+    ret_p
   end
 
   def rank(teams:, games:, rank_conditions:)
