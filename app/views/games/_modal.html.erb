@@ -4,7 +4,9 @@
       <div class="modal-content">
         <div class="modal-header bg-light">
           <h4 class="modal-title">
-            <%= team_name(@game.a_team) %> <span style="color:gray">vs</span> <%= team_name(@game.b_team) %>
+            <span class="text-nowrap"><%= team_uniform(@game.a_team) %> <%= team_name(@game.a_team) %></span>
+            <span class="mx-2 text-secondary">vs</span>
+            <span class="text-nowrap"><%= team_uniform(@game.b_team) %> <%= team_name(@game.b_team) %></span>
           </h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
