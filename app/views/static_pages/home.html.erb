@@ -36,77 +36,38 @@
   <h5 class="text-dark text-center">基本的な使い方</h5>
 </div>
 
-<div class="container-lg py-3">
-  <div class="d-flex flex-column align-items-center gap-2">
-    <h5 class="text-main">Step1</h5>
-    <div class="border demo mb-3">
-      <%= image_tag('create_tournament.PNG', width: '100%') %>
-    </div>
-    <p>トーナメント/リーグ名、チーム数を入力します。</p>
-  </div>
-</div>
 
-<div class="container-lg py-3">
-  <div class="d-flex flex-column align-items-center gap-2">
-    <h5 class="text-main">Step2</h5>
-    <p>
-      <span class="badge bg-dark">トーナメント表</span>
-      <span class="badge bg-dark">リーグ表</span><br>
-    </p>
-    <div class="border demo mb-2">
-      <%= image_tag('elimination.PNG', width: '100%') %>
+<div class="accordion" id="accordion">
+<%# ----------------- トーナメント表 ------------------------- %>
+  <div class="accordion-item">
+    <div class="accordion-header" id="elimination-header">
+      <h5 class="mb-0">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#elimination-collapse" aria-expanded="false" aria-controls="elimination-collapse">
+          トーナメント表の使い方
+        </button>
+      </h5>
     </div>
-    <div class="border demo mb-3">
-      <%= image_tag('roundrobin.PNG', width: '100%') %>
+    <div id="elimination-collapse" class="accordion-collapse collapse" aria-labelledby="elimination-header">
+      <div class="accordion-body">
+        <%= render "elimination_basic_manual" %>
+      </div>
     </div>
-    <p>トーナメント/リーグが作成されます。</p>
   </div>
-</div>
 
-<div class="container-lg py-3">
-  <div class="d-flex flex-column align-items-center gap-2">
-    <h5 class="text-main">Step3</h5>
-    <p><span class="badge bg-dark">チーム</span></p>
-    <div class="border demo mb-3">
-      <%= image_tag('team_update.PNG', width: '100%') %>
+<%# ----------------- リーグ表 ------------------------- %>
+  <div class="accordion-item">
+    <div class="accordion-header" id="roundrobin-header">
+      <h5 class="mb-0">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#roundrobin-collapse" aria-expanded="false" aria-controls="roundrobin-collapse">
+          リーグ表の使い方
+        </button>
+      </h5>
     </div>
-    <p>
-      (必要なら)チーム名を初期値から変更します。
-    </p>
+    <div id="roundrobin-collapse" class="accordion-collapse collapse" aria-labelledby="roundrobin-header">
+      <div class="accordion-body">
+        <%= render "roundrobin_basic_manual" %>
+      </div>
+    </div>
   </div>
 
 </div>
-
-<div class="container-lg py-3">
-  <div class="d-flex flex-column align-items-center gap-2">
-    <h5 class="text-main">Step4</h5>
-    <p>
-      <span class="badge bg-dark">トーナメント表</span>
-      <span class="badge bg-dark">リーグ表</span><br>
-    </p>
-    <div class="border demo mb-3">
-      <%= image_tag('game_update.PNG', width: '100%') %>
-    </div>
-    <p>
-      対象の試合(黄色のマス)をクリックして、試合結果を入力します。
-    </p>
-  </div>
-</div>
-
-<div class="container-lg py-3">
-  <div class="d-flex flex-column align-items-center gap-2">
-    <h5 class="text-main">Step5</h5>
-    <p>
-      <span class="badge bg-dark">トーナメント表</span>
-      <span class="badge bg-dark">リーグ表</span><br>
-    </p>
-    <div class="border demo mb-2">
-      <%= image_tag('elimination-finished.PNG', width: '100%') %>
-    </div>
-    <div class="border demo mb-3">
-      <%= image_tag('roundrobin-finished.PNG', width: '100%') %>
-    </div>
-    <p>トーナメント/リーグ表が更新されます。</p>
-  </div>
-</div>
-
