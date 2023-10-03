@@ -9,7 +9,7 @@ RSpec.describe "トーナメント", type: :system do
       click_on "トーナメント表作成"
       expect(page).to have_selector 'h1', text: "新しいトーナメント"
 
-      fill_in 'トーナメント名', with: "甲子園"
+      fill_in '大会名', with: "甲子園"
       select '6', from: '参加チーム数'
       click_on "作成"
 
@@ -19,20 +19,20 @@ RSpec.describe "トーナメント", type: :system do
     end
   end
 
-  describe "トーナメント名デフォルト値で生成" do
+  describe "大会名デフォルト値で生成" do
     example do
       visit root_path
 
       click_on "トーナメント表作成"
       expect(page).to have_selector 'h1', text: "新しいトーナメント"
 
-      fill_in 'トーナメント名', with: ""
+      fill_in '大会名', with: ""
       click_on "作成"
       expect(page).to have_selector 'h1', text: "#{Date.today}"
     end
   end
 
-  describe "トーナメント名変更" do
+  describe "大会名変更" do
     let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 4) }
     example do
       visit elimination_path(elimination)
@@ -40,8 +40,8 @@ RSpec.describe "トーナメント", type: :system do
       expect(page).to have_selector 'h1', text: elimination.name
       click_on "設定"
 
-      expect(page).to have_field 'トーナメント名'
-      fill_in 'トーナメント名', with: "甲子園"
+      expect(page).to have_field '大会名'
+      fill_in '大会名', with: "甲子園"
       click_on "更新"
 
       expect(page).to have_selector 'h1', text: "甲子園"
@@ -67,7 +67,7 @@ RSpec.describe "トーナメント", type: :system do
       expect(page).to have_css('.r-bottom')
       click_on "設定"
 
-      expect(page).to have_field 'トーナメント名'
+      expect(page).to have_field '大会名'
       click_on 'リセット'
       page.accept_confirm
       expect(page).to have_content "トーナメントをリセットしました"
@@ -85,7 +85,7 @@ RSpec.describe "トーナメント", type: :system do
       expect(page).to have_selector 'h1', text: elimination.name
       click_on "設定"
 
-      expect(page).to have_field 'トーナメント名'
+      expect(page).to have_field '大会名'
       click_on '削除'
       page.accept_confirm
       expect(page).to have_content "トーナメントを削除しました"

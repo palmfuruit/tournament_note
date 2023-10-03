@@ -9,7 +9,7 @@ RSpec.describe "リーグ", type: :system do
       click_on "リーグ表作成"
       expect(page).to have_selector 'h1', text: "新しいリーグ"
 
-      fill_in 'リーグ名', with: "予選リーグ "
+      fill_in '大会名', with: "予選リーグ "
       select '6', from: '参加チーム数'
       click_on "作成"
 
@@ -26,14 +26,14 @@ RSpec.describe "リーグ", type: :system do
       click_on "リーグ表作成"
       expect(page).to have_selector 'h1', text: "新しいリーグ"
 
-      fill_in 'リーグ名', with: ""
+      fill_in '大会名', with: ""
       click_on "作成"
       expect(page).to have_selector 'h1', text: "#{Date.today}"
 
     end
   end
 
-  describe "リーグ名変更" do
+  describe "大会名変更" do
     let!(:roundrobin) { create(:roundrobin, :with_teams, num_of_teams: 4) }
     example do
       visit roundrobin_path(roundrobin)
@@ -41,8 +41,8 @@ RSpec.describe "リーグ", type: :system do
       expect(page).to have_selector 'h1', text: roundrobin.name
       click_on "設定"
 
-      expect(page).to have_field 'リーグ名'
-      fill_in 'リーグ名', with: "予選リーグ"
+      expect(page).to have_field '大会名'
+      fill_in '大会名', with: "予選リーグ"
       click_on "更新"
 
       expect(page).to have_selector 'h1', text: "予選リーグ"
@@ -70,7 +70,7 @@ RSpec.describe "リーグ", type: :system do
       expect(find('#game-4-3')).to have_mark('win')
       click_on "設定"
 
-      expect(page).to have_field 'リーグ名'
+      expect(page).to have_field '大会名'
       click_on 'リセット'
       page.accept_confirm
       expect(page).to have_content "リーグをリセットしました"
@@ -87,7 +87,7 @@ RSpec.describe "リーグ", type: :system do
       expect(page).to have_selector 'h1', text: roundrobin.name
       click_on "設定"
 
-      expect(page).to have_field 'リーグ名'
+      expect(page).to have_field '大会名'
       click_on '削除'
       page.accept_confirm
       expect(page).to have_content "リーグを削除しました"

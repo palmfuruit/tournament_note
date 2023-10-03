@@ -8,9 +8,9 @@ ja:
     # model毎に定義したいattributesを記述
     attributes:
       elimination:
-        name: トーナメント名
+        name: 大会名
       roundrobin:
-        name: リーグ名
+        name: 大会名
       team:
         name: チーム名
       game:

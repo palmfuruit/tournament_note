@@ -10,10 +10,10 @@
       <%# Error Message %>
       <%= form_error_notification(@roundrobin) %>
 
-      <%# リーグ名 %>
+      <%# 大会名 %>
       <div class="mb-4">
-        <%= form.label(:name, "リーグ名", class: "form-control-label") %>
-        <%= form.text_field(:name, class: "form-control", placeholder: "#{Date.today}") %>
+        <%= form.label(:name, "大会名", class: "form-control-label") %>
+        <%= form.text_field(:name, class: "form-control", placeholder: "(空の場合は、本日の日付が入ります。)") %>
       </div>
 
       <%# Round数 %>
