@@ -4,15 +4,15 @@
   <div class="container-lg py-3 my-3">
 
     <h1 id="logo" class="display-3">Tournament Note</h1>
-    <p class="fw-bold">リーグ表、トーナメント表の作成・共有</p>
+    <p class="fw-bold">トーナメント表、リーグ表の作成・共有</p>
 
     <div class="d-inline-flex flex-column flex-md-row justify-content-center gap-3">
-      <%= link_to new_roundrobin_path, class: "btn btn-main btn-lg text-white" do %>
-        <i class="bi bi-plus-circle"></i> リーグ表作成
-      <% end %>
-
       <%= link_to new_elimination_path, class: "btn btn-main btn-lg text-white" do %>
         <i class="bi bi-plus-circle"></i> トーナメント表作成
+      <% end %>
+
+      <%= link_to new_roundrobin_path, class: "btn btn-main btn-lg text-white" do %>
+        <i class="bi bi-plus-circle"></i> リーグ表作成
       <% end %>
     </div>
 
@@ -27,21 +27,20 @@
     <ul>
       <li>ログイン不要。</li>
       <li>携帯ブラウザのみで手軽に使えます。</li>
+      <li>作成した表は簡単に共有して、それぞれの携帯で確認できます。</li>
     </ul>
   </div>
 
   <h5 class="text-dark text-center mt-3">主な機能</h5>
   <div class="d-flex justify-content-center">
     <ul>
-      <li>リーグ表：2周以上の総当りに対応。</li>
-      <li>参加チームにアイコン<%= uniform("red") %><%= uniform("blue") %><%= uniform("yellow") %>・・・を設定可能。<br>
-        (ビブスの色などに合わせて、直感的にチーム識別できます。)
-      </li>
+      <li>2周以上の総当り戦に対応。</li>
+      <li>チームアイコン<%= uniform("red") %><%= uniform("blue") %><%= uniform("yellow") %>・・・を設定可能。</li>
     </ul>
   </div>
 
   <h5 class="text-dark text-center mt-3">利用シーン</h5>
-  <p class="text-center">フットサルやバスケット等、集まった仲間でチーム分けをしての対戦記録に。</p>
+  <p class="text-center">スポーツ、ゲームの対戦記録に。</p>
   <div class="d-flex flex-column align-items-center">
     <ul>
       <li>対戦済のカードがわかるので、チームが多いときの進行に役立ちます。</li>
@@ -56,22 +55,6 @@
 
 
 <div class="accordion" id="accordion">
-  <%# ----------------- リーグ表 ------------------------- %>
-  <div class="accordion-item">
-    <div class="accordion-header" id="roundrobin-header">
-      <h5 class="mb-0">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#roundrobin-collapse" aria-expanded="true" aria-controls="roundrobin-collapse">
-          リーグ表の使い方
-        </button>
-      </h5>
-    </div>
-    <div id="roundrobin-collapse" class="accordion-collapse collapse show" aria-labelledby="roundrobin-header">
-      <div class="accordion-body px-0">
-        <%= render "roundrobin_basic_manual" %>
-      </div>
-    </div>
-  </div>
-
 <%# ----------------- トーナメント表 ------------------------- %>
   <div class="accordion-item">
     <div class="accordion-header" id="elimination-header">
@@ -82,10 +65,25 @@
       </h5>
     </div>
     <div id="elimination-collapse" class="accordion-collapse collapse show" aria-labelledby="elimination-header">
-      <div class="accordion-body px-0">
+      <div class="accordion-body">
         <%= render "elimination_basic_manual" %>
       </div>
     </div>
   </div>
 
+  <%# ----------------- リーグ表 ------------------------- %>
+  <div class="accordion-item">
+    <div class="accordion-header" id="roundrobin-header">
+      <h5 class="mb-0">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#roundrobin-collapse" aria-expanded="true" aria-controls="roundrobin-collapse">
+          リーグ表の使い方
+        </button>
+      </h5>
+    </div>
+    <div id="roundrobin-collapse" class="accordion-collapse collapse show" aria-labelledby="roundrobin-header">
+      <div class="accordion-body">
+        <%= render "roundrobin_basic_manual" %>
+      </div>
+    </div>
+  </div>
 </div>
