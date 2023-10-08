@@ -135,4 +135,54 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
     end
   end
 
+  describe "シャッフル" do
+    context "トーナメント/リーグ開始前" do
+      let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 4) }
+      before do
+        @team1 = elimination.teams[0]
+        @team2 = elimination.teams[1]
+        @team3 = elimination.teams[2]
+        @team4 = elimination.teams[3]
+      end
+
+      example 'シャッフル後に、各チームが表示されている' do
+        visit tournament_teams_path(elimination.tournament)
+
+        expect(page).to have_link "シャッフル"
+        page.accept_confirm do
+          click_on 'シャッフル'
+        end
+
+        expect(page).to have_content @team1.name
+        expect(page).to have_content @team2.name
+        expect(page).to have_content @team3.name
+        expect(page).to have_content @team4.name
+      end
+    end
+
+    context "トーナメント/リーグ進行中" do
+      let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 4) }
+      before do
+        team1 = elimination.teams[0]
+        team2 = elimination.teams[1]
+        elimination.games.create(round: 1, gameNo: 1, a_team: team1, b_team: team2, win_team: team1, lose_team: team2, a_result: 'WIN', b_result: 'LOSE')
+
+      end
+
+      example 'シャッフルボタンが表示されない' do
+        visit tournament_teams_path(elimination.tournament)
+        expect(page).to_not have_link "シャッフル"
+      end
+    end
+
+    context "Team数が0" do
+      let!(:elimination) { create(:elimination) }
+
+      example 'シャッフルボタンが表示されない' do
+        visit tournament_teams_path(elimination.tournament)
+        expect(page).to_not have_link "シャッフル"
+      end
+    end
+
+  end
 end

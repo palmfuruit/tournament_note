@@ -10,19 +10,30 @@
 <div class="container-lg my-3">
   <p>
     最大16チーム登録できます。<br>
-    トーナメント/リーグ開始後は、追加、削除できません。
+    トーナメント/リーグ開始後は、追加、削除、シャッフルできません。
   </p>
 
   <div class="d-flex flex-row-reverse justify-content-between align-items-end mb-3">
     <p class="lead m-0"><%= @teams.size %>チーム</p>
 
-    <% if @tournament.teams.size < MAX_TEAMS && @tournament.games.empty? %>
-      <%= link_to new_tournament_team_path(@tournament),
-                  class: "btn btn-outline-main",
-                  data: { turbo_frame: dom_id(Team.new) } do %>
-        <i class="bi bi-person-plus"></i> 追加
+    <div>
+      <% if @tournament.teams.size < MAX_TEAMS && @tournament.games.empty? %>
+        <%= link_to new_tournament_team_path(@tournament),
+                    class: "btn btn-outline-main",
+                    data: { turbo_frame: dom_id(Team.new) } do %>
+          <i class="bi bi-person-plus"></i> 追加
+        <% end %>
       <% end %>
-    <% end %>
+
+      <% if @tournament.teams.present? && @tournament.games.empty? %>
+        <%= link_to shuffle_tournament_teams_path(@tournament),
+                    class: "btn btn-outline-main",
+                    data: { "turbo-method": :post, turbo_confirm: "参加チームの配置をシャッフルします。", turbo_frame: "teams" } do %>
+          <i class="bi bi-shuffle"></i> シャッフル
+        <% end %>
+      <% end %>
+
+    </div>
   </div>
 
   <div class="mb-3">
@@ -30,9 +41,12 @@
   </div>
 
   <% if @teams.present? %>
-    <div class="d-grid gap-1">
-      <%= render @teams %>
-    </div>
+    <%= turbo_frame_tag "teams" do %>
+      <div class="d-grid gap-0 nameplate-cover">
+        <%= render @teams %>
+      </div>
+    <% end %>
+
   <% else %>
     <div class="alert alert-warning">参加チームは未登録です</div>
   <% end %>

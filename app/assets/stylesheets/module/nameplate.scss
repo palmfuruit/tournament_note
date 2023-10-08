@@ -1,5 +1,10 @@
-.nameplate {
-  border: 1px solid $dark;
+.nameplate-cover {
+  border-top: 0.5px solid $gray-500;
+}
+
+.nameplate  {
+  border: 0.5px solid $gray-500;
+  border-top: none;
   border-radius: 0;
   padding: 0.5em;
   background-color: $light;
