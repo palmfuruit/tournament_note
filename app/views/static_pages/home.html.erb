@@ -7,13 +7,8 @@
     <p class="fw-bold">トーナメント表、リーグ表の作成・共有</p>
 
     <div class="d-inline-flex flex-column flex-md-row justify-content-center gap-3">
-      <%= link_to new_elimination_path, class: "btn btn-main btn-lg text-white" do %>
-        <i class="bi bi-plus-circle"></i> トーナメント表作成
-      <% end %>
-
-      <%= link_to new_roundrobin_path, class: "btn btn-main btn-lg text-white" do %>
-        <i class="bi bi-plus-circle"></i> リーグ表作成
-      <% end %>
+      <%= link_to "トーナメント表作成", new_elimination_path, class: "btn btn-main btn-lg text-white" %>
+      <%= link_to "リーグ表作成", new_roundrobin_path, class: "btn btn-main btn-lg text-white" %>
     </div>
 
   </div>
@@ -25,18 +20,9 @@
   <h5 class="text-dark text-center fw-bold">特徴</h5>
   <div class="d-flex justify-content-center">
     <ul>
-      <li>ログイン不要ですぐに使えます。</li>
-      <li>作成した表には専用のURLがつくので、共有して各自の携帯からアクセスできます。</li>
-      <li>最短2クリック。参加チーム数を選択するだけでの簡単操作で作成できます。</li>
-    </ul>
-  </div>
-
-  <h5 class="text-dark text-center fw-bold mt-3">主な機能</h5>
-  <div class="d-flex justify-content-center">
-    <ul>
-      <li>2周以上の総当り戦が可能です。</li>
-      <li>チームアイコン<%= uniform("red") %><%= uniform("blue") %><%= uniform("yellow") %>を設定可能です。<br>
-        (ビブスの色に合わせたりできます。)</li>
+      <li>アカウント登録不要。すぐに使えます。</li>
+      <li>作成した表を共有して、各自の携帯ブラウザからアクセスできます。</li>
+      <li>表の作成、更新が簡単です。</li>
     </ul>
   </div>
 
@@ -44,15 +30,13 @@
   <p class="text-center">スポーツ、ゲームの対戦記録に。</p>
   <div class="d-flex flex-column align-items-center">
     <ul>
-      <li>対戦済のカードがわかるので、チームが多いときの進行に役立ちます。</li>
+      <li>対戦済のカードがわかるので、参加チームが多いときの進行管理に役立ちます。</li>
       <li>チームの成績を共有できて盛り上がります。</li>
     </ul>
   </div>
 </div>
 
-<div class="my-3 mt-5">
-  <h5 class="text-dark text-center">基本的な使い方</h5>
-</div>
+
 
 
 <div class="accordion" id="accordion">
@@ -61,13 +45,28 @@
     <div class="accordion-header" id="elimination-header">
       <h5 class="mb-0">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#elimination-collapse" aria-expanded="true" aria-controls="elimination-collapse">
-          トーナメント表の使い方
+          トーナメント表サンプル
         </button>
       </h5>
     </div>
+
     <div id="elimination-collapse" class="accordion-collapse collapse show" aria-labelledby="elimination-header">
       <div class="accordion-body">
-        <%= render "elimination_basic_manual" %>
+        <div class="d-flex flex-column align-items-center gap-2">
+
+          <div class="border demo mb-2">
+            <%= image_tag('elimination-finished.PNG', width: '100%') %>
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <ul>
+              <li>参加チーム数： 2〜16チーム</li>
+              <li>参加チーム数に合わせて、対戦回数がなるべく均等な表を自動生成します。</li>
+            </ul>
+          </div>
+
+          <%= link_to "トーナメント表の作成手順", elimination_operation_path %>
+        </div>
       </div>
     </div>
   </div>
@@ -77,13 +76,33 @@
     <div class="accordion-header" id="roundrobin-header">
       <h5 class="mb-0">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#roundrobin-collapse" aria-expanded="true" aria-controls="roundrobin-collapse">
-          リーグ表の使い方
+          リーグ表サンプル
         </button>
       </h5>
     </div>
+
     <div id="roundrobin-collapse" class="accordion-collapse collapse show" aria-labelledby="roundrobin-header">
       <div class="accordion-body">
-        <%= render "roundrobin_basic_manual" %>
+        <div class="d-flex flex-column align-items-center gap-2">
+
+          <div class="border demo mb-3">
+            <%= image_tag('roundrobin-finished.PNG', width: '100%') %>
+          </div>
+
+          <div class="border demo mb-3">
+            <%= image_tag('ranking-finished.PNG', width: '100%') %>
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <ul>
+              <li>参加チーム数： 2〜16チーム</li>
+              <li>総当りの繰り返しが可能です。</li>
+              <li>勝点 or 勝率で順位を判定します。</li>
+            </ul>
+          </div>
+
+          <%= link_to "リーグ表の作成手順", roundrobin_operation_path %>
+        </div>
       </div>
     </div>
   </div>
