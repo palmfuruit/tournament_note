@@ -65,6 +65,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 // カスタマイズ
 $accent: $red-600;
 
+.btn {
+  border-radius: 0.15rem;
+  font-weight: 500;
+}
 
 :root{
   --font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, "メイリオ", "Yu Gothic", YuGothic, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
