@@ -15,7 +15,8 @@ RSpec.describe "トーナメント試合", type: :system do
       expect(page).to have_selector 'h1', text: elimination.name
       click_on "1-1-game"
 
-      expect(page).to have_content "#{team1.name} vs #{team2.name}"
+      expect(page).to have_field team1.name
+      expect(page).to have_field team2.name
       expect(page).not_to have_content "リセット"
       click_on "更新"
 
@@ -23,12 +24,14 @@ RSpec.describe "トーナメント試合", type: :system do
       choose(team1.name)
       click_on "更新"
 
-      expect(page).not_to have_content "#{team1.name} vs #{team2.name}"
+      expect(page).not_to have_field team1.name
+      expect(page).not_to have_field team2.name
       expect(page).to have_css('.r-top')
 
       # 試合結果の更新
       click_on "1-1-game"
-      expect(page).to have_content "#{team1.name} vs #{team2.name}"
+      expect(page).to have_field team1.name
+      expect(page).to have_field team2.name
       expect(page).to have_content "リセット"
       choose(team2.name)
       click_on "更新"
@@ -36,7 +39,8 @@ RSpec.describe "トーナメント試合", type: :system do
 
       # 試合結果のリセット
       click_on "1-1-game"
-      expect(page).to have_content "#{team1.name} vs #{team2.name}"
+      expect(page).to have_field team1.name
+      expect(page).to have_field team2.name
       expect(page).to have_content "リセット"
       page.accept_confirm do
         click_on 'リセット'

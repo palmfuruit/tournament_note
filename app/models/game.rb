@@ -8,4 +8,11 @@ class Game < ApplicationRecord
   delegate :elimination, to: :tournament
 
   validates :win_team_id, presence: true
+  validates :a_score_num, numericality: { only_integer: true, in: 0..999 }
+  validates :b_score_num, numericality: { only_integer: true, in: 0..999 }
+
+  def has_score_num?
+    tournament.roundrobin? && tournament.roundrobin.has_score
+  end
+
 end

@@ -10,8 +10,13 @@
   </div>
 
 <% else %>
-  <div class="bg-light">
+  <div class="bg-white">
     <div class="container-lg my-3 py-3">
+      <p>
+        <i class="bi bi-info-circle" style="color: goldenrod"></i>
+        黄色をクリックして試合結果を更新します。
+      </p>
+
       <%# Round選択 %>
       <%= turbo_frame_tag "round_select" do %>
         <%= render partial: "roundrobins/round_select", locals: { roundrobin: @roundrobin, round: @round } %>

@@ -107,7 +107,7 @@ class GamesController < ApplicationController
 
   def set_roundrobin_game_param
     if (@game.a_team_id == params[:b_team_id]) && (@game.b_team_id == params[:a_team_id])
-      @game.a_score, @game.b_score = @game.b_score, @game.a_score
+      @game.a_score_num, @game.b_score_num = @game.b_score_num, @game.a_score_num
       @game.a_result, @game.b_result = @game.b_result, @game.a_result
     end
     @game.round = params[:round].to_i
@@ -137,7 +137,7 @@ class GamesController < ApplicationController
     end
 
 
-    params.require(:game).permit(:round, :gameNo, :a_team_id, :b_team_id, :win_team_id)
+    params.require(:game).permit(:round, :gameNo, :a_team_id, :b_team_id, :win_team_id, :a_score_num, :b_score_num)
           .merge(lose_team_id:, a_result:, b_result:)
 
   end

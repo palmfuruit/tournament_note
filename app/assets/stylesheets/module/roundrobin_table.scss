@@ -31,12 +31,12 @@
     min-width: 4.5rem;
     font-weight: bold;
     color: black;
-    background-color: mintcream;
+    background-color: var(--bg-color-header);
     vertical-align: middle;
   }
 
   td {
-    background-color: ivory;
+    background-color: var(--bg-color-data);
     height: 0;
     padding: 0;
   }
@@ -50,7 +50,12 @@
       text-decoration: none;
     }
     i {
-      font-size: 2rem;
+      font-size: 1.5rem;
+    }
+    .score {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: $gray-600
     }
   }
 
@@ -85,12 +90,13 @@
 }
 
 #ranking-table {
+  //width: auto;
   th {
-    background-color: mintcream;
+    background-color: var(--bg-color-header);
     vertical-align: middle;
   }
   td {
-    background-color: ivory;
+    background-color: var(--bg-color-data);
     vertical-align: middle;
   }
 }

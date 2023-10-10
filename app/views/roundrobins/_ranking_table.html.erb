@@ -1,18 +1,29 @@
-<table id="ranking-table" class="table sticky-table table-bordered text-center mb-5">
-  <thead>
-    <tr>
-      <th>順位</th>
-      <th>チーム</th>
-      <th>勝</th>
-      <th>分</th>
-      <th>敗</th>
-      <th>勝点</th>
-      <th>勝率</th>
-    </tr>
-  </thead>
+<div class="overflow-auto mb-5">
+  <table id="ranking-table" class="table sticky-table table-bordered text-center">
+    <thead>
+      <tr>
+        <th>順位</th>
+        <th>チーム</th>
+        <% if roundrobin.rank_by?('win_points') %>
+          <th>勝点</th>
+        <% end %>
+        <% if roundrobin.rank_by?('win_rate') %>
+          <th>勝率</th>
+        <% end %>
+        <th>勝</th>
+        <th>分</th>
+        <th>敗</th>
+        <% if roundrobin.has_score %>
+          <th>得点</th>
+          <th>失点</th>
+          <th>得失差</th>
+        <% end %>
+      </tr>
+    </thead>
 
-  <%= tbody_tag__ranking(ranking:, teams:) %>
-</table>
+    <%= tbody_tag__ranking(roundrobin:, ranking:, teams:) %>
+  </table>
+</div>
 
 <div>
   <p class="mb-2">
@@ -20,8 +31,17 @@
     順位条件
   </p>
   <ol>
-    <% if @roundrobin.rank1 != 'none' %>
-      <li><%= Roundrobin::RANK_CONDITION[@roundrobin.rank1] %></li>
+    <% if roundrobin.rank1 != 'none' %>
+      <li><%= Roundrobin::RANK_CONDITION[roundrobin.rank1] %></li>
+    <% end %>
+    <% if roundrobin.rank2 != 'none' %>
+      <li><%= Roundrobin::RANK_CONDITION[roundrobin.rank2] %></li>
+    <% end %>
+    <% if roundrobin.rank3 != 'none' %>
+      <li><%= Roundrobin::RANK_CONDITION[roundrobin.rank3] %></li>
+    <% end %>
+    <% if roundrobin.rank4 != 'none' %>
+      <li><%= Roundrobin::RANK_CONDITION[roundrobin.rank4] %></li>
     <% end %>
   </ol>
 </div>

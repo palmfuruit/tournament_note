@@ -2,7 +2,11 @@ FactoryBot.define do
   factory :roundrobin do
     association :tournament, :roundrobin
     sequence(:name) { |n| "リーグ#{n}" }
+    has_score { false }
     rank1 { :win_points }
+    rank2 { :none }
+    rank3 { :none }
+    rank4 { :none }
 
 
     trait :with_teams do

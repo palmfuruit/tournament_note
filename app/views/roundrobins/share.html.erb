@@ -4,7 +4,8 @@
 <%= render "shared/roundrobin_header", { roundrobin: @roundrobin, current_page: "共有" } %>
 
 <div class="container-lg my-3">
-  <p>このリーグのURL</p>
+  <p class="fw-bold">この大会のURL</p>
+  <p>後でアクセスするときや、他の人と共有するにはこのURLを使用します。</p>
   <div class="alert alert-light overflow-x-scroll">
     <%= roundrobin_url(@roundrobin) %>
   </div>

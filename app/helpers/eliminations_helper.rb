@@ -219,7 +219,7 @@ module EliminationsHelper
   end
 
   def div_tag__team_name(team)
-    concat tag.div(class: "p-0 bg-white") {
+    concat tag.div(class: "p-0 team-name-cell") {
       concat team_uniform(team)
       concat " "
       concat team_name(team)
@@ -345,11 +345,11 @@ module EliminationsHelper
       tag__tds += Array.new(width1 - 1)
 
       # Prev1 A-Win
-      tag__tds << tag.td(a_score(prev_game1), class: border_left_bottom__a_win(prev_game1), rowspan: width2.to_s)
+      tag__tds << tag.td(a_score_num(prev_game1), class: border_left_bottom__a_win(prev_game1), rowspan: width2.to_s)
       tag__tds += Array.new(width2 - 1)
 
       # Prev1 B-Win
-      tag__tds << tag.td(class: ["game-cell b-top b-right", border_left_top__b_win(prev_game1), border_top__a_win(this_game)], rowspan: width2.to_s) { elimination_game_cell(elimination:, games:, round:, gameNo: i, score: b_score(prev_game1)) }
+      tag__tds << tag.td(class: ["game-cell b-top b-right", border_left_top__b_win(prev_game1), border_top__a_win(this_game)], rowspan: width2.to_s) { elimination_game_cell(elimination:, games:, round:, gameNo: i, score: b_score_num(prev_game1)) }
       tag__tds += Array.new(width2 - 1)
 
       # 内
@@ -357,11 +357,11 @@ module EliminationsHelper
       tag__tds += Array.new(width3 - 1)
 
       # Prev2 A-Win
-      tag__tds << tag.td(class: ["game-cell b-bottom b-right", border_left_bottom__a_win(prev_game2), border_bottom__b_win(this_game)], rowspan: width2.to_s) { elimination_game_cell(elimination:, games:, round:, gameNo: i, score: a_score(prev_game2)) }
+      tag__tds << tag.td(class: ["game-cell b-bottom b-right", border_left_bottom__a_win(prev_game2), border_bottom__b_win(this_game)], rowspan: width2.to_s) { elimination_game_cell(elimination:, games:, round:, gameNo: i, score: a_score_num(prev_game2)) }
       tag__tds += Array.new(width2 - 1)
 
       # Prev2 B-Win
-      tag__tds << tag.td(b_score(prev_game2), class: border_left_top__b_win(prev_game2), rowspan: width2.to_s)
+      tag__tds << tag.td(b_score_num(prev_game2), class: border_left_top__b_win(prev_game2), rowspan: width2.to_s)
       tag__tds += Array.new(width2 - 1)
 
       # 外
@@ -386,10 +386,10 @@ module EliminationsHelper
     tag__tds << tag.td(rowspan: space_cell_size)
     tag__tds += Array.new(space_cell_size - 1)
 
-    tag__tds << tag.td(a_score(final_game), class: ["b-bottom", border_left_bottom__a_win(final_game)], rowspan: score_cell_size)
+    tag__tds << tag.td(a_score_num(final_game), class: ["b-bottom", border_left_bottom__a_win(final_game)], rowspan: score_cell_size)
     tag__tds += Array.new(score_cell_size - 1)
 
-    tag__tds << tag.td(b_score(final_game), class: ["b-top", border_left_top__b_win(final_game)], rowspan: score_cell_size)
+    tag__tds << tag.td(b_score_num(final_game), class: ["b-top", border_left_top__b_win(final_game)], rowspan: score_cell_size)
     tag__tds += Array.new(score_cell_size - 1)
 
     tag__tds << tag.td(rowspan: space_cell_size)

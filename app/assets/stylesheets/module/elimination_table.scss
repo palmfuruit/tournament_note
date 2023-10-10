@@ -10,7 +10,7 @@
   }
 
   .game-cell {
-    background-color: ivory;
+    background-color: var(--bg-color-data);
 
     a {
       display: flex;
@@ -19,6 +19,10 @@
       width: 100%;
       text-decoration: none;
     }
+  }
+
+  .team-name-cell {
+    background-color: var(--bg-color-header);
   }
 
   tr, th, td {

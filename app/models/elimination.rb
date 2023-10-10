@@ -4,6 +4,7 @@ class Elimination < ApplicationRecord
   delegate :games, to: :tournament
 
   validates :name, presence: true, length: { maximum: 16 }
+  validates :has_score, inclusion: { in: [true, false] }
 
   # constant
   def self.seed_table_256

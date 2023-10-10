@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe "リーグ", type: :system do
 
   describe "リーグ作成" do
-    example do
+    example "デフォルト設定" do
       visit root_path
 
       click_on "リーグ表作成"
-      expect(page).to have_selector 'h1', text: "新しいリーグ"
+      expect(page).to have_selector 'h1', text: "リーグ表作成"
 
       fill_in '大会名', with: "予選リーグ "
       select '6', from: '参加チーム数'
@@ -17,6 +17,37 @@ RSpec.describe "リーグ", type: :system do
       click_on "チーム"
       expect(page).to have_content "6チーム"
     end
+
+    example  "詳細設定あり" do
+      visit root_path
+
+      click_on "リーグ表作成"
+      expect(page).to have_selector 'h1', text: "リーグ表作成"
+
+      fill_in '大会名', with: "予選リーグ "
+      select '5', from: '参加チーム数'
+
+      check 'スコアを記録'
+      select '10', from: '対戦数'
+      select '勝点', from: '順位条件1'
+      select '得失点差', from: '順位条件2'
+      select '総得点', from: '順位条件3'
+      select '直接対決', from: '順位条件4'
+      click_on "作成"
+
+      expect(page).to have_selector 'h1', text: "予選リーグ"
+      expect(page).to have_content 'Round 1 / 10'
+
+      click_on "設定"
+      expect(page).to have_checked_field('スコアを記録')
+      expect(page).to have_select('順位条件1', selected: '勝点')
+      expect(page).to have_select('順位条件2', selected: '得失点差')
+      expect(page).to have_select('順位条件3', selected: '総得点')
+      expect(page).to have_select('順位条件4', selected: '直接対決')
+
+      click_on "チーム"
+      expect(page).to have_content "5チーム"
+    end
   end
 
   describe "リーグ作成失敗" do
@@ -24,7 +55,7 @@ RSpec.describe "リーグ", type: :system do
       visit root_path
 
       click_on "リーグ表作成"
-      expect(page).to have_selector 'h1', text: "新しいリーグ"
+      expect(page).to have_selector 'h1', text: "リーグ表作成"
 
       fill_in '大会名', with: ""
       click_on "作成"

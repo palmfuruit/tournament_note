@@ -88,12 +88,12 @@ module ApplicationHelper
     end
   end
 
-  def a_score(game)
-    game ? "#{game["a_score"]} #{game["a_sub_score"]}" : nil
+  def a_score_num(game)
+    game ? "#{game["a_score_num"]}" : nil
   end
 
-  def b_score(game)
-    game ? "#{game["b_score"]} #{game["b_sub_score"]}" : nil
+  def b_score_num(game)
+    game ? "#{game["b_score_num"]}" : nil
   end
 
 end

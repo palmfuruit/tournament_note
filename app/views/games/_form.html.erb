@@ -3,6 +3,9 @@
     <%# Error Message %>
     <%= form_error_notification(@game) %>
 
+    <%# Score %>
+    <%= render partial: "score", locals: { form:, tournament: @tournament, game: @game } %>
+
     <%# Winner %>
     <%= render partial: "winner", locals: { form:, tournament: @tournament, game: @game } %>
 

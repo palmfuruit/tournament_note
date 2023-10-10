@@ -7,7 +7,7 @@ RSpec.describe "トーナメント", type: :system do
       visit root_path
 
       click_on "トーナメント表作成"
-      expect(page).to have_selector 'h1', text: "新しいトーナメント"
+      expect(page).to have_selector 'h1', text: "トーナメント表作成"
 
       fill_in '大会名', with: "甲子園"
       select '6', from: '参加チーム数'
@@ -24,7 +24,7 @@ RSpec.describe "トーナメント", type: :system do
       visit root_path
 
       click_on "トーナメント表作成"
-      expect(page).to have_selector 'h1', text: "新しいトーナメント"
+      expect(page).to have_selector 'h1', text: "トーナメント表作成"
 
       fill_in '大会名', with: ""
       click_on "作成"
