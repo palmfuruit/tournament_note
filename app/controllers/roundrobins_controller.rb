@@ -126,13 +126,13 @@ class RoundrobinsController < ApplicationController
         'draws_count' => draws_count(team["id"], games),
         'loses_count' => loses_count(team["id"], games),
         'total_goals' => total_goals(team["id"], games),
-        'total_goals_against' => total_goals_against(team["id"], games),
+        'total_against_goals' => total_against_goals(team["id"], games),
       }
     end
     ranking.each do |rank|
       rank['win_points'] = (rank['wins_count'] * 3) + rank['draws_count']
       rank['win_rate'] = (rank['wins_count'] + rank['loses_count'] == 0) ? 0 : (rank['wins_count'] * 100 / (rank['wins_count'] + rank['loses_count']))
-      rank['goal_diff'] = rank['total_goals'] - rank['total_goals_against']
+      rank['goal_diff'] = rank['total_goals'] - rank['total_against_goals']
     end
 
     # 優先1〜4 繰り返す
@@ -200,7 +200,7 @@ class RoundrobinsController < ApplicationController
     score_a + score_b
   end
 
-  def total_goals_against(team, games)
+  def total_against_goals(team, games)
     score_a = games.select { |game| game['a_team_id'] == team }.sum { |game| game['b_score_num'] }
     score_b = games.select { |game| game['b_team_id'] == team }.sum { |game| game['a_score_num'] }
     score_a + score_b

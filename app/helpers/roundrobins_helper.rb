@@ -78,7 +78,7 @@ module RoundrobinsHelper
           concat tag.td(data: { testid: "loses" }) { rank_i['loses_count'].to_s }
           if roundrobin.has_score
             concat tag.td(data: { testid: "total_goals" }) { rank_i['total_goals'].to_s }
-            concat tag.td(data: { testid: "total_goals_against" }) { rank_i['total_goals_against'].to_s }
+            concat tag.td(data: { testid: "total_against_goals" }) { rank_i['total_against_goals'].to_s }
             concat tag.td(data: { testid: "goal_diff" }) { rank_i['goal_diff'].to_s }
           end
         }

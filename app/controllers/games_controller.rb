@@ -137,7 +137,7 @@ class GamesController < ApplicationController
     end
 
 
-    params.require(:game).permit(:round, :gameNo, :a_team_id, :b_team_id, :win_team_id, :a_score_num, :b_score_num)
+    params.require(:game).permit(:round, :gameNo, :a_team_id, :b_team_id, :win_team_id, :a_score_num, :b_score_num, :a_score_str, :b_score_str)
           .merge(lose_team_id:, a_result:, b_result:)
 
   end

@@ -21,11 +21,11 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: 'Tournament Note',
-      title: 'トーナメント表/リーグ表の作成・共有',
+      title: 'トーナメント表/リーグ表の作成・共有 Webアプリ',
       reverse: true,
       charset: 'utf-8',
-      description: 'トーナメント表、リーグ表をスマホで簡単作成。仲間との共有も簡単。2周以上の総当たりに対応。スポーツ等の記録、進行管理に。',
-      keywords: 'アプリ,トーナメント作成,リーグ表作成',
+      description: 'トーナメント表、リーグ表を無料で作成・共有するWebアプリです。スマホのブラウザから簡単に作成できます。スポーツやゲームの記録、進行管理に。',
+      keywords: 'トーナメント表,リーグ表,対戦表,ドロー表,アプリ,ツール,Webサービス',
       separator: '|',
       og: {
         site_name: :site,
@@ -94,6 +94,13 @@ module ApplicationHelper
 
   def b_score_num(game)
     game ? "#{game["b_score_num"]}" : nil
+  end
+  def a_score_str(game)
+    game ? "#{game["a_score_str"]}" : nil
+  end
+
+  def b_score_str(game)
+    game ? "#{game["b_score_str"]}" : nil
   end
 
 end

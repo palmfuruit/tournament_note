@@ -23,6 +23,18 @@
       <%= select_tag :num_of_teams, options_for_select(1..MAX_TEAMS, 4), { class: "form-control" } %>
     </div>
 
+    <hr>
+    <p class="text-secondary mb-4">
+      <span><i class="bi bi-diamond-fill"></i></span>
+      詳細設定
+    </p>
+
+    <%# スコア有無 %>
+    <div class="form-check mb-4">
+      <%= form.check_box :has_score, { class: 'form-check-input' } %>
+      <%= form.label :has_score, "スコアを記録", class: "form-check-label" %>
+    </div>
+
     <%# 作成ボタン %>
     <div class="d-flex mt-4 justify-content-end">
       <div class="bg-white">

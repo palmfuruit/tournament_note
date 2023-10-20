@@ -4,5 +4,5 @@ end
 
 Capybara.default_max_wait_time = 2
 Capybara.add_selector(:test_id) do
-  css { |val| %Q([data-testid="#{val}"]) }
+  css { |val| %Q([data-testid*="#{val}"]) }
 end

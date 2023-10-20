@@ -10,9 +10,16 @@ class Game < ApplicationRecord
   validates :win_team_id, presence: true
   validates :a_score_num, numericality: { only_integer: true, in: 0..999 }
   validates :b_score_num, numericality: { only_integer: true, in: 0..999 }
+  validates :a_score_str, length: { maximum: 8 }
+  validates :b_score_str, length: { maximum: 8 }
+
 
   def has_score_num?
     tournament.roundrobin? && tournament.roundrobin.has_score
+  end
+
+  def has_score_str?
+    tournament.elimination? && tournament.elimination.has_score
   end
 
 end
