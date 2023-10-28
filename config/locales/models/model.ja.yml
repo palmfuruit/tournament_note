@@ -22,8 +22,10 @@ ja:
         lose_team_id: 負けチーム
         a_result: Aチーム結果
         b_result: Bチーム結果
-        a_score: Aチーム得点
-        b_score: Bチーム得点
+        a_score_num: Aチーム得点
+        b_score_num: Bチーム得点
+        a_score_str: Aチーム得点
+        b_score_str: Bチーム得点
     errors:
       models:
         game:

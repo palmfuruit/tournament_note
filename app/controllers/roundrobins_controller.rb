@@ -39,7 +39,7 @@ class RoundrobinsController < ApplicationController
 
     @teams = @roundrobin.teams.order(:entryNo).map(&:attributes)
     @games = @roundrobin.games.map(&:attributes)
-    @ranking = rank(teams: @teams, games: @games, rank_conditions: [@roundrobin.rank1, "none", "none", "none"])
+    @ranking = rank(teams: @teams, games: @games, rank_conditions: [@roundrobin.rank1, @roundrobin.rank2, @roundrobin.rank3, @roundrobin.rank4])
   end
 
   def new
@@ -104,7 +104,7 @@ class RoundrobinsController < ApplicationController
   private
 
   def roundrobin_params
-    ret_p = params.require(:roundrobin).permit(:name, :num_of_round, :rank1)
+    ret_p = params.require(:roundrobin).permit(:name, :has_score, :num_of_round, :rank1, :rank2, :rank3, :rank4)
     if ret_p[:name].blank?
       ret_p[:name] = "#{Date.today}"
     end
@@ -125,15 +125,14 @@ class RoundrobinsController < ApplicationController
         'wins_count' => wins_count(team["id"], games),
         'draws_count' => draws_count(team["id"], games),
         'loses_count' => loses_count(team["id"], games),
-        # 'total_goals' => total_goals(team["id"], games),
-        # 'total_goals_against' => total_goals_against(team["id"], games),
+        'total_goals' => total_goals(team["id"], games),
+        'total_against_goals' => total_against_goals(team["id"], games),
       }
     end
     ranking.each do |rank|
       rank['win_points'] = (rank['wins_count'] * 3) + rank['draws_count']
       rank['win_rate'] = (rank['wins_count'] + rank['loses_count'] == 0) ? 0 : (rank['wins_count'] * 100 / (rank['wins_count'] + rank['loses_count']))
-      # rank['goal_diff'] = rank['total_goals'] - rank['total_goals_against']
-      # rank['goal_rate'] = (rank['total_goals_against'] == 0) ? Float::MAX : (rank['total_goals'].to_f / rank['total_goals_against'].to_f)
+      rank['goal_diff'] = rank['total_goals'] - rank['total_against_goals']
     end
 
     # 優先1〜4 繰り返す
@@ -193,6 +192,18 @@ class RoundrobinsController < ApplicationController
 
   def loses_count(team, games)
     games.count { |game| (game['a_team_id'] == team && game['a_result'] == 'LOSE') || (game['b_team_id'] == team && game['b_result'] == 'LOSE') }
+  end
+
+  def total_goals(team, games)
+    score_a = games.select { |game| game['a_team_id'] == team }.sum { |game| game['a_score_num'] }
+    score_b = games.select { |game| game['b_team_id'] == team }.sum { |game| game['b_score_num'] }
+    score_a + score_b
+  end
+
+  def total_against_goals(team, games)
+    score_a = games.select { |game| game['a_team_id'] == team }.sum { |game| game['b_score_num'] }
+    score_b = games.select { |game| game['b_team_id'] == team }.sum { |game| game['a_score_num'] }
+    score_a + score_b
   end
 
 end

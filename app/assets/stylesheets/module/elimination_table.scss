@@ -10,15 +10,21 @@
   }
 
   .game-cell {
-    background-color: ivory;
+    background-color: var(--bg-color-data);
 
     a {
       display: flex;
+      justify-content: center;
+      //align-items: flex-start(b_score) or flex-end(a_score);
       color: black;
       height: 100%;
       width: 100%;
       text-decoration: none;
     }
+  }
+
+  .team-name-cell {
+    background-color: var(--bg-color-header);
   }
 
   tr, th, td {
@@ -27,6 +33,23 @@
 
   th, td {
     padding: 0;
+  }
+
+  .a-score-cell {
+    vertical-align: bottom;
+    a {
+      align-items: flex-end;
+    }
+  }
+  .b-score-cell {
+    vertical-align: top;
+    a {
+      align-items: flex-start;
+    }
+  }
+  .score {
+    font-size: 0.8em;
+    padding: 2px;
   }
 
   // 列幅
@@ -44,8 +67,8 @@
   }
 
   th:nth-last-child(2) {
-    width: 1.5rem;
-    min-width: 1.5rem;
+    width: 2rem;
+    min-width: 2rem;
   }
 
   th:nth-last-child(1) {

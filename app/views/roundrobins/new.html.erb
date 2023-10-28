@@ -1,7 +1,7 @@
 <% provide(:title, @roundrobin.name) %>
 
 <div class="container-lg my-3">
-  <h1 class="mb-5">新しいリーグ</h1>
+  <h1 class="mb-5">リーグ表作成</h1>
 </div>
 
 
@@ -21,6 +21,37 @@
     <div class="mb-4">
       <%= label_tag :num_of_teams, "参加チーム数", class: "form-control-label" %>
       <%= select_tag :num_of_teams, options_for_select(1..MAX_TEAMS, 4), { class: "form-control" } %>
+    </div>
+
+    <hr>
+    <p class="text-secondary mb-4">
+      <span><i class="bi bi-diamond-fill"></i></span>
+      詳細設定
+    </p>
+
+    <%# スコア有無 %>
+    <div class="form-check mb-4">
+      <%= form.check_box :has_score, { class: 'form-check-input' } %>
+      <%= form.label :has_score, "スコアを記録", class: "form-check-label" %>
+    </div>
+
+    <%# Round数 %>
+    <div class="mb-4">
+      <div>
+        <%= form.label(:num_of_round, " 対戦数", class: "form-control-label") %>
+        <div class="d-flex flex-row align-items-end gap-2">
+          <%= form.select :num_of_round, options_for_select(1..10, @roundrobin.num_of_round), {}, { class: "form-control w-25" } %>
+          <span> 周</span>
+        </div>
+      </div>
+    </div>
+
+    <%# 順位判定条件 %>
+    <div class="row mb-4">
+      <%= div_tag__ranking_conditions(form: form, priority: 1, items: ['win_points', 'win_rate', 'goal_diff', 'total_goals']) %>
+      <%= div_tag__ranking_conditions(form: form, priority: 2, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
+      <%= div_tag__ranking_conditions(form: form, priority: 3, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
+      <%= div_tag__ranking_conditions(form: form, priority: 4, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
     </div>
 
     <%# 作成ボタン %>

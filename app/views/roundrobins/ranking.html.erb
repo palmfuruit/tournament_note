@@ -10,10 +10,10 @@
   </div>
 
 <% else %>
-  <div class="bg-light">
+  <div class="bg-white">
     <div class="container-lg my-3 py-3">
         <%= render partial: "roundrobins/ranking_table",
-                   locals: { ranking: @ranking, teams: @teams } %>
+                   locals: { roundrobin: @roundrobin, ranking: @ranking, teams: @teams } %>
     </div>
   </div>
 

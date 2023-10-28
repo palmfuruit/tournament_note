@@ -16,6 +16,12 @@
         <%= form.text_field(:name, class: "form-control", placeholder: "(空の場合は、本日の日付が入ります。)") %>
       </div>
 
+      <%# スコア有無 %>
+      <div class="form-check mb-4">
+        <%= form.check_box :has_score, { class: 'form-check-input' } %>
+        <%= form.label :has_score, "スコアを記録", class: "form-check-label" %>
+      </div>
+
       <%# Round数 %>
       <div class="mb-4">
         <div>
@@ -28,12 +34,11 @@
       </div>
 
       <%# 順位判定条件 %>
-      <div class="mb-4">
-        <%= div_tag__ranking_conditions(form: form, priority: 1, items: ['win_points', 'win_rate']) %>
-        <%#= div_tag__ranking_conditions(form: tournament_form, priority: 1, items: ['win_points', 'win_rate', 'goal_diff', 'goal_rate', 'total_goals']) %>
-        <%#= div_tag__ranking_conditions(form: tournament_form, priority: 2, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'goal_rate', 'total_goals', 'head_to_head']) %>
-        <%#= div_tag__ranking_conditions(form: tournament_form, priority: 3, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'goal_rate', 'total_goals', 'head_to_head']) %>
-        <%#= div_tag__ranking_conditions(form: tournament_form, priority: 4, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'goal_rate', 'total_goals', 'head_to_head']) %>
+      <div class="row mb-4">
+        <%= div_tag__ranking_conditions(form: form, priority: 1, items: ['win_points', 'win_rate', 'goal_diff', 'total_goals']) %>
+        <%= div_tag__ranking_conditions(form: form, priority: 2, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
+        <%= div_tag__ranking_conditions(form: form, priority: 3, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
+        <%= div_tag__ranking_conditions(form: form, priority: 4, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
       </div>
 
       <%# 更新ボタン %>

@@ -3,55 +3,92 @@ require 'rails_helper'
 RSpec.describe "リーグ戦試合", type: :system do
 
   describe "試合結果更新" do
-    let!(:roundrobin) { create(:roundrobin, :with_teams, num_of_teams: 4) }
+    context "スコアなし" do
+      let!(:roundrobin) { create(:roundrobin, :with_teams, num_of_teams: 4) }
 
-    example do
-      team1 = roundrobin.teams[0]
-      team2 = roundrobin.teams[1]
+      example do
+        teams = roundrobin.teams.order(:entryNo)
+        team1 = teams[0]
+        team2 = teams[1]
 
-      # 試合結果の登録
-      visit roundrobin_path(roundrobin)
+        # 試合結果の登録
+        visit roundrobin_path(roundrobin)
 
-      expect(page).to have_selector 'h1', text: roundrobin.name
-      find('#game-1-2 a').click
+        expect(page).to have_selector 'h1', text: roundrobin.name
+        find('#game-1-2 a').click
 
-      expect(page).to have_content "#{team1.name} vs #{team2.name}"
-      expect(page).not_to have_content "リセット"
-      click_on "更新"
+        expect(page).to have_field team1.name
+        expect(page).to have_field team2.name
+        expect(page).not_to have_content "リセット"
+        click_on "更新"
 
-      expect(page).to have_content "勝利チームを選択してください"
-      choose(team1.name)
-      click_on "更新"
+        expect(page).to have_content "勝利チームを選択してください"
+        choose(team1.name)
+        click_on "更新"
 
-      expect(page).not_to have_content "#{team1.name} vs #{team2.name}"
-      expect(find('#game-1-2')).to have_mark('win')
-      expect(find('#game-2-1')).to have_mark('lose')
+        expect(page).not_to have_field team1.name
+        expect(page).not_to have_field team2.name
+        expect(find('#game-1-2')).to have_mark('win')
+        expect(find('#game-2-1')).to have_mark('lose')
 
-      # 試合結果の更新
-      find('#game-2-1 a').click
-      expect(page).to have_content "#{team2.name} vs #{team1.name}"
-      expect(page).to have_content "リセット"
-      expect(page).to have_checked_field(team1.name)
+        # 試合結果の更新
+        find('#game-2-1 a').click
+        expect(page).to have_field team2.name
+        expect(page).to have_field team1.name
+        expect(page).to have_content "リセット"
+        expect(page).to have_checked_field(team1.name)
 
-      choose('引き分け')
-      click_on "更新"
+        choose('引き分け')
+        click_on "更新"
 
-      expect(page).not_to have_content "#{team2.name} vs #{team1.name}"
-      expect(find('#game-1-2')).to have_mark('draw')
-      expect(find('#game-2-1')).to have_mark('draw')
+        expect(page).not_to have_field team2.name
+        expect(page).not_to have_field team1.name
+        expect(find('#game-1-2')).to have_mark('draw')
+        expect(find('#game-2-1')).to have_mark('draw')
 
-      # 試合結果のリセット
-      find('#game-2-1 a').click
-      expect(page).to have_content "#{team2.name} vs #{team1.name}"
-      expect(page).to have_content "リセット"
-      expect(page).to have_checked_field('引き分け')
+        # 試合結果のリセット
+        find('#game-2-1 a').click
+        expect(page).to have_field team2.name
+        expect(page).to have_field team1.name
+        expect(page).to have_content "リセット"
+        expect(page).to have_checked_field('引き分け')
 
-      page.accept_confirm do
-        click_on 'リセット'
+        page.accept_confirm do
+          click_on 'リセット'
+        end
+        expect(page).not_to have_field team2.name
+        expect(page).not_to have_field team1.name
+        expect(find('#game-1-2')).not_to have_mark('')
+        expect(find('#game-2-1')).not_to have_mark('')
       end
-      expect(page).not_to have_content "#{team2.name} vs #{team1.name}"
-      expect(find('#game-1-2')).not_to have_mark('')
-      expect(find('#game-2-1')).not_to have_mark('')
+    end
+
+    context "スコアあり" do
+      let!(:roundrobin) { create(:roundrobin, :with_teams, num_of_teams: 4, has_score: true) }
+
+      example do
+        teams = roundrobin.teams.order(:entryNo)
+        team1 = teams[0]
+        team2 = teams[1]
+
+        # 試合結果の登録
+        visit roundrobin_path(roundrobin)
+
+        expect(page).to have_selector 'h1', text: roundrobin.name
+        find('#game-1-2 a').click
+
+        fill_in 'game_a_score_num', with: '3'
+        fill_in 'game_b_score_num', with: '2'
+        choose(team1.name)
+        click_on "更新"
+
+        expect(page).not_to have_field team1.name
+        expect(page).not_to have_field team2.name
+        expect(find('#game-1-2')).to have_mark('win')
+        expect(find('#game-1-2')).to have_content('3 - 2')
+        expect(find('#game-2-1')).to have_mark('lose')
+        expect(find('#game-2-1')).to have_content('2 - 3')
+      end
     end
   end
 
@@ -60,10 +97,11 @@ RSpec.describe "リーグ戦試合", type: :system do
 
     context 'Round1 1試合実施' do
       before do
-        @team1 = roundrobin.teams[0]
-        @team2 = roundrobin.teams[1]
-        @team3 = roundrobin.teams[2]
-        @team4 = roundrobin.teams[3]
+        teams = roundrobin.teams.order(:entryNo)
+        @team1 = teams[0]
+        @team2 = teams[1]
+        @team3 = teams[2]
+        @team4 = teams[3]
 
         roundrobin.games.create(round: 1, gameNo: nil, a_team: @team1, b_team: @team2, win_team: @team1, lose_team: @team2, a_result: 'WIN', b_result: 'LOSE')
         roundrobin.games.create(round: 2, gameNo: nil, a_team: @team1, b_team: @team2, win_team: @team2, lose_team: @team1, a_result: 'LOSE', b_result: 'WIN')
@@ -89,7 +127,8 @@ RSpec.describe "リーグ戦試合", type: :system do
 
         # 試合結果の更新
         find('#game-3-4 a').click
-        expect(page).to have_content "#{@team3.name} vs #{@team4.name}"
+        expect(page).to have_field @team3.name
+        expect(page).to have_field @team4.name
         choose(@team3.name)
         click_on "更新"
 
@@ -103,15 +142,16 @@ RSpec.describe "リーグ戦試合", type: :system do
 
         # 試合結果のリセット
         find('#game-3-4 a').click
-        expect(page).to have_content "#{@team3.name} vs #{@team4.name}"
+        expect(page).to have_field @team3.name
+        expect(page).to have_field @team4.name
         expect(page).to have_content "リセット"
         expect(page).to have_checked_field(@team3.name)
 
         page.accept_confirm do
           click_on 'リセット'
         end
-        expect(page).not_to have_content "#{@team3.name} vs #{@team4.name}"
-
+        expect(page).not_to have_field @team3.name
+        expect(page).not_to have_field @team4.name
 
         expect(page).to have_content "Round 2 / 2"
         expect(page).to have_select('round', selected: 'Round 2　(1試合)')

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023000005) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_10_105302) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023000005) do
     t.string "tournament_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "has_score", default: false
     t.index ["tournament_id"], name: "index_eliminations_on_tournament_id"
   end
 
@@ -32,10 +33,12 @@ ActiveRecord::Schema[7.0].define(version: 2023000005) do
     t.string "lose_team_id"
     t.string "a_result", limit: 4
     t.string "b_result", limit: 4
-    t.string "a_score", limit: 16
-    t.string "b_score", limit: 16
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "a_score_num", default: 0
+    t.integer "b_score_num", default: 0
+    t.string "a_score_str"
+    t.string "b_score_str"
     t.index ["tournament_id"], name: "index_games_on_tournament_id"
   end
 
@@ -46,6 +49,10 @@ ActiveRecord::Schema[7.0].define(version: 2023000005) do
     t.integer "rank1", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "has_score", default: false
+    t.integer "rank2", default: 0
+    t.integer "rank3", default: 0
+    t.integer "rank4", default: 0
     t.index ["tournament_id"], name: "index_roundrobins_on_tournament_id"
   end
 

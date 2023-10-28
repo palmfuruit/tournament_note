@@ -10,7 +10,15 @@
   </div>
 
 <% else %>
-  <div class="bg-light py-3">
+
+  <div class="container-lg">
+    <p>
+      <i class="bi bi-info-circle" style="color: goldenrod"></i>
+      対象の試合(黄色)をクリックして、試合結果を更新します。
+    </p>
+  </div>
+
+  <div class="bg-white border border-dark py-3">
     <div id="elimination-table-wrapper" class="container-lg elimination-table-wrapper">
       <%= render partial: "eliminations/main_race",
                  locals: { elimination: @elimination, teams: @teams, games: @games, round_offset: 0, final_round: @elimination.final_round, seed_table: @elimination.seed_table } %>

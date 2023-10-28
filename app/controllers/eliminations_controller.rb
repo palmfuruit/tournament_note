@@ -78,7 +78,7 @@ class EliminationsController < ApplicationController
   private
 
   def elimination_params
-    ret_p = params.require(:elimination).permit(:name)
+    ret_p = params.require(:elimination).permit(:name, :has_score)
     if ret_p[:name].blank?
       ret_p[:name] = "#{Date.today}"
     end
