@@ -74,7 +74,6 @@
       top: 0;
       z-index: 1;
     }
-
     th:first-child {
       z-index: 2;
     }
@@ -95,7 +94,11 @@
     background-color: var(--bg-color-header);
     vertical-align: middle;
   }
+  th:nth-child(2) {
+    min-width: 6.0rem;
+  }
   td {
+    padding: 0.25rem;
     background-color: var(--bg-color-data);
     vertical-align: middle;
   }
