@@ -1,1 +1,5 @@
-<%= turbo_stream.update @team  %>
+<%= turbo_stream.update @team %>
+
+<%= turbo_stream.update "teams_names_tag" do %>
+  <%= render partial: "teams/teams_names", locals: { teams_names: @teams_names } %>
+<% end %>

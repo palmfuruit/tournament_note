@@ -28,7 +28,7 @@
       <% if @tournament.teams.present? && @tournament.games.empty? %>
         <%= link_to shuffle_tournament_teams_path(@tournament),
                     class: "btn btn-outline-main",
-                    data: { "turbo-method": :post, turbo_confirm: "参加チームの配置をシャッフルします。", turbo_frame: "teams" } do %>
+                    data: { "turbo-method": :post, turbo_confirm: "参加チームの配置をシャッフルします。", turbo_frame: "_top" } do %>
           <i class="bi bi-shuffle"></i> シャッフル
         <% end %>
       <% end %>
@@ -42,13 +42,33 @@
 
   <% if @teams.present? %>
     <%= turbo_frame_tag "teams" do %>
-      <div class="d-grid gap-0 nameplate-cover">
+      <div class="d-grid gap-0 nameplate-cover mb-3">
         <%= render @teams %>
       </div>
     <% end %>
 
   <% else %>
-    <div class="alert alert-warning">参加チームは未登録です</div>
+    <div class="alert alert-warning mb-3">参加チームは未登録です</div>
+  <% end %>
+
+  <%# 一括アップデート %>
+  <% if @tournament.games.empty? %>
+    <div class="mt-5">
+      <%= form_with(url: bulk_update_tournament_teams_path(@tournament), data: { turbo_frame: "_top" }) do |form| %>
+        <%= turbo_frame_tag "bulk_update_error" %>
+        <%= turbo_frame_tag "teams_names_tag" do %>
+          <%= render "teams_names", { teams_names: @teams_names } %>
+        <% end %>
+
+        <div class="d-flex mt-2 gap-1 justify-content-end">
+          <%= form.submit('一括更新', class: "btn btn-outline-main") %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 
 </div>
+
+
+
+

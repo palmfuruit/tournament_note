@@ -5,10 +5,11 @@ module ApplicationHelper
     page_title.empty? ? base_title : "#{page_title} | #{base_title}"
   end
 
-  def form_error_notification(object)
+  def form_error_notification(object, name: nil)
     if object.errors.any?
       tag.div id: "error_explanation", class: "alert alert-danger" do
         concat tag.h5 pluralize(object.errors.count, "error")
+        concat tag.p(name, class:"mb-0") if name
         concat(tag.ul {
           object.errors.full_messages.each do |message|
             concat tag.li message
@@ -21,11 +22,11 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: 'Tournament Note',
-      title: 'トーナメント表/リーグ表の作成・共有 Webアプリ',
+      title: 'トーナメント表/リーグ表の作成・共有',
       reverse: true,
       charset: 'utf-8',
-      description: 'トーナメント表、リーグ表を無料で作成・共有するWebアプリです。スマホのブラウザから簡単に作成できます。スポーツやゲームの記録、進行管理に。',
-      keywords: 'トーナメント表,リーグ表,対戦表,ドロー表,アプリ,ツール,Webサービス',
+      description: 'トーナメント表、リーグ表を無料で作成・共有するWebアプリです。スマホのブラウザで簡単に作成できます。スポーツやゲームの記録、進行管理に。',
+      keywords: 'トーナメント,リーグ,対戦表,ドロー表,アプリ,ツール,Webサービス,Tournament,Elimination,Roundrobin',
       separator: '|',
       og: {
         site_name: :site,

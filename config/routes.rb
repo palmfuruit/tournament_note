@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :tournaments, only: [:index] do
     resources :teams,except: :show do
       post :shuffle, on: :collection
+      post :bulk_update, on: :collection
     end
     resources :games
   end
