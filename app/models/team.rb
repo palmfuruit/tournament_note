@@ -11,7 +11,7 @@ class Team < ApplicationRecord
 
   def max_num_of_teams
     if tournament && tournament.teams.count >= MAX_TEAMS
-      errors.add :base, :max_teams, message: "登録可能なチーム数を超えています。"
+      errors.add :base, :max_teams, message: "#{MAX_TEAMS}チームを超えています。"
     end
   end
 end

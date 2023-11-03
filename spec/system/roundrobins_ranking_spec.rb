@@ -6,10 +6,11 @@ RSpec.describe "リーグ順位表", type: :system do
 
     let!(:roundrobin) { create(:roundrobin, :with_teams, num_of_teams: 4, rank1: :win_points) }
     before do
-      @team1 = roundrobin.teams[0]
-      @team2 = roundrobin.teams[1]
-      @team3 = roundrobin.teams[2]
-      @team4 = roundrobin.teams[3]
+      teams = roundrobin.teams.order(:entryNo)
+      @team1 = teams[0]
+      @team2 = teams[1]
+      @team3 = teams[2]
+      @team4 = teams[3]
 
       roundrobin.games.create(round: 1, gameNo: nil, a_team: @team1, b_team: @team2, win_team: @team1, lose_team: @team2, a_result: 'WIN', b_result: 'LOSE')
       roundrobin.games.create(round: 1, gameNo: nil, a_team: @team1, b_team: @team3, win_team: @team1, lose_team: @team3, a_result: 'WIN', b_result: 'LOSE')

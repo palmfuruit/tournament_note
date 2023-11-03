@@ -5,20 +5,51 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
   context "チーム登録済" do
     let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 4) }
     before do
+      teams = elimination.teams.order(:entryNo)
+      @team1 = teams[0]
+      @team2 = teams[1]
+      @team3 = teams[2]
+      @team4 = teams[3]
+
       visit tournament_teams_path(elimination.tournament)
     end
 
-    example '名前変更' do
-      team1 = elimination.teams[0]
+    example '一括更新' do
+      expect(page).to have_field 'teams_names', with: "#{@team1.name}\n#{@team2.name}\n#{@team3.name}\n#{@team4.name}"
 
+      fill_in 'teams_names', with: "ルフィ\nゾロ\nナミ\nサンジ\nウソップ\nチョッパー"
+      click_on '一括更新'
+
+      expect(page).to have_content "6チーム"
+      expect(find('#teams')).to have_content "ルフィ"
+      expect(page).to have_field 'teams_names', with: "ルフィ\nゾロ\nナミ\nサンジ\nウソップ\nチョッパー"
+    end
+
+    example '一括更新エラー' do
+      expect(page).to have_field 'teams_names', with: "#{@team1.name}\n#{@team2.name}\n#{@team3.name}\n#{@team4.name}"
+
+      fill_in 'teams_names', with: "ルフィ\nゾロナミサンジウソップチョッパー"
+      click_on '一括更新'
+
+      expect(find('#error_explanation')).to have_content "error"
+
+      # 一括更新前の状態
+      visit tournament_teams_path(elimination.tournament)
       expect(page).to have_content "4チーム"
-      expect(page).to have_content team1.name
+      expect(page).to have_field 'teams_names', with: "#{@team1.name}\n#{@team2.name}\n#{@team3.name}\n#{@team4.name}"
+    end
+
+
+    example '名前変更' do
+      expect(page).to have_content "4チーム"
+      expect(page).to have_content @team1.name
 
       # 名前変更
       click_on "変更", match: :first
       fill_in "チーム名", with: "NewName"
       find(:test_id, 'ok').click
       expect(page).to have_content "NewName"
+      expect(page).to have_field 'teams_names', with: "NewName\n#{@team2.name}\n#{@team3.name}\n#{@team4.name}"
     end
 
     example '追加' do
@@ -27,29 +58,28 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
       find(:test_id, 'ok').click
       expect(page).to have_content "5チーム"
       expect(page).to have_content "新しいチーム"
+      expect(page).to have_field 'teams_names', with: "#{@team1.name}\n#{@team2.name}\n#{@team3.name}\n#{@team4.name}\n新しいチーム"
     end
 
     example '削除' do
-      team2 = elimination.teams[1]
-
       page.accept_confirm do
         click_on '削除', match: :first
       end
       expect(page).to have_content "3チーム"
-      expect(page).to have_content team2.name
+      expect(page).to_not have_content @team1.name
       expect(page).to have_content "変更", count: 3
+      expect(page).to have_field 'teams_names', with: "#{@team2.name}\n#{@team3.name}\n#{@team4.name}"
+
     end
 
     it '変更キャンセル' do
-      team1 = elimination.teams[0]
-
       click_on "変更", match: :first
       expect(page).to have_content "変更", count: 3
       fill_in "チーム名", with: "NewName"
       find(:test_id, 'cancel').click
 
       expect(page).to_not have_content "NewName"
-      expect(page).to have_content team1.name
+      expect(page).to have_content @team1.name
     end
   end
 
@@ -81,6 +111,7 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
       visit tournament_teams_path(elimination.tournament)
       expect(page).to_not have_link "追加"
       expect(page).to_not have_link "削除"
+      expect(page).to_not have_field 'teams_names'
     end
   end
 
@@ -139,10 +170,11 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
     context "トーナメント/リーグ開始前" do
       let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 4) }
       before do
-        @team1 = elimination.teams[0]
-        @team2 = elimination.teams[1]
-        @team3 = elimination.teams[2]
-        @team4 = elimination.teams[3]
+        teams = elimination.teams.order(:entryNo)
+        @team1 = teams[0]
+        @team2 = teams[1]
+        @team3 = teams[2]
+        @team4 = teams[3]
       end
 
       example 'シャッフル後に、各チームが表示されている' do
@@ -153,10 +185,22 @@ RSpec.describe "トーナメントの参加チーム", type: :system do
           click_on 'シャッフル'
         end
 
-        expect(page).to have_content @team1.name
-        expect(page).to have_content @team2.name
-        expect(page).to have_content @team3.name
-        expect(page).to have_content @team4.name
+        expect(page).to have_content "4チーム"
+        # 一覧画面
+        expect(find('#teams')).to have_content @team1.name, count: 1
+        expect(find('#teams')).to have_content @team2.name, count: 1
+        expect(find('#teams')).to have_content @team3.name, count: 1
+        expect(find('#teams')).to have_content @team4.name, count: 1
+
+        # 一括変更 Text Area
+        expect(find('#teams_names_tag')).to have_content @team1.name, count: 1
+        expect(find('#teams_names_tag')).to have_content @team2.name, count: 1
+        expect(find('#teams_names_tag')).to have_content @team3.name, count: 1
+        expect(find('#teams_names_tag')).to have_content @team4.name, count: 1
+
+        new_teams = elimination.teams.order(:entryNo)
+        expect(page).to have_field 'teams_names', with: "#{new_teams[0].name}\n#{new_teams[1].name}\n#{new_teams[2].name}\n#{new_teams[3].name}"
+
       end
     end
 

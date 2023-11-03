@@ -2,6 +2,7 @@ class TeamsController < ApplicationController
   def index
     @tournament = Tournament.find_by(id: params[:tournament_id])
     @teams = @tournament.teams&.order(:entryNo)
+    @teams_names = @teams.pluck(:name).join("\n")
   end
 
   def new
@@ -31,10 +32,39 @@ class TeamsController < ApplicationController
     @team = Team.find_by(id: params[:id])
 
     if @team.update(team_params)
-      # redirect_to elimination_teams_path(@elimination)
+      @teams = @tournament.teams&.order(:entryNo)
+      @teams_names = @teams.pluck(:name).join("\n")
+      # redirect_to tournament_teams_path(@tournament)
     else
       render 'form_update', status: :unprocessable_entity
     end
+  end
+
+  def bulk_update
+    @tournament = Tournament.find_by(id: params[:tournament_id])
+    @teams = @tournament.teams&.order(:entryNo)
+    @teams_names = params[:teams_names].split("\n")
+
+    ActiveRecord::Base.transaction do
+      @teams.delete_all
+      @teams_names.each do |team_name|
+        next if team_name.blank? # 空行は無視
+        @team = @tournament.teams.new(name: team_name)
+        # 更新成功確認
+        if !(@team.save)
+          @error_team = @team
+          render 'bulk_update', status: :unprocessable_entity and return
+          raise ActiveRecord::Rollback
+        end
+      end
+      @tournament.set_entryNo
+    end
+
+    # logger.debug("=============================")
+    # logger.debug(@teams_names.to_yaml)
+    # logger.debug("=============================")
+
+    redirect_to tournament_teams_path(@tournament)
   end
 
   def destroy
@@ -59,8 +89,7 @@ class TeamsController < ApplicationController
     end
     @teams = @tournament.teams&.order(:entryNo)
 
-
-    render 'index'
+    redirect_to tournament_teams_path(@tournament)
   end
 
   private
