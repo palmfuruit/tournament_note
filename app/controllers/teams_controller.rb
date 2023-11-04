@@ -43,13 +43,12 @@ class TeamsController < ApplicationController
   def bulk_update
     @tournament = Tournament.find_by(id: params[:tournament_id])
     @teams = @tournament.teams&.order(:entryNo)
-    @teams_names = params[:teams_names].split("\n")
+    @teams_names = params[:teams_names].split("\n").reject { |name| name.blank? }
 
     ActiveRecord::Base.transaction do
       @teams.delete_all
-      @teams_names.each do |team_name|
-        next if team_name.blank? # 空行は無視
-        @team = @tournament.teams.new(name: team_name)
+      @teams_names.each.with_index(1) do |team_name, i|
+        @team = @tournament.teams.new(name: team_name, entryNo: i)
         # 更新成功確認
         if !(@team.save)
           @error_team = @team
@@ -57,7 +56,6 @@ class TeamsController < ApplicationController
           raise ActiveRecord::Rollback
         end
       end
-      @tournament.set_entryNo
     end
 
     # logger.debug("=============================")
