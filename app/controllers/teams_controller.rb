@@ -49,12 +49,7 @@ class TeamsController < ApplicationController
       @teams.delete_all
       @teams_names.each.with_index(1) do |team_name, i|
         @team = @tournament.teams.new(name: team_name, entryNo: i)
-        # 更新成功確認
-        if !(@team.save)
-          @error_team = @team
-          render 'bulk_update', status: :unprocessable_entity and return
-          raise ActiveRecord::Rollback
-        end
+        @team.save!
       end
     end
 
@@ -62,7 +57,11 @@ class TeamsController < ApplicationController
     # logger.debug(@teams_names.to_yaml)
     # logger.debug("=============================")
 
-    redirect_to tournament_teams_path(@tournament)
+    redirect_to tournament_teams_path(@tournament) and return
+
+  rescue ActiveRecord::RecordInvalid
+    render 'bulk_update', status: :unprocessable_entity and return
+
   end
 
   def destroy
