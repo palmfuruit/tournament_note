@@ -22,13 +22,14 @@
   border-collspace: separate;
 
   tr {
-    height: 5rem; // 試合結果がある行とない行の高さを合わせる。
+    height: 4.0rem; // 試合結果がある行とない行の高さを合わせる。
   }
 
   th {
     padding: 0;
-    width: 4.5rem; // チーム名は最大2行で収まる幅。
-    min-width: 4.5rem;
+    font-size: 0.9rem;
+    width: 4.0rem; // チーム名は最大2行で収まる幅。
+    min-width: 4.0rem;
     font-weight: bold;
     color: black;
     background-color: var(--bg-color-header);
@@ -50,10 +51,10 @@
       text-decoration: none;
     }
     i {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
     }
     .score {
-      font-size: 1.2rem;
+      font-size: 1.0rem;
       font-weight: bold;
       color: $gray-600
     }
