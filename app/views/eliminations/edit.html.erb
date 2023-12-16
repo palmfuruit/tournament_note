@@ -22,6 +22,14 @@
         <%= form.label :has_score, "スコアを記録", class: "form-check-label" %>
       </div>
 
+      <%# 管理者パスワード %>
+      <div class="mb-4">
+        <%= form.label(:password, "管理者パスワード", class: "form-control-label") %>
+        <% tooltip_title = "トーナメント表を共有する相手に更新を許可しない場合、本パスワードを設定してください。" %>
+        <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title=<%= tooltip_title %>><i class="bi bi-question-square-fill"></i></span>
+        <%= form.text_field(:password, class: "form-control") %>
+      </div>
+
       <%# 更新ボタン %>
       <div class="d-flex mt-4 justify-content-end">
         <div class="bg-white">

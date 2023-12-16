@@ -12,10 +12,14 @@
 <% else %>
   <div class="bg-white">
     <div class="container-lg my-3 py-3">
-      <p>
-        <i class="bi bi-info-circle" style="color: goldenrod"></i>
-        対象の試合(黄色)をクリックして、試合結果を更新します。
-      </p>
+
+      <% if tournament_owner?(@roundrobin.tournament) %>
+        <p>
+          各試合をクリックして、試合結果を更新可能。
+          <% tooltip_title = "下のリーグ表の各試合(薄い黄色部分)をクリック" %>
+          <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title=<%= tooltip_title %>><i class="bi bi-question-square-fill"></i></span>
+        </p>
+      <% end %>
 
       <%# Round選択 %>
       <%= turbo_frame_tag "round_select" do %>

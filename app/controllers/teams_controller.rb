@@ -1,4 +1,6 @@
 class TeamsController < ApplicationController
+  before_action :authenticate_owner
+
   def index
     @tournament = Tournament.find_by(id: params[:tournament_id])
     @teams = @tournament.teams&.order(:entryNo)
@@ -94,4 +96,16 @@ class TeamsController < ApplicationController
   def team_params
     params.require(:team).permit(:tournament_id, :name, :color)
   end
+
+  def authenticate_owner
+    tournament = Tournament.find_by(id: params[:tournament_id])
+    unless view_context.tournament_owner?(tournament)
+      if tournament.elimination?
+        redirect_to elimination_path(tournament.elimination)
+      else
+        redirect_to roundrobin_path(tournament.roundrobin)
+      end
+    end
+  end
+
 end

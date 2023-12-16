@@ -24,15 +24,20 @@
     </div>
 
     <hr>
-    <p class="text-secondary mb-4">
-      <span><i class="bi bi-diamond-fill"></i></span>
-      詳細設定
-    </p>
+
 
     <%# スコア有無 %>
     <div class="form-check mb-4">
       <%= form.check_box :has_score, { class: 'form-check-input' } %>
       <%= form.label :has_score, "スコアを記録", class: "form-check-label" %>
+    </div>
+
+    <%# 管理者パスワード %>
+    <div class="mb-4">
+      <%= form.label(:password, "管理者パスワード", class: "form-control-label") %>
+      <% tooltip_title = "トーナメント表を共有する相手に更新を許可しない場合、本パスワードを設定してください。" %>
+      <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title=<%= tooltip_title %>><i class="bi bi-question-square-fill"></i></span>
+      <%= form.text_field(:password, class: "form-control") %>
     </div>
 
     <%# 作成ボタン %>

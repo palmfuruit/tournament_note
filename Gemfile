@@ -19,7 +19,7 @@ gem 'bootstrap5-kaminari-views'
 # gem "bcrypt", "~> 3.1.7"
 
 gem "bootsnap", require: false
-# gem "sassc-rails"
+gem "sassc-rails"
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
@@ -43,11 +43,12 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'show_me_the_cookies'
 end
 
 
 ## 追加
-gem 'bootstrap', '~> 5.3.0.alpha3'
+gem 'bootstrap', '~> 5.3.0'
 gem 'jquery-rails'
 gem 'rails-i18n'
 gem 'dotenv-rails'

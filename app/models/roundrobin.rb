@@ -6,6 +6,7 @@ class Roundrobin < ApplicationRecord
   validates :name, presence: true, length: { maximum: 16 }
   validates :has_score, inclusion: { in: [true, false] }
   validates :num_of_round, numericality: { only_integer: true, in: 1..10 }
+  validates :password, length: { maximum: 16 }
 
   # Constant
   enum rank1: { none: 0, win_points: 1, win_rate: 2, goal_diff: 11, total_goals: 12, head_to_head: 90 }, _prefix: true

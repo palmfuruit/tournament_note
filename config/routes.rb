@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :eliminations, except: :index do
     post :reset, on: :member
     get :share, on: :member
+    get :admin, on: :member
+    post :authentication, on: :member
   end
   get 'index_eliminations' => 'eliminations#index'
 
@@ -15,6 +17,8 @@ Rails.application.routes.draw do
     post :reset, on: :member
     get :ranking, on: :member
     get :share, on: :member
+    get :admin, on: :member
+    post :authentication, on: :member
   end
   get 'index_roundrobins' => 'roundrobins#index'
 

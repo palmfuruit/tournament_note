@@ -1,6 +1,9 @@
 class GamesController < ApplicationController
+  before_action :authenticate_owner
+
   include EliminationsHelper
   include RoundrobinsHelper
+
   def new
     @tournament = Tournament.find_by(id: params[:tournament_id])
     @game = @tournament.games.new
@@ -136,10 +139,20 @@ class GamesController < ApplicationController
         b_result = 'DRAW'
     end
 
-
     params.require(:game).permit(:round, :gameNo, :a_team_id, :b_team_id, :win_team_id, :a_score_num, :b_score_num, :a_score_str, :b_score_str)
           .merge(lose_team_id:, a_result:, b_result:)
 
+  end
+
+  def authenticate_owner
+    tournament = Tournament.find_by(id: params[:tournament_id])
+    unless view_context.tournament_owner?(tournament)
+      if tournament.elimination?
+        redirect_to elimination_path(tournament.elimination)
+      else
+        redirect_to roundrobin_path(tournament.roundrobin)
+      end
+    end
   end
 
 end

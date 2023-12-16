@@ -9,7 +9,7 @@ module ApplicationHelper
     if object.errors.any?
       tag.div id: "error_explanation", class: "alert alert-danger" do
         concat tag.h5 pluralize(object.errors.count, "error")
-        concat tag.p(name, class:"mb-0") if name
+        concat tag.p(name, class: "mb-0") if name
         concat(tag.ul {
           object.errors.full_messages.each do |message|
             concat tag.li message
@@ -96,12 +96,27 @@ module ApplicationHelper
   def b_score_num(game)
     game ? "#{game["b_score_num"]}" : nil
   end
+
   def a_score_str(game)
     game ? "#{game["a_score_str"]}" : nil
   end
 
   def b_score_str(game)
     game ? "#{game["b_score_str"]}" : nil
+  end
+
+  def tournament_owner?(tournament)
+    if tournament.elimination?
+      elimination = tournament.elimination
+      key = "elimination_#{elimination.id}"
+      ret = elimination.password.blank? || cookies[key] == elimination.password
+    else
+      roundrobin = tournament.roundrobin
+      key = "roundrobin_#{roundrobin.id}"
+      ret = roundrobin.password.blank? || cookies[key] == roundrobin.password
+    end
+
+    ret
   end
 
 end

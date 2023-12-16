@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "トーナメント", type: :system do
+  include ApplicationHelper
 
   describe "トーナメント作成" do
     example "デフォルト設定" do
@@ -273,6 +274,69 @@ RSpec.describe "トーナメント", type: :system do
       end
     end
 
+  end
+
+  describe "トーナメント管理者認証" do
+    example do
+      visit root_path
+
+      click_on "トーナメント表作成"
+      expect(page).to have_selector 'h1', text: "トーナメント表作成"
+
+      fill_in '大会名', with: "全米オープン"
+      fill_in '管理者パスワード', with: "PASSWORD"
+      click_on "作成"
+
+      expect(page).to have_selector 'h1', text: "全米オープン"
+      expect(find(:test_id, '1-1-game')).to have_link ''
+      # show_me_the_cookies
+
+      elimination = Elimination.first
+      cookie_name = "elimination_#{elimination.id}"
+      cookie = get_me_the_cookie(cookie_name)
+      expect(cookie[:value]).to eq "PASSWORD"
+
+      # 他のブラウザでは参照専用になっている。
+      delete_cookie(cookie_name)
+      visit elimination_path(elimination)
+
+      expect(page).to_not have_link '設定'
+      expect(page).to_not have_link 'チーム'
+      expect(find(:test_id, '1-1-game')).to_not have_link ''
+
+      # 管理者パスワードの認証
+      click_on "管理者"
+
+      fill_in '管理者パスワード', with: "wrong_pw"
+      click_on "送信"
+      expect(page).to have_content 'パスワードが不一致です'
+
+      fill_in '管理者パスワード', with: "PASSWORD"
+      click_on "送信"
+
+      expect(page).to have_link '設定'
+      expect(page).to have_link 'チーム'
+      expect(find(:test_id, '1-1-game')).to have_link ''
+
+      # 管理者パスワードの変更
+      click_on "設定"
+      fill_in '管理者パスワード', with: "new-pw"
+      click_on "更新"
+
+      expect(page).to have_selector 'h1', text: "全米オープン"
+      expect(find(:test_id, '1-1-game')).to have_link ''
+      cookie = get_me_the_cookie(cookie_name)
+      expect(cookie[:value]).to eq "new-pw"
+
+      # トーナメント削除
+      click_on "設定"
+      click_on "削除"
+
+      page.accept_confirm
+      expect(page).to have_content "トーナメントを削除しました"
+      cookie = get_me_the_cookie(cookie_name)
+      expect(cookie).to eq nil
+    end
   end
 
 end

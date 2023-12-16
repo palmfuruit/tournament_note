@@ -1,4 +1,5 @@
 class RoundrobinsController < ApplicationController
+  before_action :authenticate_owner, only: [:edit, :update, :destroy, :reset]
 
   def index
     @num_of_roundrobins = Roundrobin.all.size
@@ -53,6 +54,8 @@ class RoundrobinsController < ApplicationController
       num_of_teams = params[:num_of_teams].to_i
 
       if @roundrobin.save
+        set_cookie(@roundrobin.id, @roundrobin.password, 'roundrobin')
+
         (1..num_of_teams).each do |i|
           @roundrobin.teams.create(name: "Team#{i}", entryNo: i)
         end
@@ -76,6 +79,8 @@ class RoundrobinsController < ApplicationController
     @roundrobin = Roundrobin.find_by(id: params[:id])
 
     if @roundrobin.update(roundrobin_params)
+      set_cookie(@roundrobin.id, @roundrobin.password, 'roundrobin')
+
       redirect_to roundrobin_path(@roundrobin)
     else
       render 'edit', status: :unprocessable_entity
@@ -85,6 +90,7 @@ class RoundrobinsController < ApplicationController
   def destroy
     @roundrobin = Roundrobin.find_by(id: params[:id])
     @roundrobin.tournament.destroy
+    clear_cookie(@roundrobin.id, 'roundrobin')
 
     redirect_to root_path, flash: { info: 'リーグを削除しました' }
   end
@@ -100,11 +106,35 @@ class RoundrobinsController < ApplicationController
     @roundrobin = Roundrobin.find_by(id: params[:id])
   end
 
+  def admin
+    @roundrobin = Roundrobin.find_by(id: params[:id])
+  end
+
+  def authentication
+    @roundrobin = Roundrobin.find_by(id: params[:id])
+    unless @roundrobin
+      flash[:warning] = "リーグが見つかりません。"
+      redirect_to root_path and return
+    end
+
+    @error_message = nil
+    if @roundrobin.password == params[:password]
+      set_cookie(@roundrobin.id, params[:password], 'roundrobin')
+
+      redirect_to roundrobin_path(@roundrobin)
+    else
+      @error_message = "パスワードが不一致です"
+
+      render 'admin', status: :unprocessable_entity
+    end
+
+  end
+
   ### Private Method
   private
 
   def roundrobin_params
-    ret_p = params.require(:roundrobin).permit(:name, :has_score, :num_of_round, :rank1, :rank2, :rank3, :rank4)
+    ret_p = params.require(:roundrobin).permit(:name, :has_score, :num_of_round, :rank1, :rank2, :rank3, :rank4, :password)
     if ret_p[:name].blank?
       ret_p[:name] = "#{Date.today}"
     end
@@ -204,6 +234,13 @@ class RoundrobinsController < ApplicationController
     score_a = games.select { |game| game['a_team_id'] == team }.sum { |game| game['b_score_num'] }
     score_b = games.select { |game| game['b_team_id'] == team }.sum { |game| game['a_score_num'] }
     score_a + score_b
+  end
+
+  def authenticate_owner
+    roundrobin = Roundrobin.find_by(id: params[:id])
+    unless view_context.tournament_owner?(roundrobin.tournament)
+      redirect_to roundrobin_path(roundrobin)
+    end
   end
 
 end

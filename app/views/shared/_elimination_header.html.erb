@@ -4,9 +4,14 @@
     <p id="elimination-status" class="lead" data-testid="tournament-status"><%= span_tag__status(elimination) %></p>
   </div>
   <div class="btn-group">
-    <%= link_to "設定", edit_elimination_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == '設定'}" %>
-    <%= link_to "チーム", tournament_teams_path(elimination.tournament), class: "btn btn-outline-dark #{'active' if current_page == 'チーム'}" %>
+    <% if tournament_owner?(elimination.tournament) %>
+      <%= link_to "設定", edit_elimination_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == '設定'}" %>
+      <%= link_to "チーム", tournament_teams_path(elimination.tournament), class: "btn btn-outline-dark #{'active' if current_page == 'チーム'}" %>
+    <% end %>
     <%= link_to "トーナメント表", elimination_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == 'トーナメント表'}" %>
     <%= link_to "共有", share_elimination_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == '共有'}" %>
+    <% unless tournament_owner?(elimination.tournament) %>
+      <%= link_to "管理者", admin_elimination_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == '管理者'}" %>
+    <% end %>
   </div>
 </div>

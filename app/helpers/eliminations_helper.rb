@@ -106,14 +106,21 @@ module EliminationsHelper
     str_class = score ? 'score' : nil
 
     if this_game
-      tag.a(href: edit_tournament_game_path(elimination.tournament, this_game["id"], round:, gameNo:), class: str_class, data: { turbo_frame: "modal" }) {
+      path = edit_tournament_game_path(elimination.tournament, this_game["id"], round:, gameNo:)
+    else
+      path = new_tournament_game_path(elimination.tournament, round:, gameNo:)
+    end
+
+    if tournament_owner?(elimination.tournament)
+      tag.a(href: path, class: str_class, data: { turbo_frame: "modal" }) {
         score
       }
     else
-      tag.a(href: new_tournament_game_path(elimination.tournament, round:, gameNo:), class: str_class, data: { turbo_frame: "modal" }) {
+      tag.div(class: str_class) {
         score
       }
     end
+
   end
 
   def exist_first_game?(round, gameNo, seed_table)
@@ -248,7 +255,7 @@ module EliminationsHelper
     if max == 1
       # 2回戦がない (全部で2チーム)
       game = game(games:, round:, gameNo: 1)
-      testid_game= "#{round}-1-game"
+      testid_game = "#{round}-1-game"
 
       tag__tds << tag.td
       tag__tds << tag.td(class: ["game-cell b-top b-right b-bottom", border_top_bottom__a_win_b_win(game)], rowspan: "4", data: { testid: "#{testid_game}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: 1) }
@@ -262,14 +269,13 @@ module EliminationsHelper
         game2_exist = exist_first_game?(1, gameNo2, seed_table)
         game1 = game(games:, round:, gameNo: gameNo1)
         game2 = game(games:, round:, gameNo: gameNo2)
-        testid_game1= "#{round}-#{gameNo1}-game"
-        testid_game2= "#{round}-#{gameNo2}-game"
+        testid_game1 = "#{round}-#{gameNo1}-game"
+        testid_game2 = "#{round}-#{gameNo2}-game"
 
         next_round = 2
         next_gameNo = gameNo2 / 2
         next_game = game(games:, round: next_round, gameNo: next_gameNo)
-        testid_next_game= "#{next_round}-#{next_gameNo}-game"
-
+        testid_next_game = "#{next_round}-#{next_gameNo}-game"
 
         if (round_offset >= 1 || (game1_exist && game2_exist))
           # 2試合ともあり。
@@ -345,7 +351,7 @@ module EliminationsHelper
       prev_game1 = game(games:, round: prev_round, gameNo: prev_game1_gameNo)
       prev_game2 = game(games:, round: prev_round, gameNo: prev_game2_gameNo)
       this_game = game(games:, round:, gameNo: i)
-      testid_game= "#{round}-#{i}-game"
+      testid_game = "#{round}-#{i}-game"
 
       width1 = ((2 ** (round - round_offset - 1)) - 1)
       width2 = (2 ** (round - round_offset - 1))

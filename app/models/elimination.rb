@@ -5,6 +5,7 @@ class Elimination < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 16 }
   validates :has_score, inclusion: { in: [true, false] }
+  validates :password, length: { maximum: 16 }
 
   # constant
   def self.seed_table_256

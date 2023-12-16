@@ -4,10 +4,15 @@
     <p id="roundrobin-status" class="lead" data-testid="tournament-status"><%= span_tag__status(roundrobin) %></p>
   </div>
   <div class="btn-group">
-    <%= link_to "設定", edit_roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '設定'}" %>
-    <%= link_to "チーム", tournament_teams_path(roundrobin.tournament), class: "btn btn-outline-dark #{'active' if current_page == 'チーム'}" %>
+    <% if tournament_owner?(roundrobin.tournament) %>
+      <%= link_to "設定", edit_roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '設定'}" %>
+      <%= link_to "チーム", tournament_teams_path(roundrobin.tournament), class: "btn btn-outline-dark #{'active' if current_page == 'チーム'}" %>
+    <% end %>
     <%= link_to "リーグ表", roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == 'リーグ表'}" %>
     <%= link_to "順位表", ranking_roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '順位表'}" %>
     <%= link_to "共有", share_roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '共有'}" %>
+    <% unless tournament_owner?(roundrobin.tournament) %>
+      <%= link_to "管理者", admin_roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '管理者'}" %>
+    <% end %>
   </div>
 </div>
