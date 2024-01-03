@@ -1,4 +1,4 @@
-<% provide(:title, @tournament.name) %>
+<% set_meta_tags title: @tournament.name, og: { title: @tournament.name } %>
 
 <div class="container-lg my-3">
   <h1 class="mb-3"><%= @tournament.name %></h1>

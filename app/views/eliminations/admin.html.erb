@@ -1,4 +1,4 @@
-<% provide(:title, @elimination.name) %>
+<% set_meta_tags title: @elimination.name, og: { title: @elimination.name } %>
 
 <%# トーナメント共通ヘッダ %>
 <%= render "shared/elimination_header", { elimination: @elimination, current_page: "管理者" } %>

@@ -1,4 +1,4 @@
-<% provide(:title, @roundrobin.name) %>
+<% set_meta_tags title: @roundrobin.name, og: { title: @roundrobin.name } %>
 
 <%# トーナメント共通ヘッダ %>
 <%= render "shared/roundrobin_header", { roundrobin: @roundrobin, current_page: "共有" } %>

@@ -1,4 +1,4 @@
-<% provide(:title, @tournament.name) %>
+<% set_meta_tags title: @tournament.name, og: { title: @tournament.name } %>
 
 <%# トーナメント共通ヘッダ %>
 <% if @tournament.elimination? %>

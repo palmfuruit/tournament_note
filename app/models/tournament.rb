@@ -17,9 +17,9 @@ class Tournament < ApplicationRecord
 
   def name
     case tournament_type
-    when :elimination
+    when "elimination" then
       elimination.name
-    when :roundrobin
+    when "roundrobin" then
       roundrobin.name
     end
   end
