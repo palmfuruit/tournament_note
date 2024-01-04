@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "トーナメントの参加チーム", type: :system do
+RSpec.describe "トーナメントの参加チーム", type: :system, js: true do
 
   context "チーム登録済" do
     let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 4) }

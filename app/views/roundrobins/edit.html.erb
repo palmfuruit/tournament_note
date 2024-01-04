@@ -41,12 +41,12 @@
         <%= div_tag__ranking_conditions(form: form, priority: 4, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
       </div>
 
-      <%# 管理者パスワード %>
+      <%# 更新パスワード %>
       <div class="mb-4">
-        <%= form.label(:password, "管理者パスワード", class: "form-control-label") %>
+        <%= form.label(:password, "更新パスワード", class: "form-control-label") %>
         <% tooltip_title = "リーグ表を共有する相手に更新を許可しない場合、本パスワードを設定してください。" %>
         <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title=<%= tooltip_title %>><i class="bi bi-question-square-fill"></i></span>
-        <%= form.text_field(:password, class: "form-control") %>
+        <%= form.text_field(:password, class: "form-control", placeholder: "(空の場合は、他のブラウザからも更新可能です。)") %>
       </div>
 
       <%# 更新ボタン %>

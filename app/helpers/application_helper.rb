@@ -20,7 +20,7 @@ module ApplicationHelper
       title: 'トーナメント表、リーグ表の作成・共有',
       reverse: true,
       charset: 'utf-8',
-      description: 'トーナメント表、リーグ表を無料で作成・共有するWebアプリです。スマホのブラウザだけで簡単に使えます。',
+      description: 'Tournament Noteは、スマホのブラウザだけでトーナメント表やリーグ表を作成できるアプリです。',
       keywords: 'トーナメント,リーグ,対戦表,ドロー表,アプリ,ツール,Webサービス,Tournament,Elimination,Roundrobin',
       og: {
         site_name: :site,

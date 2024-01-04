@@ -284,7 +284,7 @@ RSpec.describe "トーナメント", type: :system do
       expect(page).to have_selector 'h1', text: "トーナメント表作成"
 
       fill_in '大会名', with: "全米オープン"
-      fill_in '管理者パスワード', with: "PASSWORD"
+      fill_in '更新パスワード', with: "PASSWORD"
       click_on "作成"
 
       expect(page).to have_selector 'h1', text: "全米オープン"
@@ -304,23 +304,23 @@ RSpec.describe "トーナメント", type: :system do
       expect(page).to_not have_link 'チーム'
       expect(find(:test_id, '1-1-game')).to_not have_link ''
 
-      # 管理者パスワードの認証
-      click_on "管理者"
+      # 更新パスワードの認証
+      click_on "更新"
 
-      fill_in '管理者パスワード', with: "wrong_pw"
+      fill_in '更新パスワード', with: "wrong_pw"
       click_on "送信"
       expect(page).to have_content 'パスワードが不一致です'
 
-      fill_in '管理者パスワード', with: "PASSWORD"
+      fill_in '更新パスワード', with: "PASSWORD"
       click_on "送信"
 
       expect(page).to have_link '設定'
       expect(page).to have_link 'チーム'
       expect(find(:test_id, '1-1-game')).to have_link ''
 
-      # 管理者パスワードの変更
+      # 更新パスワードの変更
       click_on "設定"
-      fill_in '管理者パスワード', with: "new-pw"
+      fill_in '更新パスワード', with: "new-pw"
       click_on "更新"
 
       expect(page).to have_selector 'h1', text: "全米オープン"
