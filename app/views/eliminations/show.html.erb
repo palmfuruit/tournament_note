@@ -3,6 +3,15 @@
 <%# トーナメント共通ヘッダ %>
 <%= render "shared/elimination_header", { elimination: @elimination, current_page: "トーナメント表" } %>
 
+<%# トーナメント説明 %>
+<% if @elimination.description.present? %>
+  <div class="bg-light mb-5 p-2">
+    <div class="container-lg">
+      <p class="pre-wrap"><%= @elimination.description %></p>
+    </div>
+  </div>
+<% end %>
+
 <%# 参加チームなしの場合 %>
 <% if @teams.count < 2 %>
   <div class="container-lg my-3">
@@ -10,15 +19,16 @@
   </div>
 
 <% else %>
-
-
+  <%# 更新方法説明 (パスワード保護解除時のみ) %>
   <% if tournament_owner?(@elimination.tournament) %>
     <div class="container-lg">
       <p>
         <!--                <i class="bi bi-info-circle" style="color: goldenrod"></i>-->
         各試合をクリックして、試合結果を更新します。
         <% tooltip_title = "下のトーナメント表の各試合(薄い黄色部分)をクリック" %>
-        <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title=<%= tooltip_title %>><i class="bi bi-question-square-fill"></i></span>
+        <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title=<%= tooltip_title %>>
+          <i class="bi bi-question-square-fill"></i>
+        </span>
       </p>
     </div>
   <% end %>

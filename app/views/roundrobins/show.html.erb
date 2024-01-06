@@ -3,6 +3,15 @@
 <%# リーグ共通ヘッダ %>
 <%= render "shared/roundrobin_header", { roundrobin: @roundrobin, current_page: "リーグ表" } %>
 
+<%# トーナメント説明 %>
+<% if @roundrobin.description.present? %>
+  <div class="bg-light mb-4 p-2">
+    <div class="container-lg">
+      <p class="pre-wrap"><%= @roundrobin.description %></p>
+    </div>
+  </div>
+<% end %>
+
 <%# 参加チームなしの場合 %>
 <% if @teams.count < 2 %>
   <div class="container-lg my-3">
@@ -13,11 +22,14 @@
   <div class="bg-white">
     <div class="container-lg my-3 py-3">
 
+      <%# 更新方法説明 (パスワード保護解除時のみ) %>
       <% if tournament_owner?(@roundrobin.tournament) %>
         <p>
           各試合をクリックして、試合結果を更新します。
           <% tooltip_title = "下のリーグ表の各試合(薄い黄色部分)をクリック" %>
-          <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title=<%= tooltip_title %>><i class="bi bi-question-square-fill"></i></span>
+          <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title=<%= tooltip_title %>>
+            <i class="bi bi-question-square-fill"></i>
+          </span>
         </p>
       <% end %>
 

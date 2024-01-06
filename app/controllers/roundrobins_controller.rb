@@ -134,7 +134,7 @@ class RoundrobinsController < ApplicationController
   private
 
   def roundrobin_params
-    ret_p = params.require(:roundrobin).permit(:name, :has_score, :num_of_round, :rank1, :rank2, :rank3, :rank4, :password)
+    ret_p = params.require(:roundrobin).permit(:name, :description, :has_score, :num_of_round, :rank1, :rank2, :rank3, :rank4, :password)
     if ret_p[:name].blank?
       ret_p[:name] = "#{Date.today}"
     end

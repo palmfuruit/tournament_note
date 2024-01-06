@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_02_035753) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_06_062517) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_035753) do
     t.datetime "updated_at", null: false
     t.boolean "has_score", default: false
     t.string "password"
+    t.text "description"
     t.index ["tournament_id"], name: "index_eliminations_on_tournament_id"
   end
 
@@ -55,6 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_035753) do
     t.integer "rank3", default: 0
     t.integer "rank4", default: 0
     t.string "password"
+    t.text "description"
     t.index ["tournament_id"], name: "index_roundrobins_on_tournament_id"
   end
 

@@ -16,6 +16,12 @@
         <%= form.text_field(:name, class: "form-control", placeholder: "(空の場合は、本日の日付が入ります。)") %>
       </div>
 
+      <%# 説明 %>
+      <div class="mb-4">
+        <%= form.label(:description, "説明", class: "form-control-label") %>
+        <%= form.text_area(:description, rows: 5, cols: 10, class: "form-control", placeholder: "(省略可能)") %>
+      </div>
+
       <%# スコア有無 %>
       <div class="form-check mb-4">
         <%= form.check_box :has_score, { class: 'form-check-input' } %>

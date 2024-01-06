@@ -26,6 +26,7 @@ RSpec.describe "リーグ", type: :system, js: true do
       expect(page).to have_selector 'h1', text: "リーグ表作成"
 
       fill_in '大会名', with: "予選リーグ "
+      fill_in '説明', with: "目指せ本戦"
       select '5', from: '参加チーム数'
 
       check 'スコアを記録'
@@ -37,6 +38,7 @@ RSpec.describe "リーグ", type: :system, js: true do
       click_on "作成"
 
       expect(page).to have_selector 'h1', text: "予選リーグ"
+      expect(page).to have_content "目指せ本戦"
       expect(page).to have_content 'Round 1 / 10'
 
       click_on "設定"
@@ -75,9 +77,11 @@ RSpec.describe "リーグ", type: :system, js: true do
 
       expect(page).to have_field '大会名'
       fill_in '大会名', with: "予選リーグ"
+      fill_in '説明', with: "目指せ本戦"
       click_on "更新"
 
       expect(page).to have_selector 'h1', text: "予選リーグ"
+      expect(page).to have_content "目指せ本戦"
     end
   end
 
