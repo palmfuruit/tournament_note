@@ -26,14 +26,11 @@ RSpec.describe "トーナメント", type: :system do
       expect(page).to have_selector 'h1', text: "トーナメント表作成"
 
       fill_in '大会名', with: "甲子園"
-      fill_in '説明', with: "甲子園で会いましょう"
-
       select '6', from: '参加チーム数'
       check 'スコアを記録'
-      click_on "作成"
 
+      click_on "作成"
       expect(page).to have_selector 'h1', text: "甲子園"
-      expect(page).to have_content "甲子園で会いましょう"
 
       click_on "設定"
       expect(page).to have_checked_field('スコアを記録')
@@ -282,22 +279,24 @@ RSpec.describe "トーナメント", type: :system do
 
   end
 
-  describe "トーナメント管理者認証" do
+  describe "オーナー認証" do
+    let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 4) }
+
     example do
-      visit root_path
+      visit elimination_path(elimination)
 
-      click_on "トーナメント表作成"
-      expect(page).to have_selector 'h1', text: "トーナメント表作成"
-
-      fill_in '大会名', with: "全米オープン"
-      fill_in '更新パスワード', with: "PASSWORD"
-      click_on "作成"
-
-      expect(page).to have_selector 'h1', text: "全米オープン"
-      expect(find(:test_id, '1-1-game')).to have_link ''
+      expect(page).to have_selector 'h1', text: elimination.name
       # show_me_the_cookies
 
-      elimination = Elimination.first
+      # 更新パスワードの設定
+      click_on "設定"
+      fill_in '更新パスワード', with: "PASSWORD"
+      click_on "更新"
+
+      expect(page).to have_link '設定'
+      expect(page).to have_link 'チーム'
+      expect(find(:test_id, '1-1-game')).to have_link ''
+
       cookie_name = "elimination_#{elimination.id}"
       cookie = get_me_the_cookie(cookie_name)
       expect(cookie[:value]).to eq "PASSWORD"
@@ -329,7 +328,7 @@ RSpec.describe "トーナメント", type: :system do
       fill_in '更新パスワード', with: "new-pw"
       click_on "更新"
 
-      expect(page).to have_selector 'h1', text: "全米オープン"
+      expect(page).to have_selector 'h1', text: elimination.name
       expect(find(:test_id, '1-1-game')).to have_link ''
       cookie = get_me_the_cookie(cookie_name)
       expect(cookie[:value]).to eq "new-pw"

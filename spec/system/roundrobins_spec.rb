@@ -26,9 +26,7 @@ RSpec.describe "リーグ", type: :system, js: true do
       expect(page).to have_selector 'h1', text: "リーグ表作成"
 
       fill_in '大会名', with: "予選リーグ "
-      fill_in '説明', with: "目指せ本戦"
       select '5', from: '参加チーム数'
-
       check 'スコアを記録'
       select '10', from: '対戦数'
       select '勝点', from: '順位条件1'
@@ -38,7 +36,6 @@ RSpec.describe "リーグ", type: :system, js: true do
       click_on "作成"
 
       expect(page).to have_selector 'h1', text: "予選リーグ"
-      expect(page).to have_content "目指せ本戦"
       expect(page).to have_content 'Round 1 / 10'
 
       click_on "設定"
@@ -213,22 +210,23 @@ RSpec.describe "リーグ", type: :system, js: true do
 
   end
 
-  describe "管理者認証" do
+  describe "オーナー認証" do
+    let!(:roundrobin) { create(:roundrobin, :with_teams, num_of_teams: 4) }
+
     example do
-      visit root_path
+      visit roundrobin_path(roundrobin)
 
-      click_on "リーグ表作成"
-      expect(page).to have_selector 'h1', text: "リーグ表作成"
+      expect(page).to have_selector 'h1', text: roundrobin.name
 
-      fill_in '大会名', with: "全米オープン"
+      # 更新パスワードの設定
+      click_on "設定"
       fill_in '更新パスワード', with: "PASSWORD"
-      click_on "作成"
+      click_on "更新"
 
-      expect(page).to have_selector 'h1', text: "全米オープン"
+      expect(page).to have_link '設定'
+      expect(page).to have_link 'チーム'
       expect(find('#game-1-2')).to have_link ''
-      # show_me_the_cookies
 
-      roundrobin = Roundrobin.first
       cookie_name = "roundrobin_#{roundrobin.id}"
       cookie = get_me_the_cookie(cookie_name)
       expect(cookie[:value]).to eq "PASSWORD"
@@ -260,7 +258,7 @@ RSpec.describe "リーグ", type: :system, js: true do
       fill_in '更新パスワード', with: "new-pw"
       click_on "更新"
 
-      expect(page).to have_selector 'h1', text: "全米オープン"
+      expect(page).to have_selector 'h1', text: roundrobin.name
       expect(find('#game-1-2')).to have_link ''
       cookie = get_me_the_cookie(cookie_name)
       expect(cookie[:value]).to eq "new-pw"

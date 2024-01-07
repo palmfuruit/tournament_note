@@ -18,10 +18,10 @@
     </div>
 
     <%# 説明 %>
-    <div class="mb-4">
-      <%= form.label(:description, "説明", class: "form-control-label") %>
-      <%= form.text_area(:description, rows: 5, cols: 10, class: "form-control", placeholder: "(省略可能)") %>
-    </div>
+<!--    <div class="mb-4">-->
+      <%#= form.label(:description, "説明", class: "form-control-label") %>
+      <%#= form.text_area(:description, rows: 5, cols: 10, class: "form-control", placeholder: "(省略可能)") %>
+<!--    </div>-->
 
     <%# チーム数 %>
     <div class="mb-4">
@@ -30,7 +30,10 @@
     </div>
 
     <hr>
-
+    <p class="text-secondary mb-4">
+      <span><i class="bi bi-diamond-fill"></i></span>
+      詳細設定
+    </p>
 
     <%# スコア有無 %>
     <div class="form-check mb-4">
@@ -39,12 +42,12 @@
     </div>
 
     <%# 更新パスワード %>
-    <div class="mb-4">
-      <%= form.label(:password, "更新パスワード", class: "form-control-label") %>
-      <% tooltip_title = "共有する相手に更新を許可しない場合、本パスワードを設定してください。" %>
-      <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title=<%= tooltip_title %>><i class="bi bi-question-square-fill"></i></span>
-      <%= form.text_field(:password, class: "form-control", placeholder: "(空の場合は、他のブラウザからも更新可能です。)") %>
-    </div>
+<!--    <div class="mb-4">-->
+      <%#= form.label(:password, "更新パスワード", class: "form-control-label") %>
+      <%# tooltip_title = "共有する相手に更新を許可しない場合、本パスワードを設定してください。" %>
+<!--      <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title=<%#= tooltip_title %>><i class="bi bi-question-square-fill"></i></span>-->
+      <%#= form.text_field(:password, class: "form-control", placeholder: "(空の場合は、他のブラウザからも更新可能です。)") %>
+<!--    </div>-->
 
     <%# 作成ボタン %>
     <div class="d-flex mt-4 justify-content-end">
