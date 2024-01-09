@@ -17,11 +17,11 @@ module ApplicationHelper
     {
       site: 'Tournament Note',
       separator: '|',
-      title: 'トーナメント表、リーグ表の作成・共有',
+      title: 'トーナメント表、リーグ表の無料作成サイト',
       reverse: true,
       charset: 'utf-8',
-      description: 'Tournament Noteは、スマホのブラウザだけでトーナメント表やリーグ表を作成できるアプリです。',
-      keywords: 'トーナメント,リーグ,対戦表,ドロー表,アプリ,ツール,Webサービス,Tournament,Elimination,Roundrobin',
+      description: 'Tournament Noteは、トーナメントやリーグ戦の対戦表を作成するアプリです。',
+      keywords: 'トーナメント,リーグ戦,勝ち抜き戦,総当たり戦,対戦表,ドロー表,無料',
       og: {
         site_name: :site,
         title: :title,
