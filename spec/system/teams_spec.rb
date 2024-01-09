@@ -130,6 +130,7 @@ RSpec.describe "トーナメントの参加チーム", type: :system, js: true d
 
       click_on "変更", match: :first
       expect(page).to have_checked_field with: 'none'
+      expect(page).to have_css "#team_color_#{team1.id}_yellow"
       choose "team_color_#{team1.id}_yellow"
       find(:test_id, 'ok').click
       expect(page).to have_uniform_icon('yellow')
