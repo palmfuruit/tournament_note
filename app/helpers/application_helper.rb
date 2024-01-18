@@ -113,4 +113,30 @@ module ApplicationHelper
     ret
   end
 
+  def tournament_bookmarked?(tournament_bookmarks, tournament_id)
+    tournament_bookmarks.include?(tournament_id)
+  end
+
+  def tournament_name(tournament_id)
+    tournament = Tournament.find_by(id: tournament_id)
+    return nil unless tournament
+
+    tournament.name
+  end
+
+  def tournament_path(tournament_id)
+    tournament = Tournament.find_by(id: tournament_id)
+    return nil unless tournament
+
+    if tournament.elimination?
+      elimination = tournament.elimination
+      ret = elimination_path(elimination)
+    else
+      roundrobin = tournament.roundrobin
+      ret = roundrobin_path(roundrobin)
+    end
+
+    ret
+  end
+
 end

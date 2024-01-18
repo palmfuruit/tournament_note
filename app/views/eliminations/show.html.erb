@@ -3,9 +3,15 @@
 <%# トーナメント共通ヘッダ %>
 <%= render "shared/elimination_header", { elimination: @elimination, current_page: "トーナメント表" } %>
 
+<%# Bookmarkボタン %>
+<%= turbo_frame_tag "bookmark_button" do %>
+  <%= render "bookmark_button", { tournament_bookmarks: @tournament_bookmarks, elimination: @elimination } %>
+<% end %>
+
+
 <%# トーナメント説明 %>
 <% if @elimination.description.present? %>
-  <div class="bg-light mb-3">
+  <div class="bg-light my-5">
     <div class="container-lg py-3">
       <p class="pre-wrap"><%= @elimination.description %></p>
     </div>
@@ -33,7 +39,7 @@
     </div>
   <% end %>
 
-  <div class="bg-white border border-dark py-3">
+  <div class="bg-white border-0 border-dark py-3">
     <div id="elimination-table-wrapper" class="container-lg elimination-table-wrapper">
       <%= render partial: "eliminations/main_race",
                  locals: { elimination: @elimination, teams: @teams, games: @games, round_offset: 0, final_round: @elimination.final_round, seed_table: @elimination.seed_table } %>

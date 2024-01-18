@@ -1,0 +1,17 @@
+<div class="container-lg my-3">
+  <div class="d-flex justify-content-end">
+
+    <% if tournament_bookmarked?(tournament_bookmarks, elimination.tournament.id) %>
+      <%= button_to(bookmark_off_elimination_path(elimination), class: "btn btn-outline-dark fw-normal") do %>
+        <i class="bi bi-star-fill"></i>
+        <span class="fw-normal">ブックマーク済</span>
+      <% end %>
+    <% else %>
+      <%= button_to(bookmark_on_elimination_path(elimination), class: "btn btn-outline-dark fw-normal") do %>
+        <i class="bi bi-star"></i>
+        <span class="fw-normal">ブックマーク</span>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>

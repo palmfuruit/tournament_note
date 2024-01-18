@@ -3,9 +3,14 @@
 <%# リーグ共通ヘッダ %>
 <%= render "shared/roundrobin_header", { roundrobin: @roundrobin, current_page: "リーグ表" } %>
 
+<%# Bookmarkボタン %>
+<%= turbo_frame_tag "bookmark_button" do %>
+  <%= render "bookmark_button", { tournament_bookmarks: @tournament_bookmarks, roundrobin: @roundrobin } %>
+<% end %>
+
 <%# トーナメント説明 %>
 <% if @roundrobin.description.present? %>
-  <div class="bg-light mb-3">
+  <div class="bg-light my-5">
     <div class="container-lg py-3">
       <p class="pre-wrap"><%= @roundrobin.description %></p>
     </div>

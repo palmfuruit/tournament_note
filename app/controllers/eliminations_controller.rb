@@ -18,7 +18,7 @@ class EliminationsController < ApplicationController
   end
 
   def new
-    @elimination = Elimination.new()
+    @elimination = Elimination.new
   end
 
   def create
@@ -28,7 +28,7 @@ class EliminationsController < ApplicationController
       num_of_teams = params[:num_of_teams].to_i
 
       if @elimination.save
-        set_cookie(@elimination.id, @elimination.password, 'elimination')
+        set_cookie_admin(@elimination.id, @elimination.password, 'elimination')
 
         (1..num_of_teams).each do |i|
           @elimination.teams.create(name: "Team#{i}", entryNo: i)
@@ -45,7 +45,7 @@ class EliminationsController < ApplicationController
     @elimination = Elimination.find_by(id: params[:id])
     unless @elimination
       flash[:warning] = "トーナメントが見つかりません。"
-      redirect_to root_path and return
+      redirect_to root_path
     end
   end
 
@@ -53,7 +53,7 @@ class EliminationsController < ApplicationController
     @elimination = Elimination.find_by(id: params[:id])
 
     if @elimination.update(elimination_params)
-      set_cookie(@elimination.id, @elimination.password, 'elimination')
+      set_cookie_admin(@elimination.id, @elimination.password, 'elimination')
 
       redirect_to elimination_path(@elimination)
     else
@@ -64,7 +64,7 @@ class EliminationsController < ApplicationController
   def destroy
     @elimination = Elimination.find_by(id: params[:id])
     @elimination.tournament.destroy
-    clear_cookie(@elimination.id, 'elimination')
+    clear_cookie_admin(@elimination.id, 'elimination')
 
     redirect_to root_path, flash: { info: 'トーナメントを削除しました' }
   end
@@ -93,7 +93,7 @@ class EliminationsController < ApplicationController
 
     @error_message = nil
     if @elimination.password == params[:password]
-      set_cookie(@elimination.id, params[:password], 'elimination')
+      set_cookie_admin(@elimination.id, params[:password], 'elimination')
 
       redirect_to elimination_path(@elimination)
     else
@@ -101,6 +101,29 @@ class EliminationsController < ApplicationController
 
       render 'admin', status: :unprocessable_entity
     end
+
+  end
+
+  def bookmark_on
+    @elimination = Elimination.find_by(id: params[:id])
+    unless @elimination
+      flash[:warning] = "トーナメントが見つかりません。"
+      redirect_to root_path and return
+    end
+
+    add_tournament_bookmark(@elimination.tournament.id)
+    render 'bookmark_button_clicked'
+  end
+
+  def bookmark_off
+    @elimination = Elimination.find_by(id: params[:id])
+    unless @elimination
+      flash[:warning] = "トーナメントが見つかりません。"
+      redirect_to root_path and return
+    end
+
+    delete_tournament_bookmark(@elimination.tournament.id)
+    render 'bookmark_button_clicked'
 
   end
 

@@ -44,7 +44,7 @@ class RoundrobinsController < ApplicationController
   end
 
   def new
-    @roundrobin = Roundrobin.new()
+    @roundrobin = Roundrobin.new
   end
 
   def create
@@ -54,7 +54,7 @@ class RoundrobinsController < ApplicationController
       num_of_teams = params[:num_of_teams].to_i
 
       if @roundrobin.save
-        set_cookie(@roundrobin.id, @roundrobin.password, 'roundrobin')
+        set_cookie_admin(@roundrobin.id, @roundrobin.password, 'roundrobin')
 
         (1..num_of_teams).each do |i|
           @roundrobin.teams.create(name: "Team#{i}", entryNo: i)
@@ -71,7 +71,7 @@ class RoundrobinsController < ApplicationController
     @roundrobin = Roundrobin.find_by(id: params[:id])
     unless @roundrobin
       flash[:warning] = "リーグが見つかりません。"
-      redirect_to root_path and return
+      redirect_to root_path
     end
   end
 
@@ -79,7 +79,7 @@ class RoundrobinsController < ApplicationController
     @roundrobin = Roundrobin.find_by(id: params[:id])
 
     if @roundrobin.update(roundrobin_params)
-      set_cookie(@roundrobin.id, @roundrobin.password, 'roundrobin')
+      set_cookie_admin(@roundrobin.id, @roundrobin.password, 'roundrobin')
 
       redirect_to roundrobin_path(@roundrobin)
     else
@@ -90,7 +90,7 @@ class RoundrobinsController < ApplicationController
   def destroy
     @roundrobin = Roundrobin.find_by(id: params[:id])
     @roundrobin.tournament.destroy
-    clear_cookie(@roundrobin.id, 'roundrobin')
+    clear_cookie_admin(@roundrobin.id, 'roundrobin')
 
     redirect_to root_path, flash: { info: 'リーグを削除しました' }
   end
@@ -119,7 +119,7 @@ class RoundrobinsController < ApplicationController
 
     @error_message = nil
     if @roundrobin.password == params[:password]
-      set_cookie(@roundrobin.id, params[:password], 'roundrobin')
+      set_cookie_admin(@roundrobin.id, params[:password], 'roundrobin')
 
       redirect_to roundrobin_path(@roundrobin)
     else
@@ -127,7 +127,28 @@ class RoundrobinsController < ApplicationController
 
       render 'admin', status: :unprocessable_entity
     end
+  end
 
+  def bookmark_on
+    @roundrobin = Roundrobin.find_by(id: params[:id])
+    unless @roundrobin
+      flash[:warning] = "トーナメントが見つかりません。"
+      redirect_to root_path and return
+    end
+
+    add_tournament_bookmark(@roundrobin.tournament.id)
+    render 'bookmark_button_clicked'
+  end
+
+  def bookmark_off
+    @roundrobin = Roundrobin.find_by(id: params[:id])
+    unless @roundrobin
+      flash[:warning] = "トーナメントが見つかりません。"
+      redirect_to root_path and return
+    end
+
+    delete_tournament_bookmark(@roundrobin.tournament.id)
+    render 'bookmark_button_clicked'
   end
 
   ### Private Method
