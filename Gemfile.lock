@@ -219,6 +219,7 @@ GEM
     reline (0.3.7)
       io-console (~> 0.5)
     rexml (3.2.6)
+    rinku (2.0.6)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.3)
@@ -329,6 +330,7 @@ DEPENDENCIES
   rails (~> 7.0.5)
   rails-i18n
   redis (~> 4.0)
+  rinku
   rspec-rails
   rubocop
   rubocop-performance

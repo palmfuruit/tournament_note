@@ -13,7 +13,7 @@
 <% if @elimination.description.present? %>
   <div class="bg-light my-5">
     <div class="container-lg py-3">
-      <p class="pre-wrap"><%= @elimination.description %></p>
+      <p class="pre-wrap"><%= raw Rinku.auto_link(@elimination.description, :urls, 'target="_blank" rel="noopener noreferrer"') %></p>
     </div>
   </div>
 <% end %>
