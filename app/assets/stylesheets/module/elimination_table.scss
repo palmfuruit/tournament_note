@@ -4,6 +4,7 @@
 }
 
 .elimination-table {
+  -webkit-appearance: none;
   width: 100%;
   @include media-breakpoint-up(sm) {
     width: 50%;
