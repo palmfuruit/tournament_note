@@ -1,6 +1,18 @@
 module EliminationsHelper
   include ApplicationHelper
 
+  # 初戦かどうかをチェック
+  def is_first_game?(round:, gameNo:, side:, seed_table:)
+    if round == 1
+      ret = true
+    elsif round == 2
+      ret = seed_table.select { |n| n[:round2_gameNo] == gameNo && n[:round2_side] == side }.count == 1
+    else
+      ret = false
+    end
+    ret
+  end
+
   def get_team_from_game(round:, gameNo:, side:, teams:, games:, seed_table:)
     team = nil
 
@@ -241,7 +253,7 @@ module EliminationsHelper
 
     round_tds << td_tags__1st_round(elimination:, games:, round_offset:, final_round:, seed_table:)
     (2..max).each do |round|
-      round_tds << td_tags__Nth_round(elimination:, games:, round:, round_offset:, final_round:)
+      round_tds << td_tags__Nth_round(elimination:, games:, round:, round_offset:, final_round:, seed_table:)
     end
 
     round_tds
@@ -258,7 +270,7 @@ module EliminationsHelper
       testid_game = "#{round}-1-game"
 
       tag__tds << tag.td
-      tag__tds << tag.td(class: ["game-cell b-top b-right b-bottom", border_top_bottom__a_win_b_win(game)], rowspan: "4", data: { testid: "#{testid_game}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: 1) }
+      tag__tds << tag.td(class: ["game-cell b-top b-bottom", border_top_bottom__a_win_b_win(game)], rowspan: "4", data: { testid: "#{testid_game}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: 1) }
       tag__tds += Array.new(3)
       tag__tds << tag.td
     else
@@ -280,13 +292,13 @@ module EliminationsHelper
         if (round_offset >= 1 || (game1_exist && game2_exist))
           # 2試合ともあり。
           tag__tds << tag.td
-          tag__tds << tag.td(class: ["game-cell b-top b-right b-bottom", border_top_bottom__a_win_b_win(game1)], rowspan: "4", data: { testid: "#{testid_game1}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: gameNo1) }
+          tag__tds << tag.td(class: ["game-cell b-top b-bottom", border_top_bottom__a_win_b_win(game1)], rowspan: "4", data: { testid: "#{testid_game1}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: gameNo1) }
           tag__tds += Array.new(3)
 
           tag__tds << tag.td(rowspan: "4")
           tag__tds += Array.new(3)
 
-          tag__tds << tag.td(class: ["game-cell b-top b-right b-bottom", border_top_bottom__a_win_b_win(game2)], rowspan: "4", data: { testid: "#{testid_game2}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: gameNo2) }
+          tag__tds << tag.td(class: ["game-cell b-top b-bottom", border_top_bottom__a_win_b_win(game2)], rowspan: "4", data: { testid: "#{testid_game2}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: gameNo2) }
           tag__tds += Array.new(3)
 
           tag__tds << tag.td
@@ -298,14 +310,14 @@ module EliminationsHelper
           tag__tds << tag.td(class: ["game-cell b-top", border_top__a_win(next_game)], rowspan: "6", data: { testid: "#{testid_next_game}" }) { elimination_game_cell(elimination:, games:, round: next_round, gameNo: next_gameNo) }
           tag__tds += Array.new(5)
 
-          tag__tds << tag.td(class: ["game-cell b-top b-right b-bottom", border_top_bottom__a_win_b_win(game2)], rowspan: "4", data: { testid: "#{testid_game2}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: gameNo2) }
+          tag__tds << tag.td(class: ["game-cell b-top b-bottom", border_top_bottom__a_win_b_win(game2)], rowspan: "4", data: { testid: "#{testid_game2}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: gameNo2) }
           tag__tds += Array.new(3)
 
           tag__tds << tag.td
         elsif (game1_exist && !game2_exist)
           # 上は試合あり。下は試合なし。
           tag__tds << tag.td
-          tag__tds << tag.td(class: ["game-cell b-top b-right b-bottom", border_top_bottom__a_win_b_win(game1)], rowspan: "4", data: { testid: "#{testid_game1}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: gameNo1) }
+          tag__tds << tag.td(class: ["game-cell b-top b-bottom", border_top_bottom__a_win_b_win(game1)], rowspan: "4", data: { testid: "#{testid_game1}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: gameNo1) }
           tag__tds += Array.new(3)
 
           tag__tds << tag.td(class: ["game-cell b-bottom", border_bottom__b_win(next_game)], rowspan: "6", data: { testid: "#{testid_next_game}" }) { elimination_game_cell(elimination:, games:, round: next_round, gameNo: next_gameNo) }
@@ -337,7 +349,7 @@ module EliminationsHelper
     tag__tds
   end
 
-  def td_tags__Nth_round(elimination:, games:, round:, round_offset:, final_round:)
+  def td_tags__Nth_round(elimination:, games:, round:, round_offset:, final_round:, seed_table:)
     # 3回戦までない場合は何も返さない。
     return [] if final_round < round
 
@@ -362,31 +374,43 @@ module EliminationsHelper
       tag__tds += Array.new(width1 - 1)
 
       # Prev1 A-Win
+      unless is_first_game?(round:, gameNo: i, side: 'a', seed_table:)
+        b_left = 'b-left'
+      else
+        b_left = ''
+      end
+
       testid_score = (prev_game1) ? "#{prev_round}-#{prev_game1_gameNo}-a-score" : nil
-      tag__tds << tag.td(a_score_str(prev_game1), class: ['score', 'a-score-cell', border_left_bottom__a_win(prev_game1)], rowspan: width2.to_s, data: { testid: testid_score })
+      tag__tds << tag.td(a_score_str(prev_game1), class: ['score', 'a-score-cell', b_left, border_left_bottom__a_win(prev_game1)], rowspan: width2.to_s, data: { testid: testid_score })
       tag__tds += Array.new(width2 - 1)
 
       # Prev1 B-Win
       testid_score = (prev_game1) ? "#{prev_round}-#{prev_game1_gameNo}-b-score" : nil
-      tag__tds << tag.td(class: ["b-score-cell game-cell b-top b-right", border_left_top__b_win(prev_game1), border_top__a_win(this_game)], rowspan: width2.to_s, data: { testid: "#{testid_game} #{testid_score}" }) {
+      tag__tds << tag.td(class: ["b-score-cell game-cell b-top", b_left, border_left_top__b_win(prev_game1), border_top__a_win(this_game)], rowspan: width2.to_s, data: { testid: "#{testid_game} #{testid_score}" }) {
         elimination_game_cell(elimination:, games:, round:, gameNo: i, score: b_score_str(prev_game1))
       }
       tag__tds += Array.new(width2 - 1)
 
       # 内
-      tag__tds << tag.td(class: "game-cell b-right", rowspan: width3.to_s, data: { testid: "#{testid_game}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: i) }
+      tag__tds << tag.td(class: "game-cell", rowspan: width3.to_s, data: { testid: "#{testid_game}" }) { elimination_game_cell(elimination:, games:, round:, gameNo: i) }
       tag__tds += Array.new(width3 - 1)
 
       # Prev2 A-Win
+      unless is_first_game?(round:, gameNo: i, side: 'b', seed_table:)
+        b_left = 'b-left'
+      else
+        b_left = ''
+      end
+
       testid_score = (prev_game2) ? "#{prev_round}-#{prev_game2_gameNo}-a-score" : nil
-      tag__tds << tag.td(class: ["a-score-cell game-cell b-bottom b-right", border_left_bottom__a_win(prev_game2), border_bottom__b_win(this_game)], rowspan: width2.to_s, data: { testid: "#{testid_game} #{testid_score}" }) {
+      tag__tds << tag.td(class: ["a-score-cell game-cell b-bottom", b_left, border_left_bottom__a_win(prev_game2), border_bottom__b_win(this_game)], rowspan: width2.to_s, data: { testid: "#{testid_game} #{testid_score}" }) {
         elimination_game_cell(elimination:, games:, round:, gameNo: i, score: a_score_str(prev_game2))
       }
       tag__tds += Array.new(width2 - 1)
 
       # Prev2 B-Win
       testid_score = (prev_game2) ? "#{prev_round}-#{prev_game2_gameNo}-b-score" : nil
-      tag__tds << tag.td(b_score_str(prev_game2), class: ['score', 'b-score-cell', border_left_top__b_win(prev_game2)], rowspan: width2.to_s, data: { testid: testid_score })
+      tag__tds << tag.td(b_score_str(prev_game2), class: ['score', 'b-score-cell', b_left, border_left_top__b_win(prev_game2)], rowspan: width2.to_s, data: { testid: testid_score })
       tag__tds += Array.new(width2 - 1)
 
       # 外
@@ -412,11 +436,11 @@ module EliminationsHelper
     tag__tds += Array.new(space_cell_size - 1)
 
     testid_score = (final_game) ? "#{final_round}-1-a-score" : nil
-    tag__tds << tag.td(a_score_str(final_game), class: ['score', 'a-score-cell', "b-bottom", border_left_bottom__a_win(final_game)], rowspan: score_cell_size, data: { testid: testid_score })
+    tag__tds << tag.td(a_score_str(final_game), class: ['score', 'a-score-cell', "b-bottom", 'b-left', border_left_bottom__a_win(final_game)], rowspan: score_cell_size, data: { testid: testid_score })
     tag__tds += Array.new(score_cell_size - 1)
 
     testid_score = (final_game) ? "#{final_round}-1-b-score" : nil
-    tag__tds << tag.td(b_score_str(final_game), class: ['score', 'b-score-cell', "b-top", border_left_top__b_win(final_game)], rowspan: score_cell_size, data: { testid: testid_score })
+    tag__tds << tag.td(b_score_str(final_game), class: ['score', 'b-score-cell', "b-top", 'b-left', border_left_top__b_win(final_game)], rowspan: score_cell_size, data: { testid: testid_score })
     tag__tds += Array.new(score_cell_size - 1)
 
     tag__tds << tag.td(rowspan: space_cell_size)
