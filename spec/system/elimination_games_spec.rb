@@ -16,7 +16,7 @@ RSpec.describe "トーナメント試合", type: :system do
         visit elimination_path(elimination)
 
         expect(page).to have_selector 'h1', text: elimination.name
-        find(:test_id, '1-1-game').click_link ''
+        find(:test_id, '1-1-game', match: :first).click_link ''
 
 
         expect(page).to have_field team1.name
@@ -30,14 +30,14 @@ RSpec.describe "トーナメント試合", type: :system do
 
         expect(page).not_to have_field team1.name
         expect(page).not_to have_field team2.name
-        expect(find(:test_id, '1-1-game')).to match_css('.r-top')
-        expect(find(:test_id, '1-1-game')).to_not match_css('.r-bottom')
+        expect(find(:test_id, '1-1-game_top')).to match_css('.r-top')
+        expect(find(:test_id, '1-1-game_bottom')).to_not match_css('.r-bottom')
         expect(find(:test_id, '1-1-a-score')).to match_css('.r-left.r-bottom')
         expect(find(:test_id, '1-1-b-score')).to_not match_css('.r-left.r-top')
 
 
         # 試合結果の更新
-        find(:test_id, '1-1-game').click_link ''
+        find(:test_id, '1-1-game', match: :first).click_link ''
         expect(page).to have_field team1.name
         expect(page).to have_field team2.name
         expect(page).to have_content "リセット"
@@ -46,14 +46,14 @@ RSpec.describe "トーナメント試合", type: :system do
 
         expect(page).not_to have_field team1.name
         expect(page).not_to have_field team2.name
-        expect(find(:test_id, '1-1-game')).to_not match_css('.r-top')
-        expect(find(:test_id, '1-1-game')).to match_css('.r-bottom')
+        expect(find(:test_id, '1-1-game_top')).to_not match_css('.r-top')
+        expect(find(:test_id, '1-1-game_bottom')).to match_css('.r-bottom')
         expect(find(:test_id, '1-1-a-score')).to_not match_css('.r-left.r-bottom')
         expect(find(:test_id, '1-1-b-score')).to match_css('.r-left.r-top')
 
 
         # 試合結果のリセット
-        find(:test_id, '1-1-game').click_link ''
+        find(:test_id, '1-1-game', match: :first).click_link ''
         expect(page).to have_field team1.name
         expect(page).to have_field team2.name
         expect(page).to have_content "リセット"
@@ -80,7 +80,7 @@ RSpec.describe "トーナメント試合", type: :system do
         visit elimination_path(elimination)
 
         expect(page).to have_selector 'h1', text: elimination.name
-        find(:test_id, '1-2-game').click_link ''
+        find(:test_id, '1-2-game', match: :first).click_link ''
 
 
         expect(page).to have_field team2.name
@@ -93,8 +93,8 @@ RSpec.describe "トーナメント試合", type: :system do
 
         expect(page).not_to have_field team2.name
         expect(page).not_to have_field team3.name
-        expect(find(:test_id, '1-2-game')).to match_css('.r-top')
-        expect(find(:test_id, '1-2-game')).to_not match_css('.r-bottom')
+        expect(find(:test_id, '1-2-game_top')).to match_css('.r-top')
+        expect(find(:test_id, '1-2-game_bottom')).to_not match_css('.r-bottom')
         expect(find(:test_id, '1-2-a-score')).to match_css('.r-left.r-bottom')
         expect(find(:test_id, '1-2-a-score')).to have_content('あああ')
         expect(find(:test_id, '1-2-b-score')).to_not match_css('.r-left.r-top')

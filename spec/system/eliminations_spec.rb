@@ -192,8 +192,8 @@ RSpec.describe "トーナメント", type: :system do
         visit elimination_path(elimination)
         expect(find(:test_id, 'tournament-status')).to have_content "終了"
 
-        expect(find(:test_id, '1-2-game')).to match_css('.r-top')
-        expect(find(:test_id, '1-2-game')).to_not match_css('.r-bottom')
+        expect(find(:test_id, '1-2-game_top')).to match_css('.r-top')
+        expect(find(:test_id, '1-2-game_bottom')).to_not match_css('.r-bottom')
         expect(find(:test_id, '1-2-a-score')).to match_css('.r-left.r-bottom')
         expect(find(:test_id, '1-2-b-score')).to_not match_css('.r-left.r-top')
         expect(find(:test_id, '1-2-a-score')).to have_content('1-2A')
@@ -242,21 +242,21 @@ RSpec.describe "トーナメント", type: :system do
         visit elimination_path(elimination)
         expect(find(:test_id, 'tournament-status')).to have_content "終了"
 
-        expect(find(:test_id, '1-2-game')).to_not match_css('.r-top')
-        expect(find(:test_id, '1-2-game')).to match_css('.r-bottom')
+        expect(find(:test_id, '1-2-game_top')).to_not match_css('.r-top')
+        expect(find(:test_id, '1-2-game_bottom')).to match_css('.r-bottom')
         expect(find(:test_id, '1-2-a-score')).to_not match_css('.r-left.r-bottom')
         expect(find(:test_id, '1-2-b-score')).to match_css('.r-left.r-top')
         expect(find(:test_id, '1-2-a-score')).to have_content('1-2A')
         expect(find(:test_id, '1-2-b-score')).to have_content('1-2B')
 
-        expect(find(:test_id, '1-3-game')).to_not match_css('.r-top')
-        expect(find(:test_id, '1-3-game')).to match_css('.r-bottom')
+        expect(find(:test_id, '1-3-game_top')).to_not match_css('.r-top')
+        expect(find(:test_id, '1-3-game_bottom')).to match_css('.r-bottom')
         expect(find(:test_id, '1-3-a-score')).to_not match_css('.r-left.r-bottom')
         expect(find(:test_id, '1-3-b-score')).to match_css('.r-left.r-top')
         expect(find(:test_id, '1-3-a-score')).to have_content('1-3A')
         expect(find(:test_id, '1-3-b-score')).to have_content('1-3B')
 
-        expect(page).to_not have_css('[data-testid="2-1-game"].r-top')
+        expect(page).to_not have_css('[data-testid="2-1-game_top"].r-top')
         # expect(page).to have_css('[data-testid="2-1-game"].r-bottom')
         expect(find(:test_id, '2-1-a-score')).to_not match_css('.r-left.r-bottom')
         expect(find(:test_id, '2-1-b-score')).to match_css('.r-left.r-top')
@@ -295,7 +295,7 @@ RSpec.describe "トーナメント", type: :system do
 
       expect(page).to have_link '設定'
       expect(page).to have_link 'チーム'
-      expect(find(:test_id, '1-1-game')).to have_link ''
+      expect(find(:test_id, '1-1-game', match: :first)).to have_link ''
 
       cookie_name = "elimination_#{elimination.id}"
       cookie = get_me_the_cookie(cookie_name)
@@ -307,7 +307,7 @@ RSpec.describe "トーナメント", type: :system do
 
       expect(page).to_not have_link '設定'
       expect(page).to_not have_link 'チーム'
-      expect(find(:test_id, '1-1-game')).to_not have_link ''
+      expect(find(:test_id, '1-1-game', match: :first)).to_not have_link ''
 
       # 更新パスワードの認証
       click_on "更新"
@@ -321,7 +321,7 @@ RSpec.describe "トーナメント", type: :system do
 
       expect(page).to have_link '設定'
       expect(page).to have_link 'チーム'
-      expect(find(:test_id, '1-1-game')).to have_link ''
+      expect(find(:test_id, '1-1-game', match: :first)).to have_link ''
 
       # 更新パスワードの変更
       click_on "設定"
@@ -329,7 +329,7 @@ RSpec.describe "トーナメント", type: :system do
       click_on "更新"
 
       expect(page).to have_selector 'h1', text: elimination.name
-      expect(find(:test_id, '1-1-game')).to have_link ''
+      expect(find(:test_id, '1-1-game', match: :first)).to have_link ''
       cookie = get_me_the_cookie(cookie_name)
       expect(cookie[:value]).to eq "new-pw"
 
