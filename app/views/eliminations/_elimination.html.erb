@@ -2,7 +2,7 @@
   <div class="card bg-light">
     <%= link_to elimination_path(elimination), class: "card-body text-decoration-none" do %>
       <div class="d-flex justify-content-between">
-        <p class="card-title"><%= elimination.name %></p>
+        <p class="card-title"><%= elimination.name %>　<%= span_tag__status(elimination) %></p>
         <i class="bi bi-chevron-right"></i>
       </div>
     <% end %>
