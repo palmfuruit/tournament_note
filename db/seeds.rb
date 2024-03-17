@@ -7,34 +7,11 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 # トーナメント表
-tournament = Tournament.create(tournament_type: :elimination)
-tournament.create_elimination(name: "2チーム")
-tournament.teams.create(name: 'Team1', color: 'red', entryNo: 1)
-tournament.teams.create(name: 'Team2', color: 'blue', entryNo: 2)
-
-tournament = Tournament.create(tournament_type: :elimination)
-tournament.create_elimination(name: "4チーム")
-(1..4).each do |i|
-  tournament.teams.create(name: "Team#{i}", entryNo: i)
+300.times do |i|
+  tournament = Tournament.create(tournament_type: :elimination)
+  tournament.create_elimination(name: "トーナメント#{i+1}")
 end
 
-tournament = Tournament.create(tournament_type: :elimination)
-tournament.create_elimination(name: "6チーム")
-(1..6).each do |i|
-  tournament.teams.create(name: "Team#{i}", entryNo: i)
-end
-
-tournament = Tournament.create(tournament_type: :elimination)
-tournament.create_elimination(name: "8チーム")
-(1..8).each do |i|
-  tournament.teams.create(name: "Team#{i}", entryNo: i)
-end
-
-tournament = Tournament.create(tournament_type: :elimination)
-tournament.create_elimination(name: "ワールドカップ16")
-(1..16).each do |i|
-  tournament.teams.create(name: "Team#{i}", entryNo: i)
-end
 
 tournament = Tournament.create(tournament_type: :elimination)
 tournament.create_elimination(name: "天下一武道会")
@@ -47,25 +24,8 @@ tournament.games.create(round: 1, gameNo: 2, a_team: tenshinhan, b_team: chaozu,
 tournament.games.create(round: 2, gameNo: 1, a_team: goku, b_team: tenshinhan, win_team: tenshinhan, lose_team: goku, a_result: 'LOSE', b_result: 'WIN')
 
 # リーグ表
-tournament = Tournament.create(tournament_type: :roundrobin)
-tournament.create_roundrobin(name: "2チーム")
-tournament.teams.create(name: "Team1", color: 'red', entryNo: 1)
-tournament.teams.create(name: "Team2", color: 'blue', entryNo: 2)
-
-tournament = Tournament.create(tournament_type: :roundrobin)
-tournament.create_roundrobin(name: "4チーム")
-(1..4).each do |i|
-  tournament.teams.create(name: "Team#{i}", entryNo: i)
+200.times do |i|
+  tournament = Tournament.create(tournament_type: :roundrobin)
+  tournament.create_roundrobin(name: "リーグ#{i+1}")
 end
 
-tournament = Tournament.create(tournament_type: :roundrobin)
-tournament.create_roundrobin(name: "8チーム")
-(1..8).each do |i|
-  tournament.teams.create(name: "Team#{i}", entryNo: i)
-end
-
-tournament = Tournament.create(tournament_type: :roundrobin)
-tournament.create_roundrobin(name: "16チーム")
-(1..16).each do |i|
-  tournament.teams.create(name: "Team#{i}", entryNo: i)
-end
