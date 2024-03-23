@@ -11,10 +11,10 @@ services:
     name: tournament_note_staging
     runtime: ruby
     plan: free
-    region: singapore
     buildCommand: "./bin/render-build.sh"
     # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
     startCommand: "bundle exec puma -C config/puma.rb"
+    region: singapore
     envVars:
       - key: DATABASE_URL
         fromDatabase:
