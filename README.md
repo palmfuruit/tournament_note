@@ -1,24 +1,18 @@
-# README
+# Database復元
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+参考  
+ https://docs.render.com/postgresql-backups
 
-Things you may want to cover:
+手順  
+.sqlバックアップファイルを用意。  
+Linux環境(postgresqlインストール済の環境)でpsqlを実行する。
 
-* Ruby version
+```psql ($external_database_url) -f ($backup_file)```  
+↓   
+ex) Staging環境へ本番データを流し込む。  
+```psql postgres://tournament_note_staging_db_user:Uo20SlmFgr9TnzdauMm6t4LudMZ0bwHQ@dpg-cnv6g9ta73kc73c7d3q0-a.singapore-postgres.render.com/tournament_note_staging_db -f ~/Downloads/2024-03-22T04_14Z.sql```
 
-* System dependencies
 
-* Configuration
+ex) 開発環境に本番環境のデータを流し込む。  
+```psql -U palm -d tournament_note_development -f ~/Downloads/2023-09-25T04_14Z.sql```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
