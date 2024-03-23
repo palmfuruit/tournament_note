@@ -1,15 +1,17 @@
 # This is a basic example Blueprint for a Django web service and
 # the PostgreSQL database it connects to.
 databases:
-  - name: tournament_note_staging
+  - name: tournament_note_staging_db
     plan: free
     region: singapore
+    postgresMajorVersion: 15
 
 services:
   - type: web
     name: tournament_note_staging
     runtime: ruby
     plan: free
+    region: singapore
     buildCommand: "./bin/render-build.sh"
     # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
     startCommand: "bundle exec puma -C config/puma.rb"
