@@ -23,4 +23,11 @@ class Tournament < ApplicationRecord
       roundrobin.name
     end
   end
+
+  def update_last_access_day
+    today = Time.zone.today
+    unless accessed_on == today
+      update(accessed_on: today)
+    end
+  end
 end
