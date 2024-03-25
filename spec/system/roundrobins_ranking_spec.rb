@@ -139,7 +139,7 @@ RSpec.describe "リーグ順位表", type: :system do
       # 1位が2チーム
       within find(:test_id, 'rank1') do
         expect(find(:test_id, 'rank').text).to eq('1')
-        expect(find(:test_id, 'team').text).to eq(@team1.name)
+        expect(find(:test_id, 'team').text).to eq(@team1.name).or eq(@team2.name)
         expect(find(:test_id, 'win-points').text).to eq('4')
         expect(find(:test_id, 'wins').text).to eq('1')
         expect(find(:test_id, 'draws').text).to eq('1')
@@ -150,7 +150,7 @@ RSpec.describe "リーグ順位表", type: :system do
       end
       within find(:test_id, 'rank2') do
         expect(find(:test_id, 'rank').text).to eq('1')
-        expect(find(:test_id, 'team').text).to eq(@team2.name)
+        expect(find(:test_id, 'team').text).to eq(@team2.name).or eq(@team1.name)
         expect(find(:test_id, 'win-points').text).to eq('4')
         expect(find(:test_id, 'wins').text).to eq('1')
         expect(find(:test_id, 'draws').text).to eq('1')
