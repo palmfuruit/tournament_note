@@ -15,6 +15,7 @@ class EliminationsController < ApplicationController
 
     @teams = @elimination.teams.order(:entryNo).map(&:attributes)
     @games = @elimination.games.map(&:attributes)
+    @elimination.tournament.update_last_access_day
   end
 
   def new

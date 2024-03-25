@@ -16,6 +16,7 @@ class RoundrobinsController < ApplicationController
     @teams = @roundrobin.teams.order(:entryNo).map(&:attributes)
     @games = @roundrobin.games.map(&:attributes)
     @round = 1
+    @roundrobin.tournament.update_last_access_day
   end
 
   def change_round
