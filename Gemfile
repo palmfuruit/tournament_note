@@ -21,6 +21,7 @@ gem 'bootstrap5-kaminari-views'
 gem "bootsnap", require: false
 gem "sassc-rails"
 gem "rinku"
+gem 'puma_worker_killer'
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
