@@ -9,7 +9,7 @@ class TeamsController < ApplicationController
 
   def new
     @tournament = Tournament.find_by(id: params[:tournament_id])
-    @team = @tournament.teams.new
+    @team = @tournament.teams.new.decorate
   end
 
   def create
@@ -17,16 +17,18 @@ class TeamsController < ApplicationController
     @team = @tournament.teams.new(team_params)
     # 更新成功確認
     if @team.save
+      @team = @team.decorate
       @tournament.set_entryNo
       redirect_to tournament_teams_path(@tournament)
     else
+      @team = @team.decorate
       render 'form_update', status: :unprocessable_entity
     end
   end
 
   def edit
     @tournament = Tournament.find_by(id: params[:tournament_id])
-    @team = Team.find_by(id: params[:id])
+    @team = Team.find_by(id: params[:id]).decorate
   end
 
   def update
@@ -34,10 +36,12 @@ class TeamsController < ApplicationController
     @team = Team.find_by(id: params[:id])
 
     if @team.update(team_params)
+      @team = @team.decorate
       @teams = @tournament.teams&.order(:entryNo)
       @teams_names = @teams.pluck(:name).join("\n")
       # redirect_to tournament_teams_path(@tournament)
     else
+      @team = @team.decorate
       render 'form_update', status: :unprocessable_entity
     end
   end

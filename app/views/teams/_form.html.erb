@@ -19,10 +19,8 @@
       <%= form.label :color, "なし", class: "form-check-label", value: "none#{@team.id}"  %>
     </div>
     <% UNIFORM_COLORS.each do |color| %>
-      <%= div_tag__uniform_radio_btn(form, color, @team.id) %>
+      <%= @team.div_tag__uniform_radio_btn(form, color) %>
     <% end %>
-
-
 
     <div class="d-flex gap-1 justify-content-end">
       <div class="bg-white">
