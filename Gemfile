@@ -22,6 +22,7 @@ gem "bootsnap", require: false
 gem "sassc-rails"
 gem "rinku"
 gem 'puma_worker_killer'
+gem 'draper'
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
