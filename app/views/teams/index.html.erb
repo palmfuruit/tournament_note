@@ -26,7 +26,7 @@
       <% end %>
 
       <% if @tournament.teams.present? && @tournament.games.empty? %>
-        <%= link_to shuffle_tournament_teams_path(@tournament),
+        <%= link_to tournament_teams_shuffle_path(@tournament),
                     class: "btn btn-outline-main",
                     data: { "turbo-method": :post, turbo_confirm: "参加チームの配置をシャッフルします。", turbo_frame: "_top" } do %>
           <i class="bi bi-shuffle"></i> シャッフル

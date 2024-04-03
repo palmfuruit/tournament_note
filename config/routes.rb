@@ -27,9 +27,11 @@ Rails.application.routes.draw do
   get 'index_roundrobins' => 'roundrobins#index'
 
   resources :tournaments, only: [:index] do
-    resources :teams,except: :show do
-      post :shuffle, on: :collection
-      post :bulk_update, on: :collection
+    namespace :teams do
+      resource :shuffle, only: [:create]
+    end
+    resources :teams, except: :show do
+        post :bulk_update, on: :collection
     end
     resources :games
   end
