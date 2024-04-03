@@ -55,7 +55,7 @@
   <% if @tournament.games.empty? %>
     <div class="mt-5">
       <h6>一括更新</h6>
-      <%= form_with(url: bulk_update_tournament_teams_path(@tournament), data: { turbo_frame: "_top" }) do |form| %>
+      <%= form_with(url: tournament_teams_bulk_update_path(@tournament), data: { turbo_frame: "_top" }) do |form| %>
         <%= turbo_frame_tag "bulk_update_error" %>
         <%= turbo_frame_tag "teams_names_tag" do %>
           <%= render "teams_names", { teams_names: @teams_names } %>

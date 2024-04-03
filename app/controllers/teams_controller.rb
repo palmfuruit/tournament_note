@@ -46,30 +46,6 @@ class TeamsController < ApplicationController
     end
   end
 
-  def bulk_update
-    @tournament = Tournament.find_by(id: params[:tournament_id])
-    @teams = @tournament.teams&.order(:entryNo)
-    @teams_names = params[:teams_names].split("\n").reject { |name| name.blank? }
-
-    ActiveRecord::Base.transaction do
-      @teams.delete_all
-      @teams_names.each.with_index(1) do |team_name, i|
-        @team = @tournament.teams.new(name: team_name, entryNo: i)
-        @team.save!
-      end
-    end
-
-    # logger.debug("=============================")
-    # logger.debug(@teams_names.to_yaml)
-    # logger.debug("=============================")
-
-    redirect_to tournament_teams_path(@tournament) and return
-
-  rescue ActiveRecord::RecordInvalid
-    render 'bulk_update', status: :unprocessable_entity and return
-
-  end
-
   def destroy
     @tournament = Tournament.find_by(id: params[:tournament_id])
     @team = Team.find_by(id: params[:id])
