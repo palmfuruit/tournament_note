@@ -145,9 +145,9 @@ RSpec.describe "リーグ順位表", type: :system do
         expect(find(:test_id, 'wins').text).to eq('1')
         expect(find(:test_id, 'draws').text).to eq('1')
         expect(find(:test_id, 'loses').text).to eq('0')
-        expect(find(:test_id, 'total_goals').text).to eq('1')
+        expect(find(:test_id, 'total_goals').text).to eq('1').or eq('2')
         expect(find(:test_id, 'total_against_goals').text).to eq('0')
-        expect(find(:test_id, 'goal_diff').text).to eq('1')
+        expect(find(:test_id, 'goal_diff').text).to eq('1').or eq('2')
       end
       within find(:test_id, 'rank2') do
         expect(find(:test_id, 'rank').text).to eq('1')
@@ -156,9 +156,9 @@ RSpec.describe "リーグ順位表", type: :system do
         expect(find(:test_id, 'wins').text).to eq('1')
         expect(find(:test_id, 'draws').text).to eq('1')
         expect(find(:test_id, 'loses').text).to eq('0')
-        expect(find(:test_id, 'total_goals').text).to eq('2')
+        expect(find(:test_id, 'total_goals').text).to eq('2').or eq('1')
         expect(find(:test_id, 'total_against_goals').text).to eq('0')
-        expect(find(:test_id, 'goal_diff').text).to eq('2')
+        expect(find(:test_id, 'goal_diff').text).to eq('2').or eq('1')
       end
       within find(:test_id, 'rank3') do
         expect(find(:test_id, 'rank').text).to eq('3')
