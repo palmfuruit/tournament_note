@@ -113,10 +113,6 @@ module ApplicationHelper
     ret
   end
 
-  def tournament_bookmarked?(tournament_bookmarks, tournament_id)
-    tournament_bookmarks.include?(tournament_id)
-  end
-
   def tournament_name(tournament_id)
     tournament = Tournament.find_by(id: tournament_id)
     return nil unless tournament

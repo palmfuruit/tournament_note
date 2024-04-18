@@ -1,4 +1,4 @@
-<% if tournament_bookmarks.present? %>
+<% if bookmarked_tournaments.present? %>
   <div class="nav-item dropdown">
     <button id="dropdown-bookmark" class="navbar-toggler dropdown-toggle" type="button" data-bs-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -6,7 +6,7 @@
     </button>
 
     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-bookmark">
-      <% tournament_bookmarks.each do |tournament_id| %>
+      <% bookmarked_tournaments.each do |tournament_id| %>
         <%= link_to tournament_name(tournament_id), tournament_path(tournament_id), class: "dropdown-item", data: { turbo_frame: "_top" } %>
       <% end %>
     </div>

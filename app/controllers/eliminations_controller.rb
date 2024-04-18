@@ -105,28 +105,7 @@ class EliminationsController < ApplicationController
 
   end
 
-  def bookmark_on
-    @elimination = Elimination.find_by(id: params[:id])
-    unless @elimination
-      flash[:warning] = "トーナメントが見つかりません。"
-      redirect_to root_path and return
-    end
 
-    add_tournament_bookmark(@elimination.tournament.id)
-    render 'bookmark_button_clicked'
-  end
-
-  def bookmark_off
-    @elimination = Elimination.find_by(id: params[:id])
-    unless @elimination
-      flash[:warning] = "トーナメントが見つかりません。"
-      redirect_to root_path and return
-    end
-
-    delete_tournament_bookmark(@elimination.tournament.id)
-    render 'bookmark_button_clicked'
-
-  end
 
   ### Private Method
 

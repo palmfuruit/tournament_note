@@ -5,7 +5,7 @@
 
 <%# Bookmarkボタン %>
 <%= turbo_frame_tag "bookmark_button" do %>
-  <%= render "bookmark_button", { tournament_bookmarks: @tournament_bookmarks, elimination: @elimination } %>
+  <%= render "bookmarks/bookmark_button", { bookmarked_tournaments: @bookmarked_tournament_ids, tournament: @elimination.tournament } %>
 <% end %>
 
 

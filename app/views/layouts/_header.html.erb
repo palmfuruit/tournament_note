@@ -8,7 +8,7 @@
   <div class="d-flex">
     <%# ブックマーク %>
     <%= turbo_frame_tag "bookmark_menu" do %>
-      <%= render "shared/bookmark_menu", { tournament_bookmarks: @tournament_bookmarks } %>
+      <%= render "shared/bookmark_menu", { bookmarked_tournaments: @bookmarked_tournament_ids } %>
     <% end %>
 
     <%# メニュー %>

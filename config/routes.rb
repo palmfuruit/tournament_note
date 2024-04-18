@@ -9,8 +9,6 @@ Rails.application.routes.draw do
     get :share, on: :member
     get :admin, on: :member
     post :authentication, on: :member
-    post :bookmark_on, on: :member
-    post :bookmark_off, on: :member
   end
   get 'index_eliminations' => 'eliminations#index'
 
@@ -21,8 +19,6 @@ Rails.application.routes.draw do
     get :share, on: :member
     get :admin, on: :member
     post :authentication, on: :member
-    post :bookmark_on, on: :member
-    post :bookmark_off, on: :member
   end
   get 'index_roundrobins' => 'roundrobins#index'
 
@@ -33,5 +29,6 @@ Rails.application.routes.draw do
     end
     resources :teams, except: :show
     resources :games
+    resource :bookmarks, only: [:create, :destroy]
   end
 end

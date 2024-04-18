@@ -1,0 +1,9 @@
+<%# Bookmarkボタン %>
+<%= turbo_stream.update "bookmark_button" do %>
+  <%= render partial: "bookmark_button", locals: { bookmarked_tournaments: @bookmarked_tournament_ids, tournament: @tournament } %>
+<% end %>
+
+<%# Bookmarkメニュー %>
+<%= turbo_stream.update "bookmark_menu" do %>
+  <%= render partial: "shared/bookmark_menu", locals: { bookmarked_tournaments: @bookmarked_tournament_ids } %>
+<% end %>

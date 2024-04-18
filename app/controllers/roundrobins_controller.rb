@@ -130,27 +130,6 @@ class RoundrobinsController < ApplicationController
     end
   end
 
-  def bookmark_on
-    @roundrobin = Roundrobin.find_by(id: params[:id])
-    unless @roundrobin
-      flash[:warning] = "トーナメントが見つかりません。"
-      redirect_to root_path and return
-    end
-
-    add_tournament_bookmark(@roundrobin.tournament.id)
-    render 'bookmark_button_clicked'
-  end
-
-  def bookmark_off
-    @roundrobin = Roundrobin.find_by(id: params[:id])
-    unless @roundrobin
-      flash[:warning] = "トーナメントが見つかりません。"
-      redirect_to root_path and return
-    end
-
-    delete_tournament_bookmark(@roundrobin.tournament.id)
-    render 'bookmark_button_clicked'
-  end
 
   ### Private Method
   private
