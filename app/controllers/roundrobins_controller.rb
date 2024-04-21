@@ -55,7 +55,8 @@ class RoundrobinsController < ApplicationController
       num_of_teams = params[:num_of_teams].to_i
 
       if @roundrobin.save
-        set_cookie_admin(@roundrobin.id, @roundrobin.password, 'roundrobin')
+        authenticaion = Authentication.new(cookies)
+        authenticaion.set_password(id: @roundrobin.id, tournament_type: 'roundrobin', password: @roundrobin.password)
 
         (1..num_of_teams).each do |i|
           @roundrobin.teams.create(name: "Team#{i}", entryNo: i)
@@ -80,7 +81,8 @@ class RoundrobinsController < ApplicationController
     @roundrobin = Roundrobin.find_by(id: params[:id])
 
     if @roundrobin.update(roundrobin_params)
-      set_cookie_admin(@roundrobin.id, @roundrobin.password, 'roundrobin')
+      authenticaion = Authentication.new(cookies)
+      authenticaion.set_password(id: @roundrobin.id, tournament_type: 'roundrobin', password: @roundrobin.password)
 
       redirect_to roundrobin_path(@roundrobin)
     else
@@ -91,7 +93,8 @@ class RoundrobinsController < ApplicationController
   def destroy
     @roundrobin = Roundrobin.find_by(id: params[:id])
     @roundrobin.tournament.destroy
-    clear_cookie_admin(@roundrobin.id, 'roundrobin')
+    authenticaion = Authentication.new(cookies)
+    authenticaion.clear_password(id: @roundrobin.id, tournament_type: 'roundrobin')
 
     redirect_to root_path, flash: { info: 'リーグを削除しました' }
   end
@@ -105,29 +108,6 @@ class RoundrobinsController < ApplicationController
 
   def share
     @roundrobin = Roundrobin.find_by(id: params[:id])
-  end
-
-  def admin
-    @roundrobin = Roundrobin.find_by(id: params[:id])
-  end
-
-  def authentication
-    @roundrobin = Roundrobin.find_by(id: params[:id])
-    unless @roundrobin
-      flash[:warning] = "リーグが見つかりません。"
-      redirect_to root_path and return
-    end
-
-    @error_message = nil
-    if @roundrobin.password == params[:password]
-      set_cookie_admin(@roundrobin.id, params[:password], 'roundrobin')
-
-      redirect_to roundrobin_path(@roundrobin)
-    else
-      @error_message = "パスワードが不一致です"
-
-      render 'admin', status: :unprocessable_entity
-    end
   end
 
 

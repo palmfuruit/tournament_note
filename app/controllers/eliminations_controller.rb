@@ -29,7 +29,8 @@ class EliminationsController < ApplicationController
       num_of_teams = params[:num_of_teams].to_i
 
       if @elimination.save
-        set_cookie_admin(@elimination.id, @elimination.password, 'elimination')
+        authenticaion = Authentication.new(cookies)
+        authenticaion.set_password(id: @elimination.id, tournament_type: 'elimination', password: @elimination.password)
 
         (1..num_of_teams).each do |i|
           @elimination.teams.create(name: "Team#{i}", entryNo: i)
@@ -54,7 +55,8 @@ class EliminationsController < ApplicationController
     @elimination = Elimination.find_by(id: params[:id])
 
     if @elimination.update(elimination_params)
-      set_cookie_admin(@elimination.id, @elimination.password, 'elimination')
+      authenticaion = Authentication.new(cookies)
+      authenticaion.set_password(id: @elimination.id, tournament_type: 'elimination', password: @elimination.password)
 
       redirect_to elimination_path(@elimination)
     else
@@ -65,7 +67,8 @@ class EliminationsController < ApplicationController
   def destroy
     @elimination = Elimination.find_by(id: params[:id])
     @elimination.tournament.destroy
-    clear_cookie_admin(@elimination.id, 'elimination')
+    authenticaion = Authentication.new(cookies)
+    authenticaion.clear_password(id: @elimination.id, tournament_type: 'elimination')
 
     redirect_to root_path, flash: { info: 'トーナメントを削除しました' }
   end
@@ -80,31 +83,6 @@ class EliminationsController < ApplicationController
   def share
     @elimination = Elimination.find_by(id: params[:id])
   end
-
-  def admin
-    @elimination = Elimination.find_by(id: params[:id])
-  end
-
-  def authentication
-    @elimination = Elimination.find_by(id: params[:id])
-    unless @elimination
-      flash[:warning] = "トーナメントが見つかりません。"
-      redirect_to root_path and return
-    end
-
-    @error_message = nil
-    if @elimination.password == params[:password]
-      set_cookie_admin(@elimination.id, params[:password], 'elimination')
-
-      redirect_to elimination_path(@elimination)
-    else
-      @error_message = "パスワードが不一致です"
-
-      render 'admin', status: :unprocessable_entity
-    end
-
-  end
-
 
 
   ### Private Method

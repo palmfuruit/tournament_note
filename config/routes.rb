@@ -5,20 +5,18 @@ Rails.application.routes.draw do
   get "inquiry" => "static_pages#inquiry"
 
   resources :eliminations, except: :index do
+    resource :authentication, only: [:new, :create], module: :eliminations
     post :reset, on: :member
     get :share, on: :member
-    get :admin, on: :member
-    post :authentication, on: :member
   end
   get 'index_eliminations' => 'eliminations#index'
 
   resources :roundrobins, except: :index do
+    resource :authentication, only: [:new, :create], module: :roundrobins
     get :change_round, on: :member
     post :reset, on: :member
     get :ranking, on: :member
     get :share, on: :member
-    get :admin, on: :member
-    post :authentication, on: :member
   end
   get 'index_roundrobins' => 'roundrobins#index'
 

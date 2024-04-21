@@ -11,7 +11,7 @@
     <%= link_to "トーナメント表", elimination_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == 'トーナメント表'}" %>
     <%= link_to "共有", share_elimination_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == '共有'}" %>
     <% unless tournament_owner?(elimination.tournament) %>
-      <%= link_to "更新", admin_elimination_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == '更新'}" %>
+      <%= link_to "更新", new_elimination_authentication_path(elimination), class: "btn btn-outline-dark #{'active' if current_page == '更新'}" %>
     <% end %>
   </div>
 </div>
