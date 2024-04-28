@@ -7,7 +7,7 @@
 
 <div class="container-lg bg-light py-3">
 
-  <%= form_with(model: @elimination) do |form| %>
+  <%= form_with(model: @elimination, id: "new-elimination") do |form| %>
     <%# Error Message %>
     <%= form_error_notification(@elimination) %>
 

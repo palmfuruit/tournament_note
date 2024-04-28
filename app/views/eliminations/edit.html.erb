@@ -6,7 +6,7 @@
 <div class="container-lg bg-light py-3">
   <%# 変更フォーム %>
   <div class="mb-4">
-    <%= form_with(model: @elimination) do |form| %>
+    <%= form_with(model: @elimination, id: "edit-elimination") do |form| %>
       <%# Error Message %>
       <%= form_error_notification(@elimination) %>
 
