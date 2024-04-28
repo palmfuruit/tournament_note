@@ -69,8 +69,9 @@ RSpec.describe "リーグ順位表", type: :system do
       click_on "設定"
       expect(page).to have_button '更新'
       select '勝率', from: '順位条件1'
-      click_on "更新"
 
+      click_on "更新"
+      expect(page).to_not have_button '更新'
       click_on '順位表'
 
       expect(page).to have_content "順位条件"
