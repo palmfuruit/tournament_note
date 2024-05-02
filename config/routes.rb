@@ -12,10 +12,10 @@ Rails.application.routes.draw do
   get 'index_eliminations' => 'eliminations#index'
 
   resources :roundrobins, except: :index do
+    resource :ranking, only: [:show], module: :roundrobins
     resource :authentication, only: [:new, :create], module: :roundrobins
     get :change_round, on: :member
     post :reset, on: :member
-    get :ranking, on: :member
     get :share, on: :member
   end
   get 'index_roundrobins' => 'roundrobins#index'

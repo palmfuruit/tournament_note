@@ -69,30 +69,6 @@ module RoundrobinsHelper
     end
   end
 
-  def tbody_tag__ranking(roundrobin:, ranking:, teams:)
-    tag.tbody {
-      ranking.each.with_index(1) do |rank_i, i|
-        concat tag.tr(data: { testid: "rank#{i}" }) {
-          concat tag.td(data: { testid: "rank" }) { rank_i['rank'].to_s }
-          concat tag.td(data: { testid: "team" }) {
-            current_team = teams.find { |team| team["id"] == rank_i['team_id'] }
-            concat team_uniform(current_team)
-            concat tag.div(team_name(current_team))
-          }
-          concat tag.td(data: { testid: "win-points" }) { rank_i['win_points'].to_s } if roundrobin.rank_by?('win_points')
-          concat tag.td(data: { testid: "win-rate" }) { "#{rank_i['win_rate']}%" } if roundrobin.rank_by?('win_rate')
-          concat tag.td(data: { testid: "wins" }) { rank_i['wins_count'].to_s }
-          concat tag.td(data: { testid: "draws" }) { rank_i['draws_count'].to_s }
-          concat tag.td(data: { testid: "loses" }) { rank_i['loses_count'].to_s }
-          if roundrobin.has_score
-            concat tag.td(data: { testid: "total_goals" }) { rank_i['total_goals'].to_s }
-            concat tag.td(data: { testid: "total_against_goals" }) { rank_i['total_against_goals'].to_s }
-            concat tag.td(data: { testid: "goal_diff" }) { rank_i['goal_diff'].to_s }
-          end
-        }
-      end
-    }
-  end
 
   def div_tag__ranking_conditions(form:, priority:, items:)
     case priority

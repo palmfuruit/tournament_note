@@ -9,7 +9,7 @@
       <%= link_to "チーム", tournament_teams_path(roundrobin.tournament), class: "btn btn-outline-dark #{'active' if current_page == 'チーム'}" %>
     <% end %>
     <%= link_to "リーグ表", roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == 'リーグ表'}" %>
-    <%= link_to "順位表", ranking_roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '順位表'}" %>
+    <%= link_to "順位表", roundrobin_ranking_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '順位表'}" %>
     <%= link_to "共有", share_roundrobin_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '共有'}" %>
     <% unless tournament_owner?(roundrobin.tournament) %>
       <%= link_to "更新", new_roundrobin_authentication_path(roundrobin), class: "btn btn-outline-dark #{'active' if current_page == '更新'}" %>

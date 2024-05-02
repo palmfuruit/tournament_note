@@ -4,10 +4,10 @@
       <tr>
         <th>順位</th>
         <th>チーム</th>
-        <% if roundrobin.rank_by?('win_points') %>
+        <% if ranking.rank_by?('win_points') %>
           <th>勝点</th>
         <% end %>
-        <% if roundrobin.rank_by?('win_rate') %>
+        <% if ranking.rank_by?('win_rate') %>
           <th>勝率</th>
         <% end %>
         <th>勝</th>
@@ -21,7 +21,7 @@
       </tr>
     </thead>
 
-    <%= tbody_tag__ranking(roundrobin:, ranking:, teams:) %>
+    <%= ranking.decorate.tbody_tag__ranking %>
   </table>
 </div>
 
@@ -32,16 +32,16 @@
   </p>
   <ol>
     <% if roundrobin.rank1 != 'none' %>
-      <li><%= Roundrobin::RANK_CONDITION[roundrobin.rank1] %></li>
+      <li><%= ranking.decorate.rank_condition1 %></li>
     <% end %>
     <% if roundrobin.rank2 != 'none' %>
-      <li><%= Roundrobin::RANK_CONDITION[roundrobin.rank2] %></li>
+      <li><%= ranking.decorate.rank_condition2 %></li>
     <% end %>
     <% if roundrobin.rank3 != 'none' %>
-      <li><%= Roundrobin::RANK_CONDITION[roundrobin.rank3] %></li>
+      <li><%= ranking.decorate.rank_condition3 %></li>
     <% end %>
     <% if roundrobin.rank4 != 'none' %>
-      <li><%= Roundrobin::RANK_CONDITION[roundrobin.rank4] %></li>
+      <li><%= ranking.decorate.rank_condition4 %></li>
     <% end %>
   </ol>
 </div>

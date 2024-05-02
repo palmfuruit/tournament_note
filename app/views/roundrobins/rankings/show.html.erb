@@ -4,7 +4,7 @@
 <%= render "shared/roundrobin_header", { roundrobin: @roundrobin, current_page: "順位表" } %>
 
 <%# 参加チームなしの場合 %>
-<% if @teams.count < 2 %>
+<% if @ranking.teams.count < 2 %>
   <div class="container-lg my-3">
     <div class="alert alert-warning">参加チームが2チーム以上必要です</div>
   </div>
@@ -12,8 +12,8 @@
 <% else %>
   <div class="bg-white">
     <div class="container-lg my-3 py-3">
-        <%= render partial: "roundrobins/ranking_table",
-                   locals: { roundrobin: @roundrobin, ranking: @ranking, teams: @teams } %>
+        <%= render partial: "ranking_table",
+                   locals: { roundrobin: @roundrobin, ranking: @ranking } %>
     </div>
   </div>
 

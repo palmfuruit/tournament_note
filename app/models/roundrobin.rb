@@ -23,9 +23,7 @@ class Roundrobin < ApplicationRecord
     'head_to_head' => '直接対決',
   }
 
-  def rank_by?(condition)
-    (rank1 == condition || rank2 == condition || rank3 == condition || rank4 == condition) ? true : false
-  end
+
 
   def status
     if games.count == 0
