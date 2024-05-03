@@ -1,6 +1,6 @@
 module RoundrobinsHelper
 
-  def div_tag__ranking_conditions(form:, priority:, items:)
+  def div_tag__ranking_criteria(form:, priority:, items:)
     case priority
       when 1
         rankx_column = @roundrobin.rank1
@@ -16,9 +16,9 @@ module RoundrobinsHelper
         rankx_symbol = :rank4
     end
 
-    array = items.map { |item| [Roundrobin::RANK_CONDITION[item], item] }
+    array = items.map { |item| [Roundrobin::RANKING_CRITERIA[item], item] }
 
-    tag.div(class: ['col-6 col-md-3 mb-3'], data: { testid: "rank-condition#{priority}" }) {
+    tag.div(class: ['col-6 col-md-3 mb-3'], data: { testid: "ranking-criteria#{priority}" }) {
       concat(tag.div {
         concat form.label(rankx_symbol, "順位条件#{priority}", class: 'form-control-label')
         concat form.select(rankx_symbol, options_for_select(array, rankx_column), {}, class: ['form-control'])

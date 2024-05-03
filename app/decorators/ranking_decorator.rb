@@ -28,19 +28,19 @@ class RankingDecorator < ApplicationDecorator
     }
   end
 
-  def rank_condition1
-    Roundrobin::RANK_CONDITION[roundrobin.rank1]
+  def ranking_criteria1
+    Roundrobin::RANKING_CRITERIA[roundrobin.rank1]
   end
 
-  def rank_condition2
-    Roundrobin::RANK_CONDITION[roundrobin.rank2]
+  def ranking_criteria2
+    Roundrobin::RANKING_CRITERIA[roundrobin.rank2]
   end
 
-  def rank_condition3
-    Roundrobin::RANK_CONDITION[roundrobin.rank3]
+  def ranking_criteria3
+    Roundrobin::RANKING_CRITERIA[roundrobin.rank3]
   end
 
-  def rank_condition4
-    Roundrobin::RANK_CONDITION[roundrobin.rank4]
+  def ranking_criteria4
+    Roundrobin::RANKING_CRITERIA[roundrobin.rank4]
   end
 end

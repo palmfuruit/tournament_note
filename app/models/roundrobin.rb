@@ -14,7 +14,7 @@ class Roundrobin < ApplicationRecord
   enum rank3: { none: 0, win_points: 1, win_rate: 2, goal_diff: 11, total_goals: 12, head_to_head: 90 }, _prefix: true
   enum rank4: { none: 0, win_points: 1, win_rate: 2, goal_diff: 11, total_goals: 12, head_to_head: 90 }, _prefix: true
 
-  RANK_CONDITION = {
+  RANKING_CRITERIA = {
     'none' => 'なし',
     'win_points' => '勝点',
     'win_rate' => '勝率',

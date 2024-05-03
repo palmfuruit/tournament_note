@@ -7,7 +7,7 @@ class Ranking
     @roundrobin = roundrobin
     @teams = @roundrobin.teams.order(:entryNo).map(&:attributes)
     @games = @roundrobin.games.map(&:attributes)
-    @ranking = rank(teams: @teams, games: @games, rank_conditions: [@roundrobin.rank1, @roundrobin.rank2, @roundrobin.rank3, @roundrobin.rank4])
+    @ranking = rank(teams: @teams, games: @games, ranking_criteria: [@roundrobin.rank1, @roundrobin.rank2, @roundrobin.rank3, @roundrobin.rank4])
   end
 
   def get
@@ -18,15 +18,15 @@ class Ranking
     @roundrobin.has_score
   end
 
-  def rank_by?(condition)
-    (@roundrobin.rank1 == condition || @roundrobin.rank2 == condition || @roundrobin.rank3 == condition || @roundrobin.rank4 == condition) ? true : false
+  def rank_by?(criteria)
+    (@roundrobin.rank1 == criteria || @roundrobin.rank2 == criteria || @roundrobin.rank3 == criteria || @roundrobin.rank4 == criteria) ? true : false
   end
 
 
   ### Private Method
   private
 
-  def rank(teams:, games:, rank_conditions:)
+  def rank(teams:, games:, ranking_criteria:)
     return Array.new if teams.size == 0
 
     team_ids = teams.map { |team| team['id'] }
@@ -51,8 +51,8 @@ class Ranking
     end
 
     # 優先1〜4 繰り返す
-    rank_conditions.each_with_index do |rank_condition, i|
-      next if rank_condition == 'none'
+    ranking_criteria.each_with_index do |criteria, i|
+      next if criteria == 'none'
 
       rank_with_multi_teams = ranking.map { |team| team['rank'] }
       rank_with_multi_teams = rank_with_multi_teams.select { |e| rank_with_multi_teams.count(e) > 1 }.uniq
@@ -61,19 +61,19 @@ class Ranking
       rank_with_multi_teams.each do |rank|
         ranking_parts = ranking.select { |team| team['rank'] == rank }
 
-        if rank_condition == 'head_to_head'
+        if criteria == 'head_to_head'
           # 直接対決
           sub_team_ids = ranking_parts.map { |st| st['team_id'] }
           sub_teams = teams.select { |st| sub_team_ids.include?(st['id']) }
-          sub_ranking = rank(teams: sub_teams, games: games, rank_conditions: rank_conditions[0..i - 1])
+          sub_ranking = rank(teams: sub_teams, games: games, ranking_criteria: ranking_criteria[0..i - 1])
           ranking_parts.each do |team|
             team['rank'] += sub_ranking.find { |sr| sr['team_id'] == team['team_id'] }['rank'] - 1
           end
         else
           # 直接対決以外
-          ranking_parts.sort_by! { |team| -team[rank_condition] }
+          ranking_parts.sort_by! { |team| -team[criteria] }
           (1..ranking_parts.size - 1).each do |j|
-            if (ranking_parts[j - 1][rank_condition] == ranking_parts[j][rank_condition])
+            if (ranking_parts[j - 1][criteria] == ranking_parts[j][criteria])
               ranking_parts[j]['rank'] = ranking_parts[j - 1]['rank']
             else
               ranking_parts[j]['rank'] = rank + j
@@ -85,7 +85,7 @@ class Ranking
       end
 
       # logger.debug("=====================================")
-      # logger.debug("condition: (#{i}) #{rank_condition}")
+      # logger.debug("criteria: (#{i}) #{criteria}")
       # logger.debug("ranking: #{ranking.map { |t| { rank: t['rank'], team: teams.find { |t2| t['team_id'] == t2['id'] }['name'] } }}")
       # logger.debug("=====================================")
     end

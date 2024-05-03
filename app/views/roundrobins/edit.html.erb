@@ -41,10 +41,10 @@
 
       <%# 順位判定条件 %>
       <div class="row mb-4">
-        <%= div_tag__ranking_conditions(form: form, priority: 1, items: ['win_points', 'win_rate', 'goal_diff', 'total_goals']) %>
-        <%= div_tag__ranking_conditions(form: form, priority: 2, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
-        <%= div_tag__ranking_conditions(form: form, priority: 3, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
-        <%= div_tag__ranking_conditions(form: form, priority: 4, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
+        <%= div_tag__ranking_criteria(form: form, priority: 1, items: ['win_points', 'win_rate', 'goal_diff', 'total_goals']) %>
+        <%= div_tag__ranking_criteria(form: form, priority: 2, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
+        <%= div_tag__ranking_criteria(form: form, priority: 3, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
+        <%= div_tag__ranking_criteria(form: form, priority: 4, items: ['none', 'win_points', 'win_rate', 'goal_diff', 'total_goals', 'head_to_head']) %>
       </div>
 
       <%# 更新パスワード %>
