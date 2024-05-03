@@ -24,7 +24,6 @@ class Roundrobin < ApplicationRecord
   }
 
 
-
   def status
     if games.count == 0
       sts = "NOT_STARTED"

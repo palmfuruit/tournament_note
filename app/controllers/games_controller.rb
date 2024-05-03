@@ -150,7 +150,7 @@ class GamesController < ApplicationController
       if tournament.elimination?
         redirect_to elimination_path(tournament.elimination)
       else
-        redirect_to roundrobin_path(tournament.roundrobin)
+        redirect_to roundrobin_draw_path(tournament.roundrobin)
       end
     end
   end

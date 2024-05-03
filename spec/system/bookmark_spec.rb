@@ -28,7 +28,7 @@ RSpec.describe "Bookmark", type: :system do
       expect(page).to have_link elimination2.name
 
       # Roundrobin1 ブックマークする。
-      visit roundrobin_path(roundrobin1)
+      visit roundrobin_draw_path(roundrobin1)
       expect(page).to have_button 'ブックマーク'
       click_on "ブックマーク"
 

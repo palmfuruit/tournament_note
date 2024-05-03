@@ -40,12 +40,12 @@
 
       <%# Round選択 %>
       <%= turbo_frame_tag "round_select" do %>
-        <%= render partial: "roundrobins/round_select", locals: { roundrobin: @roundrobin, round: @round } %>
+        <%= render partial: "round_select", locals: { roundrobin: @roundrobin, round: @round } %>
       <% end %>
 
       <%# 対戦表 %>
       <div class="roundrobin-table-wrapper">
-        <%= render partial: "roundrobins/roundrobin_table",
+        <%= render partial: "roundrobin_table",
                    locals: { roundrobin: @roundrobin, teams: @teams, games: @games, round: @round } %>
       </div>
 

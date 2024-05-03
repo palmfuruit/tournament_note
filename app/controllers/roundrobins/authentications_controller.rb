@@ -15,7 +15,7 @@ class Roundrobins::AuthenticationsController < ApplicationController
       authenticaion = Authentication.new(cookies)
       authenticaion.set_password(id: @roundrobin.id, tournament_type: 'roundrobin', password: params[:password])
 
-      redirect_to roundrobin_path(@roundrobin)
+      redirect_to roundrobin_draw_path(@roundrobin)
     else
       @error_message = "パスワードが不一致です"
 

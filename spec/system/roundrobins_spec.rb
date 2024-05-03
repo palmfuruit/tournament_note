@@ -67,7 +67,7 @@ RSpec.describe "リーグ", type: :system, js: true do
   describe "大会名変更" do
     let!(:roundrobin) { create(:roundrobin, :with_teams, num_of_teams: 4) }
     example do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
 
       expect(page).to have_selector 'h1', text: roundrobin.name
       click_on "設定"
@@ -94,7 +94,7 @@ RSpec.describe "リーグ", type: :system, js: true do
       roundrobin.games.create(round: 1, gameNo: nil, a_team: team3, b_team: team4, win_team: team4, lose_team: team3, a_result: 'LOSE', b_result: 'WIN')
     end
     example do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
 
       expect(page).to have_selector 'h1', text: roundrobin.name
       expect(find('#game-1-2')).to have_mark('win')
@@ -115,7 +115,7 @@ RSpec.describe "リーグ", type: :system, js: true do
   describe "リーグ削除" do
     let!(:roundrobin) { create(:roundrobin) }
     example do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
 
       expect(page).to have_selector 'h1', text: roundrobin.name
       click_on "設定"
@@ -130,7 +130,7 @@ RSpec.describe "リーグ", type: :system, js: true do
   describe "チーム数不足" do
     let!(:roundrobin) { create(:roundrobin, :with_teams, num_of_teams: 1) }
     example do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
 
       expect(page).to have_selector 'h1', text: roundrobin.name
       expect(page).to have_content "参加チームが2チーム以上必要です"
@@ -142,7 +142,7 @@ RSpec.describe "リーグ", type: :system, js: true do
 
     context '試合未実施' do
       it 'ステータス [開始前]' do
-        visit roundrobin_path(roundrobin)
+        visit roundrobin_draw_path(roundrobin)
         expect(find(:test_id, 'tournament-status')).to have_content "開始前"
       end
     end
@@ -155,7 +155,7 @@ RSpec.describe "リーグ", type: :system, js: true do
       end
 
       it 'ステータス [進行中]' do
-        visit roundrobin_path(roundrobin)
+        visit roundrobin_draw_path(roundrobin)
         expect(find(:test_id, 'tournament-status')).to have_content "進行中"
       end
     end
@@ -176,7 +176,7 @@ RSpec.describe "リーグ", type: :system, js: true do
       end
 
       it 'ステータス [進行中]' do
-        visit roundrobin_path(roundrobin)
+        visit roundrobin_draw_path(roundrobin)
         expect(find(:test_id, 'tournament-status')).to have_content "進行中"
       end
     end
@@ -203,7 +203,7 @@ RSpec.describe "リーグ", type: :system, js: true do
       end
 
       it 'ステータス [終了]' do
-        visit roundrobin_path(roundrobin)
+        visit roundrobin_draw_path(roundrobin)
         expect(find(:test_id, 'tournament-status')).to have_content "終了"
       end
     end

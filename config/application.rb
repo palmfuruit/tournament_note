@@ -18,6 +18,7 @@ module TournamentNote
                         routing_specs: false,
                         request_specs: false
       g.factory_bot false
+      g.decorator false
       g.factory_bot dir: "spec/factories"
     end
 

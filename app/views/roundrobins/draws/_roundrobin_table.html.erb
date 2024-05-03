@@ -12,7 +12,7 @@
 
   <tbody>
     <% teams.each do |team| %>
-      <%= tr_tag__team(roundrobin:, teams:, games:, round:, current_team: team) %>
+      <%= roundrobin.decorate.tr_tag__team_record(teams:, games:, round:, current_team: team) %>
     <% end %>
   </tbody>
 </table>

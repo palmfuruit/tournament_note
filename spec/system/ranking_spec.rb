@@ -18,7 +18,7 @@ RSpec.describe "リーグ順位表", type: :system do
     end
 
     it "順位表が正しく表示される(1:勝点)" do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
 
       expect(page).to have_selector 'h1', text: roundrobin.name
       click_on '順位表'
@@ -61,7 +61,7 @@ RSpec.describe "リーグ順位表", type: :system do
     end
 
     it "順位表が正しく表示される(1:勝率)" do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
 
       expect(page).to have_selector 'h1', text: roundrobin.name
 
@@ -129,7 +129,7 @@ RSpec.describe "リーグ順位表", type: :system do
     end
 
     example "1:勝点　のみ" do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
 
       expect(page).to have_selector 'h1', text: roundrobin.name
       click_on '順位表'
@@ -175,7 +175,7 @@ RSpec.describe "リーグ順位表", type: :system do
     end
 
     example "1:勝点、2:得失点差" do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
       expect(page).to have_selector 'h1', text: roundrobin.name
 
       # 得失点差を順位条件2に追加
@@ -241,7 +241,7 @@ RSpec.describe "リーグ順位表", type: :system do
     end
 
     example "1:勝点、2:得失点差　のみ" do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
 
       expect(page).to have_selector 'h1', text: roundrobin.name
       click_on '順位表'
@@ -287,7 +287,7 @@ RSpec.describe "リーグ順位表", type: :system do
     end
 
     example "1:勝点、2:得失点差、3:総得点" do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
       expect(page).to have_selector 'h1', text: roundrobin.name
 
       # 総得点を順位条件3に追加
@@ -354,7 +354,7 @@ RSpec.describe "リーグ順位表", type: :system do
     end
 
     example "1:勝点　のみ" do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
 
       expect(page).to have_selector 'h1', text: roundrobin.name
       click_on '順位表'
@@ -398,7 +398,7 @@ RSpec.describe "リーグ順位表", type: :system do
     end
 
     example "1:勝点、2:直接対決" do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
       expect(page).to have_selector 'h1', text: roundrobin.name
 
       # 総得点を順位条件3に追加

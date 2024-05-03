@@ -1,0 +1,17 @@
+<% if roundrobin.num_of_round > 1 %>
+  <div class="my-4">
+    <%= form_with(url: roundrobin_draw_path(roundrobin), method: :patch,
+                  html: { data: { controller: "auto-submit" } }) do |form| %>
+
+      <%# [Sample]  Round 1 / 10  %>
+      <div class="round-display">
+        <%= "Round #{round} / #{roundrobin.num_of_round}" %>
+      </div>
+
+      <div class="round-display d-flex justify-content-center">
+        <%= select_tag(:round, options_for_select(roundrobin.decorate.round_select_contents.map { |c| [c[:name], c[:value]] }, { selected: round }),
+                       { id: "round_select", class: "w-50 form-control", data: { action: "change->auto-submit#submit" } }) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

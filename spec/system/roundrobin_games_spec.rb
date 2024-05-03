@@ -12,7 +12,7 @@ RSpec.describe "リーグ戦試合", type: :system do
         team2 = teams[1]
 
         # 試合結果の登録
-        visit roundrobin_path(roundrobin)
+        visit roundrobin_draw_path(roundrobin)
 
         expect(page).to have_selector 'h1', text: roundrobin.name
         find('#game-1-2 a').click
@@ -72,7 +72,7 @@ RSpec.describe "リーグ戦試合", type: :system do
         team2 = teams[1]
 
         # 試合結果の登録
-        visit roundrobin_path(roundrobin)
+        visit roundrobin_draw_path(roundrobin)
 
         expect(page).to have_selector 'h1', text: roundrobin.name
         find('#game-1-2 a').click
@@ -108,7 +108,7 @@ RSpec.describe "リーグ戦試合", type: :system do
       end
 
       it 'Round2の試合更新後、Round2表示が維持される。' do
-        visit roundrobin_path(roundrobin)
+        visit roundrobin_draw_path(roundrobin)
 
         expect(page).to have_selector 'h1', text: roundrobin.name
 

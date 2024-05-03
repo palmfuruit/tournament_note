@@ -73,7 +73,7 @@ RSpec.describe "Authentication", type: :system do
     let!(:roundrobin) { create(:roundrobin, :with_teams, num_of_teams: 4) }
 
     example do
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
 
       expect(page).to have_selector 'h1', text: roundrobin.name
 
@@ -92,7 +92,7 @@ RSpec.describe "Authentication", type: :system do
 
       # 他のブラウザでは参照専用になっている。
       delete_cookie(cookie_name)
-      visit roundrobin_path(roundrobin)
+      visit roundrobin_draw_path(roundrobin)
 
       expect(page).to_not have_link '設定'
       expect(page).to_not have_link 'チーム'

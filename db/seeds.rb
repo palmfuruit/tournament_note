@@ -30,7 +30,7 @@ tournament.games.create(round: 2, gameNo: 1, a_team: goku, b_team: tenshinhan, w
 end
 
 tournament = Tournament.create(tournament_type: :roundrobin)
-tournament.create_roundrobin(name: "Group E", has_score: true, rank1: 'win_points', rank2: 'goal_diff', rank3: 'total_goals', rank4: 'head_to_head')
+tournament.create_roundrobin(name: "WC2022. Group E", has_score: true, rank1: 'win_points', rank2: 'goal_diff', rank3: 'total_goals', rank4: 'head_to_head')
 spain = tournament.teams.create(name: "スペイン", entryNo: 1)
 germany = tournament.teams.create(name: "ドイツ", entryNo: 2)
 costarica = tournament.teams.create(name: "コスタリカ", entryNo: 3)
@@ -41,3 +41,16 @@ tournament.games.create(round: 1, a_team: spain, b_team: germany, win_team_id: 0
 tournament.games.create(round: 1, a_team: japan, b_team: costarica, win_team: costarica, lose_team: japan, a_result: 'LOSE', b_result: 'WIN', a_score_num: 0, b_score_num: 1)
 tournament.games.create(round: 1, a_team: costarica, b_team: germany, win_team: germany, lose_team: costarica, a_result: 'LOSE', b_result: 'WIN', a_score_num: 2, b_score_num: 4)
 tournament.games.create(round: 1, a_team: japan, b_team: spain, win_team: japan, lose_team: spain, a_result: 'WIN', b_result: 'LOSE', a_score_num: 2, b_score_num: 1)
+
+tournament = Tournament.create(tournament_type: :roundrobin)
+tournament.create_roundrobin(name: "アジア2次予選", num_of_round: 2, has_score: true, rank1: 'win_points', rank2: 'goal_diff', rank3: 'total_goals', rank4: 'head_to_head')
+japan = tournament.teams.create(name: "日本", entryNo: 1)
+syria = tournament.teams.create(name: "シリア", entryNo: 2)
+north_korea = tournament.teams.create(name: "北朝鮮", entryNo: 3)
+myanmar = tournament.teams.create(name: "ミャンマー", entryNo: 4)
+tournament.games.create(round: 1, a_team: japan, b_team: myanmar, win_team: japan, lose_team: myanmar, a_result: 'WIN', b_result: 'LOSE', a_score_num: 5, b_score_num: 0)
+tournament.games.create(round: 1, a_team: syria, b_team: north_korea, win_team: syria, lose_team: north_korea, a_result: 'WIN', b_result: 'LOSE', a_score_num: 1, b_score_num: 0)
+tournament.games.create(round: 1, a_team: myanmar, b_team: north_korea, win_team: north_korea, lose_team: myanmar, a_result: 'LOSE', b_result: 'WIN', a_score_num: 1, b_score_num: 6)
+tournament.games.create(round: 1, a_team: syria, b_team: japan, win_team: japan, lose_team: syria, a_result: 'LOSE', b_result: 'WIN', a_score_num: 0, b_score_num: 5)
+tournament.games.create(round: 1, a_team: myanmar, b_team: syria, win_team_id: 0, lose_team_id: 0, a_result: 'DRAW', b_result: 'DRAW', a_score_num: 1, b_score_num: 1)
+tournament.games.create(round: 1, a_team: japan, b_team: north_korea, win_team: japan, lose_team: north_korea, a_result: 'WIN', b_result: 'LOSE', a_score_num: 1, b_score_num: 0)

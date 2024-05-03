@@ -7,29 +7,7 @@ class RoundrobinsController < ApplicationController
   end
 
   def show
-    @roundrobin = Roundrobin.find_by(id: params[:id])
-    unless @roundrobin
-      flash[:warning] = "リーグが見つかりません。"
-      redirect_to root_path and return
-    end
-
-    @teams = @roundrobin.teams.order(:entryNo).map(&:attributes)
-    @games = @roundrobin.games.map(&:attributes)
-    @round = 1
-    @roundrobin.tournament.update_last_access_day
-  end
-
-  def change_round
-    @roundrobin = Roundrobin.find_by(id: params[:id])
-    @round = params[:round].to_i
-
-    unless @roundrobin
-      flash[:warning] = "リーグが見つかりません。"
-      redirect_to root_path and return
-    end
-
-    @teams = @roundrobin.teams.order(:entryNo).map(&:attributes)
-    @games = @roundrobin.games.map(&:attributes)
+    redirect_to roundrobin_draw_path(params[:id])
   end
 
   def new
@@ -49,7 +27,7 @@ class RoundrobinsController < ApplicationController
         (1..num_of_teams).each do |i|
           @roundrobin.teams.create(name: "Team#{i}", entryNo: i)
         end
-        redirect_to roundrobin_path(@roundrobin)
+        redirect_to roundrobin_draw_path(@roundrobin)
       else
         render 'new', status: :unprocessable_entity
         raise ActiveRecord::Rollback
@@ -72,7 +50,7 @@ class RoundrobinsController < ApplicationController
       authenticaion = Authentication.new(cookies)
       authenticaion.set_password(id: @roundrobin.id, tournament_type: 'roundrobin', password: @roundrobin.password)
 
-      redirect_to roundrobin_path(@roundrobin)
+      redirect_to roundrobin_draw_path(@roundrobin)
     else
       render 'edit', status: :unprocessable_entity
     end
@@ -91,7 +69,7 @@ class RoundrobinsController < ApplicationController
     @roundrobin = Roundrobin.find_by(id: params[:id])
     @roundrobin.games.delete_all
 
-    redirect_to roundrobin_path(@roundrobin), flash: { info: 'リーグをリセットしました' }
+    redirect_to roundrobin_draw_path(@roundrobin), flash: { info: 'リーグをリセットしました' }
   end
 
   def share
@@ -115,7 +93,7 @@ class RoundrobinsController < ApplicationController
   def authenticate_owner
     roundrobin = Roundrobin.find_by(id: params[:id])
     unless view_context.tournament_owner?(roundrobin.tournament)
-      redirect_to roundrobin_path(roundrobin)
+      redirect_to roundrobin_draw_path(roundrobin)
     end
   end
 

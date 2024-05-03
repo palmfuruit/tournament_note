@@ -129,7 +129,7 @@ module ApplicationHelper
       ret = elimination_path(elimination)
     else
       roundrobin = tournament.roundrobin
-      ret = roundrobin_path(roundrobin)
+      ret = roundrobin_draw_path(roundrobin)
     end
 
     ret

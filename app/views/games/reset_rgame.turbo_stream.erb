@@ -4,7 +4,7 @@
 
 <%# Round選択に表示される消化試合数 %>
 <%= turbo_stream.update "round_select" do %>
-  <%= render partial: "roundrobins/round_select", locals: { roundrobin: @roundrobin, round: @game.round } %>
+  <%= render partial: "roundrobins/draws/round_select", locals: { roundrobin: @roundrobin, round: @game.round } %>
 <% end %>
 
 <%# リーグステータス %>
