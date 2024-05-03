@@ -30,4 +30,8 @@ class Tournament < ApplicationRecord
       update(accessed_on: today)
     end
   end
+
+  def bookmarked?(bookmarked_tournament_ids)
+    bookmarked_tournament_ids.include?(id.to_s)
+  end
 end

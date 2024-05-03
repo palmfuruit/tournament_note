@@ -1,7 +1,7 @@
 <div class="container-lg my-3">
   <div class="d-flex justify-content-end">
 
-    <% if tournament.decorate.bookmarked?(bookmarked_tournaments) %>
+    <% if tournament.bookmarked?(bookmarked_tournaments) %>
       <%= button_to(tournament_bookmarks_path(tournament), method: :delete, class: "btn btn-outline-dark fw-normal") do %>
         <i class="bi bi-star-fill"></i>
         <span class="fw-normal">ブックマーク済</span>
