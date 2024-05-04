@@ -25,9 +25,8 @@ class GamesController < ApplicationController
     end
 
     if @tournament.elimination?
-      @elimination = @tournament.elimination
-      @teams = @elimination.teams.order(:entryNo).map(&:attributes)
-      @games = @elimination.games.map(&:attributes)
+      elimination = @tournament.elimination
+      @elimination = EliminationDecorator.new(elimination)
       render 'update_egame'
     else
       @roundrobin = @tournament.roundrobin
@@ -58,9 +57,8 @@ class GamesController < ApplicationController
     end
 
     if @tournament.elimination?
-      @elimination = @tournament.elimination
-      @teams = @elimination.teams.order(:entryNo).map(&:attributes)
-      @games = @elimination.games.map(&:attributes)
+      elimination = @tournament.elimination
+      @elimination = EliminationDecorator.new(elimination)
       render 'update_egame'
     else
       @roundrobin = @tournament.roundrobin
@@ -76,9 +74,8 @@ class GamesController < ApplicationController
 
     @game.destroy
     if @tournament.elimination?
-      @elimination = @tournament.elimination
-      @teams = @elimination.teams.order(:entryNo).map(&:attributes)
-      @games = @elimination.games.map(&:attributes)
+      elimination = @tournament.elimination
+      @elimination = EliminationDecorator.new(elimination)
       render 'update_egame'
     else
       @roundrobin = @tournament.roundrobin
@@ -93,17 +90,14 @@ class GamesController < ApplicationController
   private
 
   def set_elimination_game_param
-    elimination = @tournament.elimination
-    teams = elimination.teams.map(&:attributes)
-    games = elimination.games.map(&:attributes)
-
     round = params[:round].to_i
     gameNo = params[:gameNo].to_i
-    seed_table = elimination.seed_table
     @game.round = round
     @game.gameNo = gameNo
-    a_team = get_team_from_game(round:, gameNo:, side: 'a', teams:, games:, seed_table:)
-    b_team = get_team_from_game(round:, gameNo:, side: 'b', teams:, games:, seed_table:)
+
+    elimination = EliminationDecorator.new(@tournament.elimination)
+    a_team = elimination.get_team_by_game(round:, gameNo:, side: 'a')
+    b_team = elimination.get_team_by_game(round:, gameNo:, side: 'b')
     @game.a_team_id = a_team ? a_team["id"] : nil
     @game.b_team_id = b_team ? b_team["id"] : nil
   end
@@ -148,7 +142,7 @@ class GamesController < ApplicationController
     tournament = Tournament.find_by(id: params[:tournament_id])
     unless view_context.tournament_owner?(tournament)
       if tournament.elimination?
-        redirect_to elimination_path(tournament.elimination)
+        redirect_to elimination_draw_path(tournament.elimination)
       else
         redirect_to roundrobin_draw_path(tournament.roundrobin)
       end

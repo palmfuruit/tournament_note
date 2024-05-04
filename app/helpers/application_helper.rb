@@ -126,7 +126,7 @@ module ApplicationHelper
 
     if tournament.elimination?
       elimination = tournament.elimination
-      ret = elimination_path(elimination)
+      ret = elimination_draw_path(elimination)
     else
       roundrobin = tournament.roundrobin
       ret = roundrobin_draw_path(roundrobin)

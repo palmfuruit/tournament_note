@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "inquiry" => "static_pages#inquiry"
 
   resources :eliminations, except: :index do
+    resource :draw, only: [:show], module: :eliminations
     resource :authentication, only: [:new, :create], module: :eliminations
     post :reset, on: :member
     get :share, on: :member

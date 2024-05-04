@@ -57,7 +57,7 @@ RSpec.describe "トーナメント", type: :system do
   describe "大会名変更" do
     let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 4) }
     example do
-      visit elimination_path(elimination)
+      visit elimination_draw_path(elimination)
 
       expect(page).to have_selector 'h1', text: elimination.name
       click_on "設定"
@@ -85,7 +85,7 @@ RSpec.describe "トーナメント", type: :system do
       elimination.games.create(round: 1, gameNo: 2, a_team: team3, b_team: team4, win_team: team4, lose_team: team3, a_result: 'LOSE', b_result: 'WIN')
     end
     example do
-      visit elimination_path(elimination)
+      visit elimination_draw_path(elimination)
 
       expect(page).to have_selector 'h1', text: elimination.name
       expect(page).to have_css('.r-top')
@@ -105,7 +105,7 @@ RSpec.describe "トーナメント", type: :system do
   describe "トーナメント削除" do
     let!(:elimination) { create(:elimination) }
     example do
-      visit elimination_path(elimination)
+      visit elimination_draw_path(elimination)
 
       expect(page).to have_selector 'h1', text: elimination.name
       click_on "設定"
@@ -120,7 +120,7 @@ RSpec.describe "トーナメント", type: :system do
   describe "チーム数不足" do
     let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 1) }
     example do
-      visit elimination_path(elimination)
+      visit elimination_draw_path(elimination)
 
       expect(page).to have_selector 'h1', text: elimination.name
       expect(page).to have_content "参加チームが2チーム以上必要です"
@@ -132,7 +132,7 @@ RSpec.describe "トーナメント", type: :system do
 
     context '試合未実施' do
       it 'ステータス [開始前]' do
-        visit elimination_path(elimination)
+        visit elimination_draw_path(elimination)
         expect(find(:test_id, 'tournament-status')).to have_content "開始前"
       end
     end
@@ -145,7 +145,7 @@ RSpec.describe "トーナメント", type: :system do
       end
 
       it 'ステータス [進行中]' do
-        visit elimination_path(elimination)
+        visit elimination_draw_path(elimination)
         expect(find(:test_id, 'tournament-status')).to have_content "進行中"
       end
     end
@@ -163,7 +163,7 @@ RSpec.describe "トーナメント", type: :system do
       end
 
       it 'ステータス [終了]' do
-        visit elimination_path(elimination)
+        visit elimination_draw_path(elimination)
         expect(find(:test_id, 'tournament-status')).to have_content "終了"
       end
     end
@@ -189,7 +189,7 @@ RSpec.describe "トーナメント", type: :system do
       end
 
       it '試合結果が正しく表示されている' do
-        visit elimination_path(elimination)
+        visit elimination_draw_path(elimination)
         expect(find(:test_id, 'tournament-status')).to have_content "終了"
 
         expect(find(:test_id, '1-2-game_top')).to match_css('.r-top')
@@ -239,7 +239,7 @@ RSpec.describe "トーナメント", type: :system do
       end
 
       it '試合結果が正しく表示されている' do
-        visit elimination_path(elimination)
+        visit elimination_draw_path(elimination)
         expect(find(:test_id, 'tournament-status')).to have_content "終了"
 
         expect(find(:test_id, '1-2-game_top')).to_not match_css('.r-top')

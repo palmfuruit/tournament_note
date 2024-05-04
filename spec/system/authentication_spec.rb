@@ -7,7 +7,7 @@ RSpec.describe "Authentication", type: :system do
     let!(:elimination) { create(:elimination, :with_teams, num_of_teams: 4) }
 
     example do
-      visit elimination_path(elimination)
+      visit elimination_draw_path(elimination)
 
       expect(page).to have_selector 'h1', text: elimination.name
       # show_me_the_cookies
@@ -27,7 +27,7 @@ RSpec.describe "Authentication", type: :system do
 
       # 他のブラウザでは参照専用になっている。
       delete_cookie(cookie_name)
-      visit elimination_path(elimination)
+      visit elimination_draw_path(elimination)
 
       expect(page).to_not have_link '設定'
       expect(page).to_not have_link 'チーム'

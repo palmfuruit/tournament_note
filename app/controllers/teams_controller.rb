@@ -68,7 +68,7 @@ class TeamsController < ApplicationController
     tournament = Tournament.find_by(id: params[:tournament_id])
     unless view_context.tournament_owner?(tournament)
       if tournament.elimination?
-        redirect_to elimination_path(tournament.elimination)
+        redirect_to elimination_draw_path(tournament.elimination)
       else
         redirect_to roundrobin_draw_path(tournament.roundrobin)
       end

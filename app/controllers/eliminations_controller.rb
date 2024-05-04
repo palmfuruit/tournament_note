@@ -7,15 +7,7 @@ class EliminationsController < ApplicationController
   end
 
   def show
-    @elimination = Elimination.find_by(id: params[:id])
-    unless @elimination
-      flash[:warning] = "トーナメントが見つかりません。"
-      redirect_to root_path and return
-    end
-
-    @teams = @elimination.teams.order(:entryNo).map(&:attributes)
-    @games = @elimination.games.map(&:attributes)
-    @elimination.tournament.update_last_access_day
+    redirect_to elimination_draw_path(params[:id])
   end
 
   def new
@@ -35,7 +27,7 @@ class EliminationsController < ApplicationController
         (1..num_of_teams).each do |i|
           @elimination.teams.create(name: "Team#{i}", entryNo: i)
         end
-        redirect_to elimination_path(@elimination)
+        redirect_to elimination_draw_path(@elimination)
       else
         render 'new', status: :unprocessable_entity
         raise ActiveRecord::Rollback
@@ -58,7 +50,7 @@ class EliminationsController < ApplicationController
       authenticaion = Authentication.new(cookies)
       authenticaion.set_password(id: @elimination.id, tournament_type: 'elimination', password: @elimination.password)
 
-      redirect_to elimination_path(@elimination)
+      redirect_to elimination_draw_path(@elimination)
     else
       render 'edit', status: :unprocessable_entity
     end
@@ -77,7 +69,7 @@ class EliminationsController < ApplicationController
     @elimination = Elimination.find_by(id: params[:id])
     @elimination.games.delete_all
 
-    redirect_to elimination_path(@elimination), flash: { info: 'トーナメントをリセットしました' }
+    redirect_to elimination_draw_path(@elimination), flash: { info: 'トーナメントをリセットしました' }
   end
 
   def share
@@ -100,7 +92,7 @@ class EliminationsController < ApplicationController
   def authenticate_owner
     elimination = Elimination.find_by(id: params[:id])
     unless view_context.tournament_owner?(elimination.tournament)
-      redirect_to elimination_path(elimination)
+      redirect_to elimination_draw_path(elimination)
     end
   end
 

@@ -9,7 +9,7 @@ RSpec.describe "Bookmark", type: :system do
 
     example do
       # Elimination1 ブックマークする。
-      visit elimination_path(elimination1)
+      visit elimination_draw_path(elimination1)
       expect(page).to have_button 'ブックマーク'
       click_on "ブックマーク"
 
@@ -18,7 +18,7 @@ RSpec.describe "Bookmark", type: :system do
       expect(page).to have_link elimination1.name
 
       # Elimination2 ブックマークする。
-      visit elimination_path(elimination2)
+      visit elimination_draw_path(elimination2)
       expect(page).to have_button 'ブックマーク'
       click_on "ブックマーク"
 
@@ -39,7 +39,7 @@ RSpec.describe "Bookmark", type: :system do
       expect(page).to have_link roundrobin1.name
 
       # Elimination2 ブックマーク解除。
-      visit elimination_path(elimination2)
+      visit elimination_draw_path(elimination2)
       click_on "ブックマーク済"
       expect(page).to have_button 'ブックマーク'
       find('#dropdown-bookmark').click
@@ -48,7 +48,7 @@ RSpec.describe "Bookmark", type: :system do
       expect(page).to have_link roundrobin1.name
 
       # Elimination1 ブックマーク解除。
-      visit elimination_path(elimination1)
+      visit elimination_draw_path(elimination1)
       click_on "ブックマーク済"
       expect(page).to have_button 'ブックマーク'
       find('#dropdown-bookmark').click
@@ -71,7 +71,7 @@ RSpec.describe "Bookmark", type: :system do
 
     example do
       # Elimination1 ブックマークする。
-      visit elimination_path(elimination1)
+      visit elimination_draw_path(elimination1)
       expect(page).to have_button 'ブックマーク'
       click_on "ブックマーク"
 

@@ -1,0 +1,37 @@
+<table id="elimination-table" class="elimination-table table table-borderless text-center">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+
+      <%# N回戦　バッチ %>
+      <% round_badge_ths = elimination.th_tags__round_badge %>
+      <% round_badge_ths.size.times do |column| %>
+        <%= round_badge_ths[column] %>
+      <% end %>
+
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% team_entryNo_tds, team_name_tds = elimination.td_tags__team_name %>
+    <% round_tds = elimination.td_tags__round %>
+    <% final_round_score_tds = elimination.tr_tag__final_round_score %>
+    <% winning_cup_tds = elimination.tr_tag__winning_cup %>
+
+    <% elimination.table_row_size.times do |row| %>
+      <tr>
+        <%= team_entryNo_tds[row] %>
+        <%= team_name_tds[row] %>
+
+        <% round_tds.size.times do |column| %>
+          <%= round_tds[column][row] %>
+        <% end %>
+        <%= final_round_score_tds[row] %>
+        <%= winning_cup_tds[row] %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

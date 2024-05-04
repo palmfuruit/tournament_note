@@ -15,7 +15,7 @@ class Eliminations::AuthenticationsController < ApplicationController
       authenticaion = Authentication.new(cookies)
       authenticaion.set_password(id: @elimination.id, tournament_type: 'elimination', password: params[:password])
 
-      redirect_to elimination_path(@elimination)
+      redirect_to elimination_draw_path(@elimination)
     else
       @error_message = "パスワードが不一致です"
 

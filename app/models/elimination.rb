@@ -7,7 +7,25 @@ class Elimination < ApplicationRecord
   validates :has_score, inclusion: { in: [true, false] }
   validates :password, length: { maximum: 16 }
 
-  # constant
+
+  def final_round
+    teams.size >= 2 ? Math.log2(teams.length).ceil : 0
+  end
+
+  def status
+    if games.count == 0
+      sts = "NOT_STARTED"
+    else
+      if games.find_by(round: final_round)
+        sts = "FINISHED"
+      else
+        sts = "ONGOING"
+      end
+    end
+
+    sts
+  end
+
   def self.seed_table_256
     [
       1, 256, 129, 128, 65, 192, 193, 64, 33, 224, 161, 96, 97, 160, 225, 32,
@@ -30,23 +48,7 @@ class Elimination < ApplicationRecord
   end
 
   # Function
-  def final_round
-    teams.size >= 2 ? Math.log2(teams.length).ceil : 0
-  end
 
-  def status
-    if games.count == 0
-      sts = "NOT_STARTED"
-    else
-      if games.find_by(round: final_round)
-        sts = "FINISHED"
-      else
-        sts = "ONGOING"
-      end
-    end
-
-    sts
-  end
 
   def seed_table
     return [] if teams.length < 2

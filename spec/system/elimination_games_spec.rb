@@ -13,7 +13,7 @@ RSpec.describe "トーナメント試合", type: :system do
         team2 = teams[1]
 
         # 試合結果の登録
-        visit elimination_path(elimination)
+        visit elimination_draw_path(elimination)
 
         expect(page).to have_selector 'h1', text: elimination.name
         find(:test_id, '1-1-game', match: :first).click_link ''
@@ -77,7 +77,7 @@ RSpec.describe "トーナメント試合", type: :system do
         team3 = teams[2]
 
         # 試合結果の登録
-        visit elimination_path(elimination)
+        visit elimination_draw_path(elimination)
 
         expect(page).to have_selector 'h1', text: elimination.name
         find(:test_id, '1-2-game', match: :first).click_link ''

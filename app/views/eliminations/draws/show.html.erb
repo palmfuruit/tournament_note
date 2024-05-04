@@ -19,7 +19,7 @@
 <% end %>
 
 <%# 参加チームなしの場合 %>
-<% if @teams.count < 2 %>
+<% if @elimination.teams.count < 2 %>
   <div class="container-lg my-3">
     <div class="alert alert-warning">参加チームが2チーム以上必要です</div>
   </div>
@@ -41,8 +41,7 @@
 
   <div class="bg-white border-0 border-dark py-3">
     <div id="elimination-table-wrapper" class="container-lg elimination-table-wrapper">
-      <%= render partial: "eliminations/main_race",
-                 locals: { elimination: @elimination, teams: @teams, games: @games, round_offset: 0, final_round: @elimination.final_round, seed_table: @elimination.seed_table } %>
+      <%= render partial: "main_race", locals: { elimination: @elimination } %>
     </div>
   </div>
 
