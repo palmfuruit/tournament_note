@@ -27,6 +27,6 @@ Rails.application.routes.draw do
     end
     resources :teams, except: :show
     resources :games
-    resource :bookmarks, only: [:create, :destroy]
+    resource :bookmark, only: [:create, :destroy]
   end
 end

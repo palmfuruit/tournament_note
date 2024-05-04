@@ -2,12 +2,12 @@
   <div class="d-flex justify-content-end">
 
     <% if tournament.bookmarked?(bookmarked_tournaments) %>
-      <%= button_to(tournament_bookmarks_path(tournament), method: :delete, class: "btn btn-outline-dark fw-normal") do %>
+      <%= button_to(tournament_bookmark_path(tournament), method: :delete, class: "btn btn-outline-dark fw-normal") do %>
         <i class="bi bi-star-fill"></i>
         <span class="fw-normal">ブックマーク済</span>
       <% end %>
     <% else %>
-      <%= button_to(tournament_bookmarks_path(tournament), class: "btn btn-outline-dark fw-normal") do %>
+      <%= button_to(tournament_bookmark_path(tournament), class: "btn btn-outline-dark fw-normal") do %>
         <i class="bi bi-star"></i>
         <span class="fw-normal">ブックマーク</span>
       <% end %>
