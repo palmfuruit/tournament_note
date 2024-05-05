@@ -1,6 +1,7 @@
 class RoundrobinDecorator < ApplicationDecorator
   delegate_all
 
+  attr_reader :teams, :games
   def initialize(object)
     super(object)
     @teams = roundrobin.teams.order(:entryNo).map(&:attributes)

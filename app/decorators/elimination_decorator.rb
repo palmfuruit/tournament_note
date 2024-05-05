@@ -1,6 +1,8 @@
 class EliminationDecorator < ApplicationDecorator
   delegate_all
 
+  attr_reader :teams, :games
+
   def initialize(object)
     super(object)
     @teams = elimination.teams.order(:entryNo).map(&:attributes)

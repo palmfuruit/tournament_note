@@ -3,6 +3,31 @@ require 'rails_helper'
 RSpec.describe "リーグ", type: :system, js: true do
   include ApplicationHelper
 
+  describe "リーグ表の表示" do
+    let!(:roundrobin) { create(:roundrobin, :with_teams, num_of_teams: 4) }
+    before do
+      @team1 = roundrobin.teams[0]
+      @team2 = roundrobin.teams[1]
+      @team3 = roundrobin.teams[2]
+      @team4 = roundrobin.teams[3]
+    end
+    example do
+      visit roundrobin_draw_path(roundrobin)
+
+      expect(page).to have_selector 'h1', text: roundrobin.name
+
+      # 各チーム名が2つ記載あり。
+      expect(page).to have_content @team1.name, count: 2
+      expect(page).to have_content @team2.name, count: 2
+      expect(page).to have_content @team3.name, count: 2
+      expect(page).to have_content @team4.name, count: 2
+
+      # 同じチーム同士のマスは、斜線が引かれて対戦しないことがわかる。
+      expect(page).to_not have_css "#game-1-1"
+      expect(page).to have_css ".no-game-cell", count: 5
+    end
+  end
+
   describe "リーグ作成" do
     example "デフォルト設定" do
       visit root_path
