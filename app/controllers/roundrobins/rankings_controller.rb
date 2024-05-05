@@ -7,7 +7,7 @@ class Roundrobins::RankingsController < ApplicationController
       redirect_to root_path and return
     end
 
-    @ranking = Ranking.new(@roundrobin)
+    @ranking = Ranking.new(@roundrobin).decorate
   end
 
 end

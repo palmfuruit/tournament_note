@@ -21,7 +21,7 @@
       </tr>
     </thead>
 
-    <%= ranking.decorate.tbody_tag__ranking %>
+    <%= ranking.tbody_tag__ranking %>
   </table>
 </div>
 
@@ -32,16 +32,16 @@
   </p>
   <ol>
     <% if roundrobin.rank1 != 'none' %>
-      <li><%= ranking.decorate.ranking_criteria1 %></li>
+      <li><%= ranking.criteria1 %></li>
     <% end %>
     <% if roundrobin.rank2 != 'none' %>
-      <li><%= ranking.decorate.ranking_criteria2 %></li>
+      <li><%= ranking.criteria2 %></li>
     <% end %>
     <% if roundrobin.rank3 != 'none' %>
-      <li><%= ranking.decorate.ranking_criteria3 %></li>
+      <li><%= ranking.criteria3 %></li>
     <% end %>
     <% if roundrobin.rank4 != 'none' %>
-      <li><%= ranking.decorate.ranking_criteria4 %></li>
+      <li><%= ranking.criteria4 %></li>
     <% end %>
   </ol>
 </div>
