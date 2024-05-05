@@ -18,7 +18,7 @@
 <% end %>
 
 <%# 参加チームなしの場合 %>
-<% if @teams.count < 2 %>
+<% if @roundrobin.teams.count < 2 %>
   <div class="container-lg my-3">
     <div class="alert alert-warning">参加チームが2チーム以上必要です</div>
   </div>
@@ -46,7 +46,7 @@
       <%# 対戦表 %>
       <div class="roundrobin-table-wrapper">
         <%= render partial: "roundrobin_table",
-                   locals: { roundrobin: @roundrobin, teams: @teams, games: @games, round: @round } %>
+                   locals: { roundrobin: @roundrobin, round: @round } %>
       </div>
 
     </div>

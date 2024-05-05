@@ -29,9 +29,8 @@ class GamesController < ApplicationController
       @elimination = EliminationDecorator.new(elimination)
       render 'update_egame'
     else
-      @roundrobin = @tournament.roundrobin
-      @teams = @roundrobin.teams.order(:entryNo).map(&:attributes)
-      @games = @roundrobin.games.map(&:attributes)
+      roundrobin = @tournament.roundrobin
+      @roundrobin = RoundrobinDecorator.new(roundrobin)
       render 'update_rgame'
     end
   end
@@ -61,9 +60,8 @@ class GamesController < ApplicationController
       @elimination = EliminationDecorator.new(elimination)
       render 'update_egame'
     else
-      @roundrobin = @tournament.roundrobin
-      @teams = @roundrobin.teams.order(:entryNo).map(&:attributes)
-      @games = @roundrobin.games.map(&:attributes)
+      roundrobin = @tournament.roundrobin
+      @roundrobin = RoundrobinDecorator.new(roundrobin)
       render 'update_rgame'
     end
   end
@@ -78,9 +76,8 @@ class GamesController < ApplicationController
       @elimination = EliminationDecorator.new(elimination)
       render 'update_egame'
     else
-      @roundrobin = @tournament.roundrobin
-      @teams = @roundrobin.teams.order(:entryNo).map(&:attributes)
-      @games = @roundrobin.games.map(&:attributes)
+      roundrobin = @tournament.roundrobin
+      @roundrobin = RoundrobinDecorator.new(roundrobin)
       render 'reset_rgame'
     end
   end

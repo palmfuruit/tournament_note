@@ -9,7 +9,7 @@
       </div>
 
       <div class="round-display d-flex justify-content-center">
-        <%= select_tag(:round, options_for_select(roundrobin.decorate.round_select_contents.map { |c| [c[:name], c[:value]] }, { selected: round }),
+        <%= select_tag(:round, options_for_select(roundrobin.round_select_contents.map { |c| [c[:name], c[:value]] }, { selected: round }),
                        { id: "round_select", class: "w-50 form-control", data: { action: "change->auto-submit#submit" } }) %>
       </div>
     <% end %>

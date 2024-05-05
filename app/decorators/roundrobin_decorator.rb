@@ -1,6 +1,12 @@
 class RoundrobinDecorator < ApplicationDecorator
   delegate_all
 
+  def initialize(object)
+    super(object)
+    @teams = roundrobin.teams.order(:entryNo).map(&:attributes)
+    @games = roundrobin.games.map(&:attributes)
+  end
+
   def round_select_contents
     (1..num_of_round).map do |i|
       games_count = roundrobin.games.count { |game| game["round"] == i }
@@ -12,7 +18,7 @@ class RoundrobinDecorator < ApplicationDecorator
     end
   end
 
-  def tr_tag__team_record(teams:, games:, round:, current_team:)
+  def tr_tag__team_record(round:, current_team:)
     tag.tr {
       # 1列目： 自チーム名
       concat(tag.th {
@@ -21,22 +27,21 @@ class RoundrobinDecorator < ApplicationDecorator
       })
 
       # 2列目〜： 各チームとの対戦結果、スコア
-      teams.each do |opponent|
+      @teams.each do |opponent|
         if current_team == opponent
           concat tag.td(class: 'no-game-cell')
         else
           concat(tag.td(id: "game-#{current_team['entryNo']}-#{opponent['entryNo']}", class: 'game-cell') {
-            game_cell(games:, round:, current_team:, opponent:)
+            game_cell(round:, current_team:, opponent:)
           })
         end
       end
     }
   end
 
-  def game_cell(games:, round: 1, current_team:, opponent:)
+  def game_cell(round: 1, current_team:, opponent:)
     class_str = ['d-flex', 'flex-column', 'justify-content-center', 'align-items-center', 'h-100']
-    this_game = game(games:, round:, a_team: current_team, b_team: opponent) || game(games:, round:, a_team: opponent, b_team: current_team)
-
+    this_game = game(games: @games, round:, a_team: current_team, b_team: opponent) || game(games: @games, round:, a_team: opponent, b_team: current_team)
 
     if tournament_owner?(roundrobin.tournament)
       if this_game
@@ -54,7 +59,6 @@ class RoundrobinDecorator < ApplicationDecorator
       end
     end
   end
-
 
   private
 

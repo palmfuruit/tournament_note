@@ -1,10 +1,10 @@
 <%# 試合結果 %>
 <%= turbo_stream.update "game-#{@game.a_team.entryNo}-#{@game.b_team.entryNo}" do %>
-  <%= @roundrobin.decorate.game_cell(games: @games, round: @game.round, current_team: @game.a_team, opponent: @game.b_team) %>
+  <%= @roundrobin.game_cell(round: @game.round, current_team: @game.a_team, opponent: @game.b_team) %>
 <% end %>
 
 <%= turbo_stream.update "game-#{@game.b_team.entryNo}-#{@game.a_team.entryNo}" do %>
-  <%= @roundrobin.decorate.game_cell(games: @games, round: @game.round, current_team: @game.b_team, opponent: @game.a_team) %>
+  <%= @roundrobin.game_cell(round: @game.round, current_team: @game.b_team, opponent: @game.a_team) %>
 <% end %>
 
 <%# Round選択に表示される消化試合数 %>

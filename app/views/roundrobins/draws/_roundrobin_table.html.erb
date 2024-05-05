@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th class="no-game-cell"></th>
-      <% teams.each do |team| %>
+      <% roundrobin.teams.each do |team| %>
         <th>
           <%= team_uniform(team) %>
           <div><%= team_name(team) %></div>
@@ -11,8 +11,8 @@
   </thead>
 
   <tbody>
-    <% teams.each do |team| %>
-      <%= roundrobin.decorate.tr_tag__team_record(teams:, games:, round:, current_team: team) %>
+    <% roundrobin.teams.each do |team| %>
+      <%= roundrobin.tr_tag__team_record(round:, current_team: team) %>
     <% end %>
   </tbody>
 </table>
