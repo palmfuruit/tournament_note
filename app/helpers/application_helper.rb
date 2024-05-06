@@ -17,10 +17,10 @@ module ApplicationHelper
     {
       site: 'Tournament Note',
       separator: '|',
-      title: 'トーナメント表、リーグ表の無料作成サイト',
+      title: 'トーナメント表作成/リーグ表作成',
       reverse: true,
       charset: 'utf-8',
-      description: 'Tournament Noteは、トーナメントやリーグ戦の対戦表を作成するアプリです。',
+      description: 'Tournament Noteは、トーナメント表/リーグ表を作成するWebアプリです。',
       keywords: 'トーナメント,リーグ戦,勝ち抜き戦,総当たり戦,対戦表,ドロー表,無料',
       og: {
         site_name: :site,
@@ -28,13 +28,13 @@ module ApplicationHelper
         description: :description,
         type: 'website',
         url: root_url,
-        image: image_url('ogp.png'), # 配置するパスやファイル名によって変更すること
+        image: image_url('ogp_v2.png'), # 配置するパスやファイル名によって変更すること
         local: 'ja-JP'
       },
       # Twitter用の設定を個別で設定する
       twitter: {
         card: 'summary_large_image', # Twitterで表示する場合は大きいカードにする
-        image: image_url('ogp.png') # 配置するパスやファイル名によって変更すること
+        image: image_url('ogp_v2.png') # 配置するパスやファイル名によって変更すること
       }
     }
   end
